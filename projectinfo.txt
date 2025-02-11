@@ -1,0 +1,26 @@
+Project: Money Map
+
+Overview:
+Money Map is a finance management app designed to help users track their financial activities with ease. The app provides intuitive visualization of accounts and transactions, while also offering powerful tools for anomaly detection, phishing tracking, and expense prediction. The goal is to make managing personal finances and ensuring security an effortless experience.
+
+Main Features:
+	1.	Client Panel:
+	•	Transaction History: Clients can view all past transactions, send and receive money, and track expenses.
+	•	Expense Management: Use machine learning models to predict future expenses and provide tips on handling finances more effectively.
+	•	Visualization: Graphs and charts help visualize transactions and trends, making it easy to understand financial behavior.
+	2.	Admin Panel:
+	•	Comprehensive Monitoring: Admins can see all transactions across all accounts in real time.
+	•	Anomaly Detection: Using AI models (like simple RNNs or ANNs), the app automatically flags suspicious activity or anomalies and freezes transactions with affected accounts.
+	•	Phishing Detection: The system helps detect phishing attempts and abnormal activities, providing a layer of security for users.
+	•	Real-time Control: Admins can block or unblock transactions to prevent fraudulent actions.
+
+Tech Stack:
+	•	Backend: Python with Flask for API handling.
+	•	Database: Firebase Firestore for data storage.
+	•	Frontend: Python’s Tkinter for a smooth and user-friendly GUI.
+	•	Real-time Communication: Ngrok will be used to connect the local server to the internet for seamless interaction between the client and admin panels.
+
+The Flow:
+When you launch the app, you’ll be greeted with a landing page that allows you to choose whether you’re a client or an admin. Once you’re logged in, you’ll be able to use the app’s features to either manage finances as a client or oversee all activities as an admin.
+
+The system will work in real time, ensuring that updates and changes made by one user are immediately reflected across all connected panels. Whether you’re a client making a transaction or an admin overseeing activity, everything happens live, ensuring quick action when needed.

@@ -3,7 +3,7 @@ from tkinter import messagebox
 import networkx as nx
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-import numpy as np
+import numpy as np  # Import numpy for distance calculation
 
 class AdminPanel:
     def __init__(self, window):
@@ -12,7 +12,7 @@ class AdminPanel:
         self.window.geometry("1200x800")
         self.window.configure(bg='#1a1a1a')
 
-        # Enhanced transaction data with central node:cite[7]
+        # Enhanced transaction data with central node
         self.transactions = [
             {"from": "CORE", "to": "Account A", "amount": 100, "date": "2025-02-10"},
             {"from": "CORE", "to": "Account B", "amount": 250, "date": "2025-02-11"},
@@ -27,6 +27,7 @@ class AdminPanel:
         ]
 
         self.G = nx.Graph()
+        self.pos = None  # Initialize pos as an instance variable
         self._build_graph()
         self._create_gui()
 
@@ -49,9 +50,9 @@ class AdminPanel:
         fig = plt.figure(figsize=(10, 8), facecolor='#1a1a1a')
         ax = fig.add_subplot(111, facecolor='#1a1a1a')
         
-        # Create hierarchical layout:cite[6]:cite[7]
-        pos = nx.spring_layout(self.G, k=0.3, seed=42, scale=2)
-        pos["CORE"] = np.array([0, 0])  # Center position
+        # Create hierarchical layout
+        self.pos = nx.spring_layout(self.G, k=0.3, seed=42, scale=2)  # Store pos as instance variable
+        self.pos["CORE"] = np.array([0, 0])  # Center position
 
         # Node styling
         node_colors = ['#268bd2' if node == "CORE" else '#2aa198' 
@@ -61,16 +62,16 @@ class AdminPanel:
 
         # Edge styling
         nx.draw_networkx_edges(
-            self.G, pos, 
+            self.G, self.pos, 
             edge_color='#586e75', 
             width=1.5, 
             alpha=0.8,
-            connectionstyle="arc3,rad=0.1"  # Curved edges:cite[7]
+            connectionstyle="arc3,rad=0.1"  # Curved edges
         )
 
         # Node drawing
         nx.draw_networkx_nodes(
-            self.G, pos,
+            self.G, self.pos,
             node_color=node_colors,
             node_size=node_sizes,
             edgecolors='#839496',
@@ -79,7 +80,7 @@ class AdminPanel:
 
         # Label styling
         nx.draw_networkx_labels(
-            self.G, pos,
+            self.G, self.pos,
             font_size=10,
             font_family='sans-serif',
             font_color='#fdf6e3',
@@ -90,7 +91,7 @@ class AdminPanel:
         edge_labels = {(u, v): f"${d['amount']}\n{d['date']}" 
                       for u, v, d in self.G.edges(data=True)}
         nx.draw_networkx_edge_labels(
-            self.G, pos,
+            self.G, self.pos,
             edge_labels=edge_labels,
             font_color='#839496',
             font_size=8,
@@ -104,16 +105,16 @@ class AdminPanel:
         canvas.get_tk_widget().bind("<Button-1>", self.on_click)
 
     def on_click(self, event):
-        # Improved node detection with tolerance:cite[8]
+        # Improved node detection with tolerance
         ax = plt.gca()
         x, y = ax.transData.inverted().transform((event.x, event.y))
         
         closest_node = min(
             self.G.nodes(),
-            key=lambda node: np.hypot(pos[node][0]-x, pos[node][1]-y)
+            key=lambda node: np.hypot(self.pos[node][0]-x, self.pos[node][1]-y)  # Use self.pos
         )
         
-        if np.hypot(pos[closest_node][0]-x, pos[closest_node][1]-y) < 0.1:
+        if np.hypot(self.pos[closest_node][0]-x, self.pos[closest_node][1]-y) < 0.1:
             self._show_node_details(closest_node)
 
     def _show_node_details(self, node):
