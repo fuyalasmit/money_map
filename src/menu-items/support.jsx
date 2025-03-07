@@ -16,7 +16,7 @@ const support = {
   children: [
     {
       id: 'sample-page',
-      title: 'Sample Page',
+      title: 'Demo Transaction',
       type: 'item',
       url: '/sample-page',
       icon: icons.ChromeOutlined
