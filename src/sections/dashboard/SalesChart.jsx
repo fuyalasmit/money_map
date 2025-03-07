@@ -33,7 +33,7 @@ export default function SalesChart() {
 
   const valueFormatter = (value) => `$ ${value} Thousands`;
   const primaryColor = theme.palette.primary.main;
-  const warningColor = theme.palette.warning.main;
+  const warningColor = theme.palette.error.main; // Change to red
 
   const lables = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const data = [
