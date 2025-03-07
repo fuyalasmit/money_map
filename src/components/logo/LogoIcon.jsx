@@ -11,7 +11,7 @@ export default function LogoIcon() {
     <img 
       src={logo} 
       alt="Logo" 
-      width="100" 
+      width="30" 
     />
   );
 }

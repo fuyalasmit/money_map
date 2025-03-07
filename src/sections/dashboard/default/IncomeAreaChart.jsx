@@ -66,7 +66,7 @@ export default function IncomeAreaChart({ view }) {
       showMark: false,
       area: true,
       id: 'Germany',
-      color: theme.palette.primary.main || '',
+      color: theme.palette.error.main, // Red color
       visible: visibility['Page views']
     },
     {
@@ -75,7 +75,7 @@ export default function IncomeAreaChart({ view }) {
       showMark: false,
       area: true,
       id: 'UK',
-      color: theme.palette.primary[700] || '',
+      color: theme.palette.primary.dark, // Dark green color
       visible: visibility['Sessions']
     }
   ];
@@ -112,11 +112,11 @@ export default function IncomeAreaChart({ view }) {
       >
         <defs>
           <linearGradient id="myGradient1" gradientTransform="rotate(90)">
-            <stop offset="10%" stopColor={alpha(theme.palette.primary.main, 0.4)} />
+            <stop offset="10%" stopColor={alpha(theme.palette.error.main, 0.4)} />
             <stop offset="90%" stopColor={alpha(theme.palette.background.default, 0.4)} />
           </linearGradient>
           <linearGradient id="myGradient2" gradientTransform="rotate(90)">
-            <stop offset="10%" stopColor={alpha(theme.palette.primary[700], 0.4)} />
+            <stop offset="10%" stopColor={alpha(theme.palette.primary.dark, 0.4)} />
             <stop offset="90%" stopColor={alpha(theme.palette.background.default, 0.4)} />
           </linearGradient>
         </defs>

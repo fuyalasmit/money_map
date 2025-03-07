@@ -13,6 +13,7 @@ import { BarChart } from '@mui/x-charts/BarChart';
 
 // project imports
 import MainCard from 'components/MainCard';
+import { blue } from '@ant-design/colors';
 
 // ==============================|| SALES COLUMN CHART ||============================== //
 
@@ -36,8 +37,8 @@ export default function SalesChart() {
 
   const lables = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const data = [
-    { data: [180, 90, 135, 114, 120, 145, 170, 200, 170, 230, 210, 180], label: 'Income', color: warningColor, valueFormatter },
-    { data: [120, 45, 78, 150, 168, 99, 180, 220, 180, 210, 220, 200], label: 'Cost of Sales', color: primaryColor, valueFormatter }
+    { data: [180, 90, 135, 114, 120, 145, 170, 200, 170, 230, 210, 180], label: 'Transparent Transaction', color: 'blue', valueFormatter },
+    { data: [120, 45, 78, 150, 168, 99, 180, 220, 180, 210, 220, 200], label: 'Suspecious Transaction', color: 'red', valueFormatter }
   ];
 
   const axisFonstyle = { fontSize: 10, fill: theme.palette.text.secondary };
@@ -48,9 +49,9 @@ export default function SalesChart() {
         <Stack direction="row" sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
           <Box>
             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              Net Profit
+              Total Transaction
             </Typography>
-            <Typography variant="h4">$1560</Typography>
+            <Typography variant="h4">Rs 1.5Cr</Typography>
           </Box>
 
           <FormGroup>
@@ -60,20 +61,20 @@ export default function SalesChart() {
                   <Checkbox
                     checked={showIncome}
                     onChange={handleIncomeChange}
-                    sx={{ '&.Mui-checked': { color: warningColor }, '&:hover': { backgroundColor: alpha(warningColor, 0.08) } }}
+                    sx={{ '&.Mui-checked': { color: blue }, '&:hover': { backgroundColor: alpha(warningColor, 0.08) } }}
                   />
                 }
-                label="Income"
+                label="Transparent Transaction"
               />
               <FormControlLabel
                 control={
                   <Checkbox
                     checked={showCostOfSales}
                     onChange={handleCostOfSalesChange}
-                    sx={{ '&.Mui-checked': { color: primaryColor } }}
+                    sx={{ '&.Mui-checked': { color: warningColor } }}
                   />
                 }
-                label="Cost of Sales"
+                label="Suspecious Transaction"
               />
             </Stack>
           </FormGroup>
@@ -85,7 +86,7 @@ export default function SalesChart() {
           xAxis={[{ data: lables, scaleType: 'band', tickLabelStyle: { ...axisFonstyle, fontSize: 12 } }]}
           yAxis={[{ disableLine: true, disableTicks: true, tickMaxStep: 20, tickLabelStyle: axisFonstyle }]}
           series={data
-            .filter((series) => (series.label === 'Income' && showIncome) || (series.label === 'Cost of Sales' && showCostOfSales))
+            .filter((series) => (series.label === 'Transparent Transaction' && showIncome) || (series.label === 'Suspecious Transaction' && showCostOfSales))
             .map((series) => ({ ...series, type: 'bar' }))}
           slotProps={{ legend: { hidden: true }, bar: { rx: 5, ry: 5 } }}
           axisHighlight={{ x: 'none' }}

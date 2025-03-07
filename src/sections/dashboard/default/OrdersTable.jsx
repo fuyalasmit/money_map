@@ -22,16 +22,16 @@ function createData(tracking_no, name, fat, carbs, protein) {
 }
 
 const rows = [
-  createData(84564564, 'Camera Lens', 40, 2, 40570),
-  createData(98764564, 'Laptop', 300, 0, 180139),
-  createData(98756325, 'Mobile', 355, 1, 90989),
-  createData(98652366, 'Handset', 50, 1, 10239),
-  createData(13286564, 'Computer Accessories', 100, 1, 83348),
-  createData(86739658, 'TV', 99, 0, 410780),
-  createData(13256498, 'Keyboard', 125, 2, 70999),
-  createData(98753263, 'Mouse', 89, 2, 10570),
-  createData(98753275, 'Desktop', 185, 1, 98063),
-  createData(98753291, 'Chair', 100, 0, 14001)
+  createData(12345678, 'Bishal Gurung', "Suman Bista", 1, 30560),
+  createData(98765432, 'Pratik Shrestha', "Rabin Thapa", 2, 45780),
+  createData(56473829, 'Aashish Rijal', "Sujan Adhikari", 0, 50930),
+  createData(84736291, 'Nirajan Karki', "Santosh Ghimire", 1, 37820),
+  createData(29384756, 'Subash Basnet', "Roshan KC", 2, 42950),
+  createData(67584930, 'Sunil Poudel', "Bikash Shah", 0, 39870),
+  createData(19283746, 'Kiran Maharjan', "Sandesh Acharya", 2, 51230),
+  createData(90817263, 'Ramesh Dahal', "Kushal Regmi", 1, 46790),
+  createData(37482910, 'Dipesh Khadka', "Bibek Tamang", 0, 37650),
+  createData(54321678, 'Raju Magar', "Suraj Lama", 1, 41980)
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -71,13 +71,13 @@ const headCells = [
     id: 'name',
     align: 'left',
     disablePadding: true,
-    label: 'Product Name'
+    label: 'Sender'
   },
   {
     id: 'fat',
     align: 'right',
     disablePadding: false,
-    label: 'Total Order'
+    label: 'Receiver'
   },
   {
     id: 'carbs',
