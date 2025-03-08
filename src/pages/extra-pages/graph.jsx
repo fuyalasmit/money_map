@@ -38,55 +38,24 @@ export default function GraphPage() {
 
       // Track persons involved in suspicious transactions directly
       const suspiciousPersons = new Set();
+      const suspiciousTransactions = new Set();
 
-      // Track all transactions for later analysis
-      const personTransactions = new Map(); // Map of person -> array of transactions
-
-      // First pass: identify all suspicious transactions and build transaction map
+      // First pass: identify suspicious transactions only
       transactionsData.forEach((transaction) => {
-        // Track transaction by sender
-        if (!personTransactions.has(transaction.senderName)) {
-          personTransactions.set(transaction.senderName, []);
-        }
-        personTransactions.get(transaction.senderName).push(transaction);
-
-        // Track transaction by receiver
-        if (!personTransactions.has(transaction.receiverName)) {
-          personTransactions.set(transaction.receiverName, []);
-        }
-        personTransactions.get(transaction.receiverName).push(transaction);
-
         // Mark participants in suspicious transactions
         if (transaction.label === "suspicious") {
           suspiciousPersons.add(transaction.senderName);
           suspiciousPersons.add(transaction.receiverName);
+          suspiciousTransactions.add(transaction.transactionId);
         }
       });
 
-      // Second pass: expand suspicious status to receivers of money from suspicious senders
-      let changed = true;
-      while (changed) {
-        changed = false;
-
-        // Loop through all transactions
-        transactionsData.forEach((transaction) => {
-          // If sender is suspicious but receiver is not yet marked suspicious
-          if (
-            suspiciousPersons.has(transaction.senderName) &&
-            !suspiciousPersons.has(transaction.receiverName)
-          ) {
-            suspiciousPersons.add(transaction.receiverName);
-            changed = true;
-          }
-        });
-      }
-
-      // Create nodes for all persons
+      // Create nodes for all persons without propagation
       transactionsData.forEach((transaction) => {
         if (!uniquePersons.has(transaction.senderName)) {
           uniquePersons.set(transaction.senderName, {
             id: transaction.senderName,
-            group: suspiciousPersons.has(transaction.senderName) ? 0 : 1, // Group 0 for suspicious
+            group: suspiciousPersons.has(transaction.senderName) ? 0 : 1,
             account: transaction.senderAccount,
             suspicious: suspiciousPersons.has(transaction.senderName),
           });
@@ -95,7 +64,7 @@ export default function GraphPage() {
         if (!uniquePersons.has(transaction.receiverName)) {
           uniquePersons.set(transaction.receiverName, {
             id: transaction.receiverName,
-            group: suspiciousPersons.has(transaction.receiverName) ? 0 : 2, // Group 0 for suspicious
+            group: suspiciousPersons.has(transaction.receiverName) ? 0 : 2,
             account: transaction.receiverAccount,
             suspicious: suspiciousPersons.has(transaction.receiverName),
           });
@@ -112,10 +81,8 @@ export default function GraphPage() {
         transactionId: transaction.transactionId,
         remarks: transaction.remarks,
         label: transaction.label,
-        // Mark link as suspicious if transaction is labeled suspicious OR if the sender is suspicious
-        isSuspicious:
-          transaction.label === "suspicious" ||
-          suspiciousPersons.has(transaction.senderName),
+        // Only mark links as suspicious if the transaction itself is labeled suspicious
+        isSuspicious: transaction.label === "suspicious",
       }));
 
       return { nodes, links };
@@ -220,6 +187,7 @@ export default function GraphPage() {
         ref={ref}
         graphData={graphData}
         nodeLabel="id"
+        // Color nodes based on suspicious flag
         nodeColor={(node) => (node.suspicious ? "red" : "#00aaff")}
         backgroundColor="#000011"
         onNodeDragEnd={(node) => {
@@ -228,14 +196,16 @@ export default function GraphPage() {
           node.fz = node.z;
         }}
         onNodeClick={(node) => handleNodeClick(node, ref)}
+        // Color links based ONLY on whether the transaction is suspicious
         linkColor={(link) =>
-          link.isSuspicious ? "rgba(255, 0, 0, 0.5)" : "rgba(0, 170, 255, 0.5)"
+          link.isSuspicious ? "rgba(255, 0, 0, 0.5)" : "rgba(0, 255, 0, 0.5)"
         }
         linkDirectionalArrowLength={3.5}
         linkDirectionalArrowRelPos={1}
         linkWidth={(link) => (link.isSuspicious ? 2 : 1)}
         nodeThreeObject={(node) => {
           const sprite = new SpriteText(node.id);
+          // Color the label based on suspicious flag (same as node)
           sprite.color = node.suspicious ? "red" : "#00aaff";
           sprite.textHeight = fullscreen ? 8 : 6;
           return sprite;
@@ -246,8 +216,21 @@ export default function GraphPage() {
           const sprite = new SpriteText(
             `₹${Number(link.amount).toLocaleString()}`
           );
-          sprite.color = link.isSuspicious ? "#ffcccc" : "lightgreen"; // Light red for suspicious amounts
-          sprite.textHeight = fullscreen ? 4 : 3;
+
+          // Color transaction amount text based on suspicious status
+          sprite.color = link.isSuspicious ? "#ffcccc" : "lightgreen";
+
+          // Make amount text larger and more visible
+          sprite.textHeight = fullscreen ? 5 : 4;
+          sprite.fontWeight = "bold";
+
+          // Add slight background to improve readability
+          sprite.backgroundColor = link.isSuspicious
+            ? "rgba(50, 0, 0, 0.2)"
+            : "rgba(0, 50, 0, 0.2)";
+          sprite.padding = 2;
+          sprite.borderRadius = 2;
+
           return sprite;
         }}
         linkPositionUpdate={(sprite, { start, end }) => {
@@ -260,6 +243,11 @@ export default function GraphPage() {
 
           // Position sprite
           Object.assign(sprite.position, middlePos);
+
+          // Make text always face the camera
+          if (sprite.material) {
+            sprite.material.depthWrite = false;
+          }
         }}
         controlType="orbit"
         rendererConfig={{
@@ -274,8 +262,8 @@ export default function GraphPage() {
               .distance(() => 25), // Reduced from 40 to 25 to keep nodes closer together
           charge: () => -180, // Increased from -120 to -180 for stronger attraction
           center: (d3, alpha) => {
-            // Stronger centering force
-            const centerStrength = 0.15;
+            // Very light centering force - just enough to provide some structure
+            const centerStrength = 0.05; // Reduced significantly to allow natural movement with inertia
             graphData.nodes.forEach((node) => {
               node.vx += (0 - node.x) * centerStrength * alpha;
               node.vy += (0 - node.y) * centerStrength * alpha;
@@ -283,11 +271,10 @@ export default function GraphPage() {
             });
           },
         }}
-        cooldownTime={2000}
-        cooldownTicks={100} // Limit the simulation ticks for better performance
-        // Automatically fit to canvas when the simulation stops
+        cooldownTime={5000} // Increased for longer, more natural simulation
+        cooldownTicks={200} // Increased to allow more physics steps before cooling down
+        // Don't manually fix positions - let physics handle it
         onEngineStop={() => {
-          // Only auto-fit if not during animation
           if (!isAnimating && ref.current) {
             ref.current.zoomToFit(300, 500);
           }
