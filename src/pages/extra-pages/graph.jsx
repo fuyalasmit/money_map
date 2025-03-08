@@ -19,10 +19,10 @@ export default function GraphPage() {
     const processTransactions = () => {
       // Create a map to track unique persons (senders/receivers)
       const uniquePersons = new Map();
-      
+
       // Track persons involved in suspicious transactions directly
       const suspiciousPersons = new Set();
-      
+
       // Track all transactions for later analysis
       const personTransactions = new Map(); // Map of person -> array of transactions
 
@@ -33,30 +33,30 @@ export default function GraphPage() {
           personTransactions.set(transaction.senderName, []);
         }
         personTransactions.get(transaction.senderName).push(transaction);
-        
+
         // Track transaction by receiver
         if (!personTransactions.has(transaction.receiverName)) {
           personTransactions.set(transaction.receiverName, []);
         }
         personTransactions.get(transaction.receiverName).push(transaction);
-        
+
         // Mark participants in suspicious transactions
         if (transaction.label === "suspicious") {
           suspiciousPersons.add(transaction.senderName);
           suspiciousPersons.add(transaction.receiverName);
         }
       });
-      
+
       // Second pass: expand suspicious status to receivers of money from suspicious senders
       let changed = true;
       while (changed) {
         changed = false;
-        
+
         // Loop through all transactions
         transactionsData.forEach((transaction) => {
           // If sender is suspicious but receiver is not yet marked suspicious
           if (
-            suspiciousPersons.has(transaction.senderName) && 
+            suspiciousPersons.has(transaction.senderName) &&
             !suspiciousPersons.has(transaction.receiverName)
           ) {
             suspiciousPersons.add(transaction.receiverName);
@@ -97,8 +97,8 @@ export default function GraphPage() {
         remarks: transaction.remarks,
         label: transaction.label,
         // Mark link as suspicious if transaction is labeled suspicious OR if the sender is suspicious
-        isSuspicious: 
-          transaction.label === "suspicious" || 
+        isSuspicious:
+          transaction.label === "suspicious" ||
           suspiciousPersons.has(transaction.senderName),
       }));
 
