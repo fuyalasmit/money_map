@@ -1,39 +1,48 @@
-import { lazy } from 'react';
+import { lazy } from "react";
 
 // project imports
-import Loadable from 'components/Loadable';
-import DashboardLayout from 'layout/Dashboard';
+import Loadable from "components/Loadable";
+import DashboardLayout from "layout/Dashboard";
 
 // render- Dashboard
-const DashboardDefault = Loadable(lazy(() => import('pages/dashboard/default')));
+const DashboardDefault = Loadable(
+  lazy(() => import("pages/dashboard/default"))
+);
 
 // render - sample page
-const SamplePage = Loadable(lazy(() => import('pages/extra-pages/sample-page')));
+const SamplePage = Loadable(
+  lazy(() => import("pages/extra-pages/sample-page"))
+);
+const GraphPage = Loadable(lazy(() => import("pages/extra-pages/graph")));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
-  path: '/',
+  path: "/",
   element: <DashboardLayout />,
   children: [
     {
-      path: '/',
-      element: <DashboardDefault />
+      path: "/",
+      element: <DashboardDefault />,
     },
     {
-      path: 'dashboard',
+      path: "dashboard",
       children: [
         {
-          path: 'default',
-          element: <DashboardDefault />
-        }
-      ]
+          path: "default",
+          element: <DashboardDefault />,
+        },
+      ],
     },
     {
-      path: 'sample-page',
-      element: <SamplePage />
-    }
-  ]
+      path: "sample-page",
+      element: <SamplePage />,
+    },
+    {
+      path: "graph",
+      element: <GraphPage />,
+    },
+  ],
 };
 
 export default MainRoutes;

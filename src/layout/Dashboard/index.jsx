@@ -8,7 +8,6 @@ import Box from '@mui/material/Box';
 // project imports
 import Drawer from './Drawer';
 import Header from './Header';
-import Footer from './Footer';
 import Loader from 'components/Loader';
 import Breadcrumbs from 'components/@extended/Breadcrumbs';
 
@@ -46,7 +45,6 @@ export default function DashboardLayout() {
         >
           {pathname !== '/apps/profiles/account/my-account' && <Breadcrumbs />}
           <Outlet />
-          <Footer />
         </Box>
       </Box>
     </Box>
