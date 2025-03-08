@@ -1,6 +1,6 @@
 const { MultiDirectedGraph } = require("graphology");
-const transactions = require("../transactions.json").map((tx, index) => ({
-  id: `t${index + 1}`,
+const transactions = require("../transactions.json").map((tx) => ({
+  id: tx.transactionId,
   sender: tx.senderName,
   receiver: tx.receiverName,
   amount: parseFloat(tx.amount),
@@ -9,8 +9,6 @@ const transactions = require("../transactions.json").map((tx, index) => ({
 
 // Sort by timestamp
 transactions.sort((a, b) => a.timestamp - b.timestamp);
-
-transactions.forEach((tx) => console.log(tx));
 
 // Initialize the graph
 const graph = new MultiDirectedGraph();
