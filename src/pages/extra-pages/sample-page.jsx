@@ -1,20 +1,21 @@
-import { useState } from 'react';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import MainCard from 'components/MainCard';
-import axios from 'axios';
+import { useState } from "react";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import MainCard from "components/MainCard";
+import axios from "axios";
 
 // Function to generate random alphanumeric transaction ID
 const generateTransactionId = (length = 12) => {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let result = '';
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let result = "";
   const charactersLength = characters.length;
-  
+
   for (let i = 0; i < length; i++) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
-  
+
   return result;
 };
 
@@ -22,12 +23,13 @@ const generateTransactionId = (length = 12) => {
 
 export default function SamplePage() {
   const [formData, setFormData] = useState({
-    senderName: '',
-    senderAccount: '',
-    receiverName: '',
-    receiverAccount: '',
-    remarks: '',
-    amount: ''
+    senderName: "",
+    senderAccount: "",
+    receiverName: "",
+    receiverAccount: "",
+    remarks: "",
+    amount: "",
+    label: "clean", // Adding default label
   });
 
   const handleChange = (e) => {
@@ -38,26 +40,30 @@ export default function SamplePage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const transactionId = generateTransactionId();
-    const dataWithTimestamp = { 
-      ...formData, 
+    const dataWithTimestamp = {
+      ...formData,
       timestamp: new Date().toISOString(),
-      transactionId: transactionId
+      transactionId: transactionId,
     };
 
     try {
-      await axios.post('http://localhost:5001/save-transaction', dataWithTimestamp);
+      await axios.post(
+        "http://localhost:5001/save-transaction",
+        dataWithTimestamp
+      );
       alert(`Money sent successfully! Transaction ID: ${transactionId}`);
       setFormData({
-        senderName: '',
-        senderAccount: '',
-        receiverName: '',
-        receiverAccount: '',
-        remarks: '',
-        amount: ''
+        senderName: "",
+        senderAccount: "",
+        receiverName: "",
+        receiverAccount: "",
+        remarks: "",
+        amount: "",
+        label: "clean", // Reset label to default value
       });
     } catch (error) {
-      console.error('Error saving transaction:', error);
-      alert('Failed to send money. Please try again.');
+      console.error("Error saving transaction:", error);
+      alert("Failed to send money. Please try again.");
     }
   };
 
