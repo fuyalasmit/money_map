@@ -16,7 +16,8 @@
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint:fix": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
     "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
-    "knip": "knip"
+    "knip": "knip",
+    "server": "node src/pages/extra-pages/server.js"
   },
   "dependencies": {
     "@ant-design/colors": "7.2.0",
@@ -34,9 +35,16 @@
     "@mui/system": "6.4.1",
     "@mui/x-charts": "7.24.1",
     "@vitejs/plugin-react": "4.3.4",
+    "axios": "^1.8.2",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "file-saver": "^2.0.5",
     "formik": "2.4.6",
     "framer-motion": "12.0.5",
+    "fs": "^0.0.1-security",
     "lodash-es": "4.17.21",
+    "path": "^0.12.7",
     "react": "18.3.1",
     "react-device-detect": "2.2.3",
     "react-dom": "18.3.1",

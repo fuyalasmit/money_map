@@ -125,7 +125,7 @@ export default function Profile() {
                           <Stack>
                             <Typography variant="h6">Asmit Phuyal</Typography>
                             <Typography variant="body2" color="text.secondary">
-                              ML Engineer
+                            Bank Manager
                             </Typography>
                           </Stack>
                         </Stack>
