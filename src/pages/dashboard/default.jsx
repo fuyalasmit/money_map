@@ -1,18 +1,23 @@
 // material-ui
-import Grid from '@mui/material/Grid2';
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import Typography from '@mui/material/Typography';
+import Grid from "@mui/material/Grid2";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import Typography from "@mui/material/Typography";
 
 // project imports
-import MainCard from 'components/MainCard';
-import AnalyticEcommerce from 'components/cards/statistics/AnalyticEcommerce';
-import ReportAreaChart from 'sections/dashboard/default/ReportAreaChart';
-import UniqueVisitorCard from 'sections/dashboard/default/UniqueVisitorCard';
-import SaleReportCard from 'sections/dashboard/default/SaleReportCard';
-import OrdersTable from 'sections/dashboard/default/OrdersTable';
+import MainCard from "components/MainCard";
+import AnalyticEcommerce from "components/cards/statistics/AnalyticEcommerce";
+import ReportAreaChart from "sections/dashboard/default/AnalyticsChart";
+import UniqueVisitorCard from "sections/dashboard/default/UniqueVisitorCard";
+import SaleReportCard from "sections/dashboard/default/SaleReportCard";
+import OrdersTable from "sections/dashboard/default/RecentTransactions.jsx";
 
+// Import data from helper
+import {
+  transactionsCount,
+  suspiciousTransactionsCount,
+} from "../../utils/fetchTransactions.js";
 
 // ==============================|| DASHBOARD - DEFAULT ||============================== //
 
@@ -27,20 +32,65 @@ export default function DashboardDefault() {
       {/* Total Counts */}
       <Grid
         size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
-        sx={{ boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)', borderRadius: '20px', overflow: 'hidden', border: "1px solid" }}
+        sx={{
+          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+          borderRadius: "20px",
+          overflow: "hidden",
+          border: "1px solid",
+        }}
       >
-        <AnalyticEcommerce title="Total Users" count="78,250" percentage={70.5} extra="8,900" isLoss color="success"/>
+        <AnalyticEcommerce
+          title="Total Users"
+          count="78,250"
+          percentage={70.5}
+          extra="8,900"
+          isLoss
+          color="success"
+        />
       </Grid>
-      <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} sx={{ boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)', borderRadius: '20px', overflow: 'hidden', border: "1px solid" }}>
-        <AnalyticEcommerce title="Total Transaction" count="Rs 1.3Cr" percentage={27.4} isLoss color="error" extra="1.3Cr" />
+      <Grid
+        size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
+        sx={{
+          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+          borderRadius: "20px",
+          overflow: "hidden",
+          border: "1px solid",
+        }}
+      >
+        <AnalyticEcommerce
+          title="Total Transaction"
+          count="Rs 1.3Cr"
+          percentage={27.4}
+          isLoss
+          color="error"
+          extra="1.3Cr"
+        />
       </Grid>
-      <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} sx={{ boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)', borderRadius: '20px', overflow: 'hidden', border: "1px solid" }}>
-        <AnalyticEcommerce title="Suspecious Transaction" count="Rs 0.3Cr" percentage={27.4} isLoss color="error" extra="0.3Cr" />
+      <Grid
+        size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
+        sx={{
+          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+          borderRadius: "20px",
+          overflow: "hidden",
+          border: "1px solid",
+        }}
+      >
+        <AnalyticEcommerce
+          title="Suspecious Transaction"
+          count="Rs 0.3Cr"
+          percentage={27.4}
+          isLoss
+          color="error"
+          extra="0.3Cr"
+        />
       </Grid>
 
-      <Grid sx={{ display: { sm: 'none', md: 'block', lg: 'none' } }} size={{ md: 8 }} />
+      <Grid
+        sx={{ display: { sm: "none", md: "block", lg: "none" } }}
+        size={{ md: 8 }}
+      />
       {/* row 2 */}
-      <Grid size={{ xs: 12, md: 7, lg: 8 }} >
+      <Grid size={{ xs: 12, md: 7, lg: 8 }}>
         <UniqueVisitorCard />
       </Grid>
       <Grid size={{ xs: 12, md: 5, lg: 4 }}>
@@ -51,18 +101,27 @@ export default function DashboardDefault() {
           <Grid />
         </Grid>
         <MainCard sx={{ mt: 2 }} content={false}>
-          <List sx={{ p: 0, '& .MuiListItemButton-root': { py: 2 } }}>
+          <List sx={{ p: 0, "& .MuiListItemButton-root": { py: 2 } }}>
             <ListItemButton divider>
               <ListItemText primary="Transaction" />
-              <Typography variant="h5">45.14%</Typography>
+              <Typography variant="h5">{transactionsCount}</Typography>
             </ListItemButton>
             <ListItemButton divider>
-              <ListItemText primary="Suspecious Transaction" />
-              <Typography variant="h5">0.58%</Typography>
+              <ListItemText primary="Suspicious Transaction" />
+              <Typography variant="h5">
+                {suspiciousTransactionsCount}
+              </Typography>
             </ListItemButton>
             <ListItemButton>
               <ListItemText primary="Company Risk" />
-              <Typography variant="h5">Low</Typography>
+              <Typography variant="h5">
+                {
+                  //if more than 50% transactions are suspicious
+                  suspiciousTransactionsCount / transactionsCount >= 0.5
+                    ? "High"
+                    : "Low"
+                }
+              </Typography>
             </ListItemButton>
           </List>
           <ReportAreaChart />

@@ -9,61 +9,15 @@ import Box from "@mui/material/Box";
 
 import { LineChart } from "@mui/x-charts/LineChart";
 
-// Sample data
-const monthlyLabels = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
-const weeklyLabels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-import transactionsData from "../../../../transactions.json";
-const transactions = transactionsData.map((tx) => ({
-  id: tx.transactionId,
-  sender: tx.senderName,
-  receiver: tx.receiverName,
-  amount: parseFloat(tx.amount),
-  timestamp: new Date(tx.timestamp),
-  label: tx.label,
-}));
-
-const getMonthlyData = (transactions, label) => {
-  const monthlyData = new Array(12).fill(0);
-  transactions.forEach((transaction) => {
-    const date = new Date(transaction.timestamp);
-    const month = date.getMonth();
-    if (!label || transaction.label === label) {
-      monthlyData[month]++;
-    }
-  });
-  return monthlyData;
-};
-
-const getWeeklyData = (transactions, label) => {
-  const weeklyData = new Array(7).fill(0);
-  transactions.forEach((transaction) => {
-    const date = new Date(transaction.timestamp);
-    const day = date.getDay();
-    if (!label || transaction.label === label) {
-      weeklyData[day]++;
-    }
-  });
-  return weeklyData;
-};
-
-const monthlyDataSus = getMonthlyData(transactions, "suspicious");
-const weeklyDataSus = getWeeklyData(transactions, "suspicious");
-
-const monthlyDataTotal = getMonthlyData(transactions);
-const weeklyDataTotal = getWeeklyData(transactions);
+// Import data from helper
+import {
+  monthlyLabels,
+  weeklyLabels,
+  monthlyDataSus,
+  weeklyDataSus,
+  monthlyDataTotal,
+  weeklyDataTotal,
+} from "../../../utils/fetchTransactions.js";
 
 function Legend({ items, onToggle }) {
   return (
