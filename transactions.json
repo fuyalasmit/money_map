@@ -19,7 +19,7 @@
     "amount": "600000",
     "timestamp": "2025-03-02T09:00:15.234Z",
     "transactionId": "QwErTyUiOp12",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Aisha Abdulrahman",
@@ -30,7 +30,7 @@
     "amount": "350000",
     "timestamp": "2025-03-02T11:30:40.567Z",
     "transactionId": "AsDfGhJkLm34",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Aisha Abdulrahman",
@@ -41,7 +41,7 @@
     "amount": "200000",
     "timestamp": "2025-03-02T11:35:10.890Z",
     "transactionId": "ZxCvBn567890",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Omar Farooq",
@@ -52,7 +52,7 @@
     "amount": "300000",
     "timestamp": "2025-03-03T08:45:25.123Z",
     "transactionId": "MnOpQr789123",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Fatima Hassan",
@@ -63,7 +63,7 @@
     "amount": "180000",
     "timestamp": "2025-03-03T10:20:50.456Z",
     "transactionId": "LmNxPzQrSt56",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Khalid Mustafa",
@@ -74,7 +74,7 @@
     "amount": "250000",
     "timestamp": "2025-03-04T09:15:30.789Z",
     "transactionId": "XyZaBcDeFg78",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Yusuf Ali",
@@ -85,7 +85,7 @@
     "amount": "150000",
     "timestamp": "2025-03-04T13:40:15.012Z",
     "transactionId": "JkLmNo789012",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Zainab Saeed",
@@ -96,7 +96,7 @@
     "amount": "220000",
     "timestamp": "2025-03-05T10:50:20.345Z",
     "transactionId": "PqRsTvUnWx90",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Hassan Bilal",
@@ -107,7 +107,7 @@
     "amount": "130000",
     "timestamp": "2025-03-05T14:25:35.678Z",
     "transactionId": "AbCdEfGhIj12",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Ibrahim Salem",
@@ -118,7 +118,7 @@
     "amount": "200000",
     "timestamp": "2025-03-06T16:10:45.901Z",
     "transactionId": "KlMnOpQrSt34",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Meera",
@@ -173,7 +173,7 @@
     "amount": "150000",
     "timestamp": "2025-03-07T23:50:10.654Z",
     "transactionId": "TXN_210J",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Suresh",
@@ -184,7 +184,7 @@
     "amount": "50000",
     "timestamp": "2025-03-07T15:20:45.654Z",
     "transactionId": "TXN_212L",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Suresh",
@@ -228,7 +228,7 @@
     "amount": "250000",
     "timestamp": "2025-03-07T18:53:15.924Z",
     "transactionId": "3ldO6iay78Ju",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Arjun",
@@ -272,7 +272,7 @@
     "amount": "700000",
     "timestamp": "2025-03-07T17:40:32.654Z",
     "transactionId": "TXN_204D",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Rohit",
@@ -283,7 +283,7 @@
     "amount": "700000",
     "timestamp": "2025-03-07T18:30:45.874Z",
     "transactionId": "TXN_205E",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Neha",
@@ -338,7 +338,7 @@
     "amount": "150000",
     "timestamp": "2025-03-07T23:50:10.654Z",
     "transactionId": "TXN_210J",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Priyanka",
@@ -349,7 +349,7 @@
     "amount": "150000",
     "timestamp": "2025-03-08T00:40:45.874Z",
     "transactionId": "TXN_211K",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Suresh",
@@ -360,7 +360,7 @@
     "amount": "50000",
     "timestamp": "2025-03-07T15:20:45.654Z",
     "transactionId": "TXN_212L",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Karan",
@@ -371,7 +371,7 @@
     "amount": "50000",
     "timestamp": "2025-03-07T16:10:30.874Z",
     "transactionId": "TXN_213M",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Suresh",
@@ -393,7 +393,7 @@
     "amount": "250000",
     "timestamp": "2025-03-07T18:53:15.924Z",
     "transactionId": "3ldO6iay78Ju",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Vikas",
@@ -415,7 +415,7 @@
     "amount": "700000",
     "timestamp": "2025-03-07T17:40:32.654Z",
     "transactionId": "TXN_204D",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Rohit",
@@ -426,7 +426,7 @@
     "amount": "700000",
     "timestamp": "2025-03-07T18:30:45.874Z",
     "transactionId": "TXN_205E",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Ramesh",
@@ -448,7 +448,7 @@
     "amount": "150000",
     "timestamp": "2025-03-08T00:40:45.874Z",
     "transactionId": "TXN_211K",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Karan",
@@ -459,7 +459,7 @@
     "amount": "50000",
     "timestamp": "2025-03-07T16:10:30.874Z",
     "transactionId": "TXN_213M",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Arjun",
@@ -470,7 +470,7 @@
     "amount": "350000",
     "timestamp": "2025-03-07T12:45:22.134Z",
     "transactionId": "TXN_1A2B3C",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Meera",
@@ -481,7 +481,7 @@
     "amount": "600000",
     "timestamp": "2025-03-05T09:15:10.324Z",
     "transactionId": "TXN_0J1K2L",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Pooja",
@@ -492,7 +492,7 @@
     "amount": "250000",
     "timestamp": "2025-03-01T08:50:20.245Z",
     "transactionId": "TXN_5Y6Z7A",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Sanjay",
@@ -536,7 +536,7 @@
     "amount": "350000",
     "timestamp": "2025-03-07T12:45:22.134Z",
     "transactionId": "TXN_1A2B3C",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Ramesh",
@@ -569,7 +569,7 @@
     "amount": "600000",
     "timestamp": "2025-03-05T09:15:10.324Z",
     "transactionId": "TXN_0J1K2L",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Kabir",
@@ -613,7 +613,7 @@
     "amount": "90000",
     "timestamp": "2025-03-02T10:25:40.678Z",
     "transactionId": "TXN_2V3W4X",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Pooja",
@@ -624,7 +624,7 @@
     "amount": "250000",
     "timestamp": "2025-03-01T08:50:20.245Z",
     "transactionId": "TXN_5Y6Z7A",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Rohan",
@@ -635,7 +635,7 @@
     "amount": "400000",
     "timestamp": "2025-02-29T22:15:30.456Z",
     "transactionId": "TXN_8B9C0D",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Rahul",
@@ -657,7 +657,7 @@
     "amount": "120000",
     "timestamp": "2025-02-27T10:10:45.321Z",
     "transactionId": "TXN_4H5I6J",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Aarav",
@@ -701,7 +701,7 @@
     "amount": "550000",
     "timestamp": "2025-02-23T19:20:30.324Z",
     "transactionId": "TXN_6T7U8V",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Sneha",
@@ -756,7 +756,7 @@
     "amount": "350000",
     "timestamp": "2025-03-02T10:20:50.234Z",
     "transactionId": "JmXwNpKZqL56",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Tina",
@@ -767,7 +767,7 @@
     "amount": "420000",
     "timestamp": "2025-03-01T15:05:40.981Z",
     "transactionId": "NpXwKZqLmJ78",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Ravi",
@@ -778,7 +778,7 @@
     "amount": "300000",
     "timestamp": "2025-02-28T22:10:15.789Z",
     "transactionId": "XyJmNpLqKZ89",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Karan",
@@ -789,7 +789,7 @@
     "amount": "500000",
     "timestamp": "2025-02-27T08:45:10.567Z",
     "transactionId": "PLZqJmXwNp90",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Rahul",
@@ -822,7 +822,7 @@
     "amount": "550000",
     "timestamp": "2025-03-07T14:50:30.874Z",
     "transactionId": "TXN_102C3D",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Vivek",
@@ -844,7 +844,7 @@
     "amount": "1000000",
     "timestamp": "2025-03-05T17:20:38.654Z",
     "transactionId": "TXN_104G5H",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Aniket",
@@ -866,7 +866,7 @@
     "amount": "85000",
     "timestamp": "2025-03-03T11:50:22.578Z",
     "transactionId": "TXN_106K7L",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Neelam",
@@ -877,7 +877,7 @@
     "amount": "600000",
     "timestamp": "2025-03-02T16:40:12.874Z",
     "transactionId": "TXN_107M8N",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Deepak",
@@ -910,7 +910,7 @@
     "amount": "1200000",
     "timestamp": "2025-02-27T10:20:35.874Z",
     "transactionId": "TXN_110S1T",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Tarun",
@@ -932,7 +932,7 @@
     "amount": "850000",
     "timestamp": "2025-02-25T16:50:50.874Z",
     "transactionId": "TXN_112W3X",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Sumit",
@@ -954,7 +954,7 @@
     "amount": "400000",
     "timestamp": "2025-02-23T08:10:50.654Z",
     "transactionId": "TXN_114A5B",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Ankur",
@@ -987,7 +987,7 @@
     "amount": "500000",
     "timestamp": "2025-03-07T14:50:25.874Z",
     "transactionId": "TXN_52C4D5",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Rajesh",
@@ -1020,7 +1020,7 @@
     "amount": "750000",
     "timestamp": "2025-03-05T09:50:44.985Z",
     "transactionId": "TXN_55I0J1",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Vikas",
@@ -1053,7 +1053,7 @@
     "amount": "400000",
     "timestamp": "2025-03-03T15:20:38.874Z",
     "transactionId": "TXN_58O6P7",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Kiran",
@@ -1075,7 +1075,7 @@
     "amount": "55000",
     "timestamp": "2025-03-01T09:55:20.432Z",
     "transactionId": "TXN_60S0T1",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Amit",
@@ -1097,7 +1097,7 @@
     "amount": "900000",
     "timestamp": "2025-02-27T13:30:44.985Z",
     "transactionId": "TXN_62W4X5",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Ramesh",
@@ -1119,7 +1119,7 @@
     "amount": "85000",
     "timestamp": "2025-02-25T09:30:40.432Z",
     "transactionId": "TXN_64A8B9",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Alok",
@@ -1130,7 +1130,7 @@
     "amount": "1000000",
     "timestamp": "2025-02-24T08:10:20.654Z",
     "transactionId": "TXN_65C0D1",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Aarav",
@@ -1163,7 +1163,7 @@
     "amount": "600000",
     "timestamp": "2025-03-08T14:22:33.678Z",
     "transactionId": "TXN_A1B2C3",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Alok",
@@ -1207,7 +1207,7 @@
     "amount": "700000",
     "timestamp": "2025-03-06T18:30:44.245Z",
     "transactionId": "TXN_M3N4O5",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Ramesh",
@@ -1218,7 +1218,7 @@
     "amount": "450000",
     "timestamp": "2025-03-05T09:15:10.324Z",
     "transactionId": "TXN_P6Q7R8",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Kabir",
@@ -1251,7 +1251,7 @@
     "amount": "120000",
     "timestamp": "2025-03-03T14:05:55.901Z",
     "transactionId": "TXN_Y5Z6A7",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Amit",
@@ -1273,7 +1273,7 @@
     "amount": "800000",
     "timestamp": "2025-03-01T08:50:20.245Z",
     "transactionId": "TXN_E1F2G3",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Rohan",
@@ -1306,7 +1306,7 @@
     "amount": "130000",
     "timestamp": "2025-02-27T10:10:45.321Z",
     "transactionId": "TXN_N0O1P2",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Suman",
@@ -1328,7 +1328,7 @@
     "amount": "600000",
     "timestamp": "2025-02-25T16:55:50.978Z",
     "transactionId": "TXN_T6U7V8",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Kajal",
@@ -1350,7 +1350,7 @@
     "amount": "250000",
     "timestamp": "2025-02-24T09:50:25.678Z",
     "transactionId": "XwLqKZJmNp89",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "خالد عبدالله",
@@ -1361,7 +1361,7 @@
     "amount": "200000",
     "timestamp": "2025-02-24T14:30:10.123Z",
     "transactionId": "PqRsTvUnWx12",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "فاطمة علي",
@@ -1372,7 +1372,7 @@
     "amount": "180000",
     "timestamp": "2025-02-25T10:15:45.890Z",
     "transactionId": "AbCdEfGhIj34",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "يوسف حسن",
@@ -1383,7 +1383,7 @@
     "amount": "150000",
     "timestamp": "2025-02-25T16:20:30.456Z",
     "transactionId": "KlMnOpQrSt56",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "نورة سعيد",
@@ -1394,7 +1394,7 @@
     "amount": "220000",
     "timestamp": "2025-02-26T08:45:15.234Z",
     "transactionId": "UvWxYz123456",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "محمد عمر",
@@ -1405,7 +1405,7 @@
     "amount": "190000",
     "timestamp": "2025-02-26T13:10:50.789Z",
     "transactionId": "JkLmNo789012",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "ليلى خالد",
@@ -1416,7 +1416,7 @@
     "amount": "170000",
     "timestamp": "2025-02-27T09:25:35.567Z",
     "transactionId": "QwErTyUiOp90",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "سعيد عبدالرحمن",
@@ -1427,7 +1427,7 @@
     "amount": "140000",
     "timestamp": "2025-02-27T15:40:20.345Z",
     "transactionId": "AsDfGhJkLm78",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "زينب أحمد",
@@ -1438,7 +1438,7 @@
     "amount": "210000",
     "timestamp": "2025-02-28T11:55:05.901Z",
     "transactionId": "ZxCvBn567890",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "علي صالح",
@@ -1449,7 +1449,7 @@
     "amount": "230000",
     "timestamp": "2025-02-28T17:30:40.012Z",
     "transactionId": "MnOpQr789123",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Emma",
@@ -1581,7 +1581,7 @@
     "amount": "250000",
     "timestamp": "2025-02-24T09:50:25.678Z",
     "transactionId": "XwLqKZJmNp89",
-    "label": "suspicious"
+    "label": "fraud"
   },
   {
     "senderName": "Ravi",
@@ -1612,7 +1612,7 @@
     "receiverAccount": "5884507843",
     "remarks": "Paisa pthaune paune",
     "amount": "120000",
-    "label": "suspicious",
+    "label": "fraud",
     "timestamp": "2025-03-08T10:23:34.071Z",
     "transactionId": "USvBwuj9UBlK"
   }
