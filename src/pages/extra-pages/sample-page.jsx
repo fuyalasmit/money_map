@@ -1,13 +1,22 @@
+<<<<<<< HEAD
 import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import MainCard from "components/MainCard";
 import axios from "axios";
+=======
+import { useState, useEffect } from 'react';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import MainCard from 'components/MainCard';
+import axios from 'axios';
+>>>>>>> 12fded0 (asmit part)
 
-// Function to generate random alphanumeric transaction ID
 const generateTransactionId = (length = 12) => {
   const characters =
+<<<<<<< HEAD
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   let result = "";
   const charactersLength = characters.length;
@@ -16,13 +25,20 @@ const generateTransactionId = (length = 12) => {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
 
+=======
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+>>>>>>> 12fded0 (asmit part)
   return result;
 };
 
-// ==============================|| SAMPLE PAGE ||============================== //
-
 export default function SamplePage() {
   const [formData, setFormData] = useState({
+<<<<<<< HEAD
     senderName: "",
     senderAccount: "",
     receiverName: "",
@@ -30,7 +46,17 @@ export default function SamplePage() {
     remarks: "",
     amount: "",
     label: "clean", // Adding default label
+=======
+    senderName: '',
+    senderAccount: '',
+    receiverName: '',
+    receiverAccount: '',
+    remarks: '',
+    amount: '',
+>>>>>>> 12fded0 (asmit part)
   });
+
+  const [transactions, setTransactions] = useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -53,6 +79,7 @@ export default function SamplePage() {
       );
       alert(`Money sent successfully! Transaction ID: ${transactionId}`);
       setFormData({
+<<<<<<< HEAD
         senderName: "",
         senderAccount: "",
         receiverName: "",
@@ -60,12 +87,45 @@ export default function SamplePage() {
         remarks: "",
         amount: "",
         label: "clean", // Reset label to default value
+=======
+        senderName: '',
+        senderAccount: '',
+        receiverName: '',
+        receiverAccount: '',
+        remarks: '',
+        amount: '',
+>>>>>>> 12fded0 (asmit part)
       });
+      fetchTransactions();
     } catch (error) {
       console.error("Error saving transaction:", error);
       alert("Failed to send money. Please try again.");
     }
   };
+
+  const fetchTransactions = async () => {
+    try {
+      const response = await axios.get('http://localhost:5001/get-transactions');
+      setTransactions(response.data);
+    } catch (error) {
+      console.error('Error fetching transactions:', error);
+    }
+  };
+
+  const handleAnalyze = async () => {
+    try {
+      await axios.post('http://localhost:5001/analyze-transactions');
+      alert('Transactions analyzed successfully');
+      fetchTransactions();
+    } catch (error) {
+      console.error('Error analyzing transactions:', error);
+      alert('Failed to analyze transactions');
+    }
+  };
+
+  useEffect(() => {
+    fetchTransactions();
+  }, []);
 
   return (
     <MainCard title="Send Money">
@@ -119,12 +179,21 @@ export default function SamplePage() {
             onChange={handleChange}
             fullWidth
           />
-
           <Button type="submit" variant="contained" color="primary">
             Send
           </Button>
         </Stack>
       </form>
+
+      <Button
+        onClick={handleAnalyze}
+        variant="contained"
+        color="secondary"
+        style={{ marginTop: '10px' }}
+      >
+        Analyze Transactions
+      </Button>
+      
     </MainCard>
   );
 }
