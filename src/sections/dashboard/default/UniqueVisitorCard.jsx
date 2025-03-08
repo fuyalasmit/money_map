@@ -1,20 +1,20 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 // material-ui
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid2';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid2";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
 // project imports
-import MainCard from 'components/MainCard';
-import IncomeAreaChart from './IncomeAreaChart';
+import MainCard from "components/MainCard";
+import IncomeAreaChart from "./TransactionsChart";
 
 // ==============================|| DEFAULT - UNIQUE VISITOR ||============================== //
 
 export default function UniqueVisitorCard() {
-  const [view, setView] = useState('monthly'); 
+  const [view, setView] = useState("monthly");
 
   return (
     <>
@@ -23,20 +23,20 @@ export default function UniqueVisitorCard() {
           <Typography variant="h5">Transaction Report</Typography>
         </Grid>
         <Grid>
-          <Stack direction="row" sx={{ alignItems: 'center' }}>
+          <Stack direction="row" sx={{ alignItems: "center" }}>
             <Button
               size="small"
-              onClick={() => setView('monthly')}
-              color={view === 'monthly' ? 'primary' : 'secondary'}
-              variant={view === 'monthly' ? 'outlined' : 'text'}
+              onClick={() => setView("monthly")}
+              color={view === "monthly" ? "primary" : "secondary"}
+              variant={view === "monthly" ? "outlined" : "text"}
             >
               Month
             </Button>
             <Button
               size="small"
-              onClick={() => setView('weekly')}
-              color={view === 'weekly' ? 'primary' : 'secondary'}
-              variant={view === 'weekly' ? 'outlined' : 'text'}
+              onClick={() => setView("weekly")}
+              color={view === "weekly" ? "primary" : "secondary"}
+              variant={view === "weekly" ? "outlined" : "text"}
             >
               Week
             </Button>
