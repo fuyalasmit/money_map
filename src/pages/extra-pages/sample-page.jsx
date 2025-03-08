@@ -1,59 +1,30 @@
-<<<<<<< HEAD
-import { useState } from "react";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
-import MainCard from "components/MainCard";
-import axios from "axios";
-=======
+
 import { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import MainCard from 'components/MainCard';
 import axios from 'axios';
->>>>>>> 12fded0 (asmit part)
 
 const generateTransactionId = (length = 12) => {
   const characters =
-<<<<<<< HEAD
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  let result = "";
-  const charactersLength = characters.length;
-
-  for (let i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-
-=======
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let result = '';
   const charactersLength = characters.length;
   for (let i = 0; i < length; i++) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
->>>>>>> 12fded0 (asmit part)
   return result;
 };
 
 export default function SamplePage() {
   const [formData, setFormData] = useState({
-<<<<<<< HEAD
-    senderName: "",
-    senderAccount: "",
-    receiverName: "",
-    receiverAccount: "",
-    remarks: "",
-    amount: "",
-    label: "clean", // Adding default label
-=======
     senderName: '',
     senderAccount: '',
     receiverName: '',
     receiverAccount: '',
     remarks: '',
     amount: '',
->>>>>>> 12fded0 (asmit part)
   });
 
   const [transactions, setTransactions] = useState([]);
@@ -79,22 +50,12 @@ export default function SamplePage() {
       );
       alert(`Money sent successfully! Transaction ID: ${transactionId}`);
       setFormData({
-<<<<<<< HEAD
-        senderName: "",
-        senderAccount: "",
-        receiverName: "",
-        receiverAccount: "",
-        remarks: "",
-        amount: "",
-        label: "clean", // Reset label to default value
-=======
         senderName: '',
         senderAccount: '',
         receiverName: '',
         receiverAccount: '',
         remarks: '',
         amount: '',
->>>>>>> 12fded0 (asmit part)
       });
       fetchTransactions();
     } catch (error) {
