@@ -259,11 +259,11 @@ export default function GraphPage() {
             d3
               .forceLink()
               .id((d) => d.id)
-              .distance(() => 25), // Reduced from 40 to 25 to keep nodes closer together
-          charge: () => -180, // Increased from -120 to -180 for stronger attraction
+              .distance(() => 60), // Increased from 25 to 60 for wider spacing between connected nodes
+          charge: () => -350, // Increased from -180 to -350 for stronger node repulsion
           center: (d3, alpha) => {
-            // Very light centering force - just enough to provide some structure
-            const centerStrength = 0.05; // Reduced significantly to allow natural movement with inertia
+            // Even lighter centering force to allow nodes to spread out more
+            const centerStrength = 0.02; // Reduced from 0.05
             graphData.nodes.forEach((node) => {
               node.vx += (0 - node.x) * centerStrength * alpha;
               node.vy += (0 - node.y) * centerStrength * alpha;
