@@ -12,7 +12,7 @@ import {
 const labels = monthlyLabels.slice(5, 11);
 const data = monthlyDataSus.slice(5, 11);
 
-data.forEach((item) => console.log(item));
+// data.forEach((item) => console.log(item));
 
 // ==============================|| REPORT AREA CHART ||============================== //
 

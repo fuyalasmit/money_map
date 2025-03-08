@@ -13,9 +13,21 @@ import MainCard from 'components/MainCard';
 import RiseOutlined from '@ant-design/icons/RiseOutlined';
 import FallOutlined from '@ant-design/icons/FallOutlined';
 
-const iconSX = { fontSize: '0.75rem', color: 'inherit', marginLeft: 0, marginRight: 0 };
+const iconSX = {
+  fontSize: '0.75rem',
+  color: 'inherit',
+  marginLeft: 0,
+  marginRight: 0,
+};
 
-export default function AnalyticEcommerce({ color = 'primary', title, count, percentage, isLoss, extra }) {
+export default function AnalyticEcommerce({
+  color = 'primary',
+  title,
+  count,
+  percentage,
+  isLoss,
+  extra,
+}) {
   return (
     <MainCard contentSX={{ p: 2.25 }}>
       <Stack sx={{ gap: 0.5 }}>
@@ -33,7 +45,13 @@ export default function AnalyticEcommerce({ color = 'primary', title, count, per
               <Chip
                 variant="combined"
                 color={color}
-                icon={isLoss ? <FallOutlined style={iconSX} /> : <RiseOutlined style={iconSX} />}
+                icon={
+                  isLoss ? (
+                    <FallOutlined style={iconSX} />
+                  ) : (
+                    <RiseOutlined style={iconSX} />
+                  )
+                }
                 label={`${percentage}%`}
                 sx={{ ml: 1.25, pl: 1 }}
                 size="small"
@@ -43,13 +61,23 @@ export default function AnalyticEcommerce({ color = 'primary', title, count, per
         </Grid>
       </Stack>
       <Box sx={{ pt: 2.25 }}>
-        <Typography variant="caption" color="text.secondary">
-          Company made an extra{' '}
-          <Typography variant="caption" sx={{ color: `${color || 'primary'}.main` }}>
-            {extra}
-          </Typography>{' '}
-          this year
-        </Typography>
+        {Number(extra) === 0 ? (
+          <Typography variant="caption" color="text.secondary">
+            Company could not make any progress this year.
+          </Typography>
+        ) : (
+          <Typography variant="caption" color="text.secondary">
+            Company recorded an extra{' '}
+            <Typography
+              variant="caption"
+              component="span"
+              sx={{ color: `${color || 'primary'}.main` }}
+            >
+              {extra}
+            </Typography>{' '}
+            this year.
+          </Typography>
+        )}
       </Box>
     </MainCard>
   );
@@ -61,5 +89,5 @@ AnalyticEcommerce.propTypes = {
   count: PropTypes.string,
   percentage: PropTypes.number,
   isLoss: PropTypes.bool,
-  extra: PropTypes.string
+  extra: PropTypes.string,
 };
