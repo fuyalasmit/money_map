@@ -19,30 +19,75 @@ export default function GraphPage() {
     const processTransactions = () => {
       // Create a map to track unique persons (senders/receivers)
       const uniquePersons = new Map();
+      
+      // Track persons involved in suspicious transactions directly
+      const suspiciousPersons = new Set();
+      
+      // Track all transactions for later analysis
+      const personTransactions = new Map(); // Map of person -> array of transactions
 
-      // Process all transactions to identify unique people
+      // First pass: identify all suspicious transactions and build transaction map
+      transactionsData.forEach((transaction) => {
+        // Track transaction by sender
+        if (!personTransactions.has(transaction.senderName)) {
+          personTransactions.set(transaction.senderName, []);
+        }
+        personTransactions.get(transaction.senderName).push(transaction);
+        
+        // Track transaction by receiver
+        if (!personTransactions.has(transaction.receiverName)) {
+          personTransactions.set(transaction.receiverName, []);
+        }
+        personTransactions.get(transaction.receiverName).push(transaction);
+        
+        // Mark participants in suspicious transactions
+        if (transaction.label === "suspicious") {
+          suspiciousPersons.add(transaction.senderName);
+          suspiciousPersons.add(transaction.receiverName);
+        }
+      });
+      
+      // Second pass: expand suspicious status to receivers of money from suspicious senders
+      let changed = true;
+      while (changed) {
+        changed = false;
+        
+        // Loop through all transactions
+        transactionsData.forEach((transaction) => {
+          // If sender is suspicious but receiver is not yet marked suspicious
+          if (
+            suspiciousPersons.has(transaction.senderName) && 
+            !suspiciousPersons.has(transaction.receiverName)
+          ) {
+            suspiciousPersons.add(transaction.receiverName);
+            changed = true;
+          }
+        });
+      }
+
+      // Create nodes for all persons
       transactionsData.forEach((transaction) => {
         if (!uniquePersons.has(transaction.senderName)) {
           uniquePersons.set(transaction.senderName, {
             id: transaction.senderName,
-            group: 1, // Senders group
+            group: suspiciousPersons.has(transaction.senderName) ? 0 : 1, // Group 0 for suspicious
             account: transaction.senderAccount,
+            suspicious: suspiciousPersons.has(transaction.senderName),
           });
         }
 
         if (!uniquePersons.has(transaction.receiverName)) {
           uniquePersons.set(transaction.receiverName, {
             id: transaction.receiverName,
-            group: 2, // Receivers group
+            group: suspiciousPersons.has(transaction.receiverName) ? 0 : 2, // Group 0 for suspicious
             account: transaction.receiverAccount,
+            suspicious: suspiciousPersons.has(transaction.receiverName),
           });
         }
       });
 
-      // Create nodes from unique persons
+      // Create nodes and links
       const nodes = Array.from(uniquePersons.values());
-
-      // Create links from transactions
       const links = transactionsData.map((transaction) => ({
         source: transaction.senderName,
         target: transaction.receiverName,
@@ -50,6 +95,11 @@ export default function GraphPage() {
         timestamp: transaction.timestamp,
         transactionId: transaction.transactionId,
         remarks: transaction.remarks,
+        label: transaction.label,
+        // Mark link as suspicious if transaction is labeled suspicious OR if the sender is suspicious
+        isSuspicious: 
+          transaction.label === "suspicious" || 
+          suspiciousPersons.has(transaction.senderName),
       }));
 
       return { nodes, links };
@@ -97,19 +147,26 @@ export default function GraphPage() {
         ref={ref}
         graphData={graphData}
         nodeLabel="id"
-        nodeAutoColorBy="group"
+        // Use custom node coloring instead of automatic coloring
+        nodeColor={(node) => (node.suspicious ? "red" : "#00aaff")} // Red for suspicious, Blue for clean
         backgroundColor="#000011"
         onNodeDragEnd={(node) => {
           node.fx = node.x;
           node.fy = node.y;
           node.fz = node.z;
         }}
+        // Color links based on suspicious flag
+        linkColor={(link) =>
+          link.isSuspicious ? "rgba(255, 0, 0, 0.5)" : "rgba(0, 170, 255, 0.5)"
+        }
         linkDirectionalArrowLength={3.5}
         linkDirectionalArrowRelPos={1}
+        linkWidth={(link) => (link.isSuspicious ? 2 : 1)} // Make suspicious links thicker
         nodeThreeObject={(node) => {
           const sprite = new SpriteText(node.id);
-          sprite.color = node.color;
-          sprite.textHeight = fullscreen ? 8 : 6; // Larger text in fullscreen
+          // Set color explicitly based on suspicious flag
+          sprite.color = node.suspicious ? "red" : "#00aaff";
+          sprite.textHeight = fullscreen ? 8 : 6;
           return sprite;
         }}
         linkThreeObjectExtend={true}
@@ -118,8 +175,8 @@ export default function GraphPage() {
           const sprite = new SpriteText(
             `₹${Number(link.amount).toLocaleString()}`
           );
-          sprite.color = "lightgreen";
-          sprite.textHeight = fullscreen ? 4 : 3; // Larger text in fullscreen
+          sprite.color = link.isSuspicious ? "#ffcccc" : "lightgreen"; // Light red for suspicious amounts
+          sprite.textHeight = fullscreen ? 4 : 3;
           return sprite;
         }}
         linkPositionUpdate={(sprite, { start, end }) => {
