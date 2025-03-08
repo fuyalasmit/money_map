@@ -107,8 +107,8 @@ export default function IncomeAreaChart({ view }) {
   const theme = useTheme();
 
   const [visibility, setVisibility] = useState({
-    "Page views": true,
-    Sessions: true,
+    Suspicious: true,
+    Total: true,
   });
 
   const labels = view === "monthly" ? monthlyLabels : weeklyLabels;
@@ -124,21 +124,21 @@ export default function IncomeAreaChart({ view }) {
   const visibleSeries = [
     {
       data: data1,
-      label: "Page views",
+      label: "Suspicious Transactions",
       showMark: false,
       area: true,
       id: "Germany",
       color: theme.palette.error.main, // Red color
-      visible: visibility["Page views"],
+      visible: visibility["Suspicious"],
     },
     {
       data: data2,
-      label: "Sessions",
+      label: "Total Transactions",
       showMark: false,
       area: true,
       id: "UK",
       color: theme.palette.primary.dark, // Dark green color
-      visible: visibility["Sessions"],
+      visible: visibility["Total"],
     },
   ];
 

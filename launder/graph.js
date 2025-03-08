@@ -1,10 +1,21 @@
 const { MultiDirectedGraph } = require("graphology");
-const transactions = require("../transactions.json").map((tx) => ({
+const fs = require("fs");
+const path = require("path");
+
+// Load full transaction data
+const originalTransactions = require("../transactions.json");
+const transactionMap = new Map();
+originalTransactions.forEach((tx) => {
+  transactionMap.set(tx.transactionId, tx);
+});
+
+const transactions = originalTransactions.map((tx) => ({
   id: tx.transactionId,
   sender: tx.senderName,
   receiver: tx.receiverName,
   amount: parseFloat(tx.amount),
   timestamp: new Date(tx.timestamp),
+  label: tx.label,
 }));
 
 // Sort by timestamp
@@ -12,12 +23,25 @@ transactions.sort((a, b) => a.timestamp - b.timestamp);
 
 // Initialize the graph
 const graph = new MultiDirectedGraph();
+const edgeKeysUsed = new Set();
+
 transactions.forEach((t) => {
   if (!graph.hasNode(t.sender)) graph.addNode(t.sender);
   if (!graph.hasNode(t.receiver)) graph.addNode(t.receiver);
-  graph.addDirectedEdgeWithKey(t.id, t.sender, t.receiver, {
+
+  // Handle duplicate edge keys
+  let edgeKey = t.id;
+  let counter = 1;
+  while (edgeKeysUsed.has(edgeKey)) {
+    edgeKey = `${t.id}-${counter}`;
+    counter++;
+  }
+
+  edgeKeysUsed.add(edgeKey);
+  graph.addDirectedEdgeWithKey(edgeKey, t.sender, t.receiver, {
     amount: t.amount,
     timestamp: t.timestamp,
+    originalId: t.id, // Store original ID for reference
   });
 });
 
@@ -347,3 +371,65 @@ console.log("All Suspicious Transactions with Reasons:");
 allSuspiciousTransactions.forEach((reason, tx) => {
   console.log(`Transaction ID: ${tx}, Reason: ${reason}`);
 });
+
+// Export suspicious transactions to JSON
+const suspiciousTransactionIds = new Set();
+
+// Collect suspicious transaction IDs from all detection methods
+suspiciousStructuring.forEach((s) => {
+  s.transactions.forEach((tx) => {
+    // Get original ID if this was a duplicate with suffix
+    const originalId = tx.includes("-") ? tx.split("-")[0] : tx;
+    suspiciousTransactionIds.add(originalId);
+  });
+});
+
+suspiciousTemporalCycles.forEach((c) => {
+  c.transactions.forEach((tx) => {
+    const originalId = tx.includes("-") ? tx.split("-")[0] : tx;
+    suspiciousTransactionIds.add(originalId);
+  });
+});
+
+suspiciousFanPatterns.forEach((f) => {
+  f.fanOutTransactions.forEach((tx) => {
+    const originalId = tx.includes("-") ? tx.split("-")[0] : tx;
+    suspiciousTransactionIds.add(originalId);
+  });
+  f.fanInTransactions.forEach((tx) => {
+    const originalId = tx.includes("-") ? tx.split("-")[0] : tx;
+    suspiciousTransactionIds.add(originalId);
+  });
+});
+
+suspiciousVelocityAccounts.forEach((a) => {
+  graph.edges(a.account).forEach((tx) => {
+    const originalId = tx.includes("-") ? tx.split("-")[0] : tx;
+    suspiciousTransactionIds.add(originalId);
+  });
+});
+
+suspiciousPeriodicPairs.forEach((p) => {
+  p.transactions.forEach((tx) => {
+    const originalId = tx.includes("-") ? tx.split("-")[0] : tx;
+    suspiciousTransactionIds.add(originalId);
+  });
+});
+
+console.log(`Found ${suspiciousTransactionIds.size} suspicious transactions`);
+console.log("Suspicious transactions exported to susTransactions.json");
+
+// Also update original transactions.json with new labels
+originalTransactions.forEach((tx) => {
+  if (suspiciousTransactionIds.has(tx.transactionId)) {
+    tx.label = "suspicious";
+  }
+});
+
+fs.writeFileSync(
+  path.join(__dirname, "../transactions.json"),
+  JSON.stringify(originalTransactions, null, 2),
+  "utf8"
+);
+
+console.log("Updated original transactions.json with new labels");
