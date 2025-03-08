@@ -1,6 +1,6 @@
 import MainCard from "components/MainCard";
 import ForceGraph3D from "react-force-graph-3d";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import SpriteText from "three-spritetext";
 import transactionsData from "../../../transactions.json"; // Adjust path as needed
 import { Stack, Box, Typography, IconButton, Dialog } from "@mui/material";
@@ -11,8 +11,24 @@ import FullscreenExitIcon from "@mui/icons-material/Fullscreen";
 
 export default function GraphPage() {
   const [graphData, setGraphData] = useState(null);
-  const [isFullscreen, setIsFullscreen] = useState(false); // Added fullscreen state
-  const fsRef = useRef(); // Reference for fullscreen graph
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const fsRef = useRef();
+  const graphRef = useRef();
+  const rotationIntervalRef = useRef(null);
+
+  // Handle node click to focus the camera on the clicked node
+  const handleNodeClick = useCallback((node, ref) => {
+    // Aim at node from outside it
+    const distance = 100;
+    const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
+
+    ref.current.cameraPosition(
+      { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio },
+      node,
+      1000
+    );
+  }, []);
 
   useEffect(() => {
     // Transform transactions into graph data
@@ -108,36 +124,93 @@ export default function GraphPage() {
     setGraphData(processTransactions());
   }, []);
 
-  // Set initial zoom for fullscreen graph
+  // Add camera orbit animation when the graph initially loads
   useEffect(() => {
-    if (fsRef.current && isFullscreen) {
-      // Set a small timeout to let the graph initialize first
+    if (!graphRef.current || !graphData || isAnimating) return;
+
+    setIsAnimating(true);
+
+    // Animation timing constants
+    const totalDuration = 1000; // 1 second total
+    const zoomOutTime = 200; // ms for zoom out
+    const rotateTime = 600; // ms for rotation
+    const zoomInTime = 200; // ms for zoom in
+
+    const orbitDistance = 300; // Distance for orbit view
+    let angle = 0;
+
+    try {
+      // Phase 1: Quick zoom out
+      graphRef.current.cameraPosition({ z: orbitDistance }, null, zoomOutTime);
+
+      // Phase 2: Start rotation after zoom out completes
       setTimeout(() => {
-        fsRef.current.zoomToFit(400);
-      }, 100);
+        rotationIntervalRef.current = setInterval(() => {
+          if (graphRef.current) {
+            graphRef.current.cameraPosition({
+              x: orbitDistance * Math.sin(angle),
+              z: orbitDistance * Math.cos(angle),
+            });
+            angle += Math.PI / 30; // Speed of rotation
+          }
+        }, 10);
+
+        // Phase 3: Stop rotation and zoom in
+        setTimeout(() => {
+          if (rotationIntervalRef.current) {
+            clearInterval(rotationIntervalRef.current);
+          }
+
+          // Final zoom in to properly fit
+          if (graphRef.current) {
+            graphRef.current.zoomToFit(250, zoomInTime);
+          }
+
+          // Animation complete
+          setTimeout(() => {
+            setIsAnimating(false);
+          }, zoomInTime);
+        }, rotateTime);
+      }, zoomOutTime);
+    } catch (err) {
+      console.error("Animation error:", err);
+      if (rotationIntervalRef.current) {
+        clearInterval(rotationIntervalRef.current);
+      }
+      setIsAnimating(false);
     }
-  }, [isFullscreen]);
+
+    return () => {
+      if (rotationIntervalRef.current) {
+        clearInterval(rotationIntervalRef.current);
+      }
+    };
+  }, [graphData]);
+
+  // Set initial camera position after graph loads
+  useEffect(() => {
+    // For both graphs
+    const setupCamera = (ref) => {
+      if (ref.current && graphData) {
+        // Set a closer initial camera position
+        ref.current.cameraPosition({ z: 120 });
+      }
+    };
+
+    if (graphRef.current && graphData) {
+      setupCamera(graphRef);
+    }
+
+    if (fsRef.current && isFullscreen) {
+      setupCamera(fsRef);
+    }
+  }, [graphData, isFullscreen]);
 
   if (!graphData) return <div>Loading...</div>;
 
   // Toggle fullscreen mode
   const toggleFullscreen = () => {
     setIsFullscreen(!isFullscreen);
-  };
-
-  // Graph props for 3D view
-  const graphProps = {
-    graphData: graphData,
-    nodeLabel: "id",
-    nodeAutoColorBy: "group",
-    backgroundColor: "#000011",
-    onNodeDragEnd: (node) => {
-      node.fx = node.x;
-      node.fy = node.y;
-      node.fz = node.z;
-    },
-    linkDirectionalArrowLength: 3.5,
-    linkDirectionalArrowRelPos: 1,
   };
 
   // Render the graph component
@@ -147,24 +220,22 @@ export default function GraphPage() {
         ref={ref}
         graphData={graphData}
         nodeLabel="id"
-        // Use custom node coloring instead of automatic coloring
-        nodeColor={(node) => (node.suspicious ? "red" : "#00aaff")} // Red for suspicious, Blue for clean
+        nodeColor={(node) => (node.suspicious ? "red" : "#00aaff")}
         backgroundColor="#000011"
         onNodeDragEnd={(node) => {
           node.fx = node.x;
           node.fy = node.y;
           node.fz = node.z;
         }}
-        // Color links based on suspicious flag
+        onNodeClick={(node) => handleNodeClick(node, ref)}
         linkColor={(link) =>
           link.isSuspicious ? "rgba(255, 0, 0, 0.5)" : "rgba(0, 170, 255, 0.5)"
         }
         linkDirectionalArrowLength={3.5}
         linkDirectionalArrowRelPos={1}
-        linkWidth={(link) => (link.isSuspicious ? 2 : 1)} // Make suspicious links thicker
+        linkWidth={(link) => (link.isSuspicious ? 2 : 1)}
         nodeThreeObject={(node) => {
           const sprite = new SpriteText(node.id);
-          // Set color explicitly based on suspicious flag
           sprite.color = node.suspicious ? "red" : "#00aaff";
           sprite.textHeight = fullscreen ? 8 : 6;
           return sprite;
@@ -195,6 +266,33 @@ export default function GraphPage() {
           antialias: true,
           alpha: true,
         }}
+        d3Force={{
+          link: (d3) =>
+            d3
+              .forceLink()
+              .id((d) => d.id)
+              .distance(() => 25), // Reduced from 40 to 25 to keep nodes closer together
+          charge: () => -180, // Increased from -120 to -180 for stronger attraction
+          center: (d3, alpha) => {
+            // Stronger centering force
+            const centerStrength = 0.15;
+            graphData.nodes.forEach((node) => {
+              node.vx += (0 - node.x) * centerStrength * alpha;
+              node.vy += (0 - node.y) * centerStrength * alpha;
+              node.vz += (0 - node.z) * centerStrength * alpha;
+            });
+          },
+        }}
+        cooldownTime={2000}
+        cooldownTicks={100} // Limit the simulation ticks for better performance
+        // Automatically fit to canvas when the simulation stops
+        onEngineStop={() => {
+          // Only auto-fit if not during animation
+          if (!isAnimating && ref.current) {
+            ref.current.zoomToFit(300, 500);
+          }
+        }}
+        enableNavigationControls={!isAnimating} // Disable controls during animation
       />
     );
   };
@@ -231,7 +329,7 @@ export default function GraphPage() {
         }
       >
         <Box sx={{ height: "600px", width: "100%", position: "relative" }}>
-          {renderGraph(false)}
+          {renderGraph(false, graphRef)}
         </Box>
       </MainCard>
 
@@ -242,7 +340,7 @@ export default function GraphPage() {
         onClose={toggleFullscreen}
         sx={{
           "& .MuiDialog-paper": {
-            bgcolor: "#000011", // Match the graph background
+            bgcolor: "#000011",
             m: 0,
             p: 0,
           },
