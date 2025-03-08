@@ -1,8 +1,8 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const fs = require('fs');
-const path = require('path');
-const cors = require('cors');
+const express = require("express");
+const bodyParser = require("body-parser");
+const fs = require("fs");
+const path = require("path");
+const cors = require("cors");
 
 const app = express();
 const PORT = 5001;
@@ -96,15 +96,15 @@ function analyzeTransactions(transactions) {
 
   return transactions.map((tx) => ({
     ...tx,
-    status: fraudulentTxIds.has(tx.transactionId) ? 'suspicious' : 'clean',
+    label: fraudulentTxIds.has(tx.transactionId) ? "suspicious" : "clean",
   }));
 }
 
 // Endpoint to save and analyze transactions
-app.post('/save-transaction', (req, res) => {
+app.post("/save-transaction", (req, res) => {
   const data = req.body;
-  const rootDir = path.resolve(__dirname, '../../..');
-  const filePath = path.join(rootDir, 'transactions.json');
+  const rootDir = path.resolve(__dirname, "../../..");
+  const filePath = path.join(rootDir, "transactions.json");
 
   let transactions = [];
   if (fs.existsSync(filePath)) {
@@ -115,7 +115,7 @@ app.post('/save-transaction', (req, res) => {
         transactions = [];
       }
     } catch (err) {
-      console.error('Error reading transactions file:', err);
+      console.error("Error reading transactions file:", err);
       transactions = [];
     }
   }
@@ -126,19 +126,23 @@ app.post('/save-transaction', (req, res) => {
   const updatedTransactions = analyzeTransactions(transactions);
 
   // Write back to transactions.json
-  fs.writeFile(filePath, JSON.stringify(updatedTransactions, null, 2), (err) => {
-    if (err) {
-      console.error('Error writing transactions file:', err);
-      return res.status(500).send('Internal Server Error');
+  fs.writeFile(
+    filePath,
+    JSON.stringify(updatedTransactions, null, 2),
+    (err) => {
+      if (err) {
+        console.error("Error writing transactions file:", err);
+        return res.status(500).send("Internal Server Error");
+      }
+      res.send("File saved successfully");
     }
-    res.send('File saved successfully');
-  });
+  );
 });
 
 // Endpoint to manually trigger analysis
-app.post('/analyze-transactions', (req, res) => {
-  const rootDir = path.resolve(__dirname, '../../..');
-  const filePath = path.join(rootDir, 'transactions.json');
+app.post("/analyze-transactions", (req, res) => {
+  const rootDir = path.resolve(__dirname, "../../..");
+  const filePath = path.join(rootDir, "transactions.json");
 
   let transactions = [];
   if (fs.existsSync(filePath)) {
@@ -149,30 +153,34 @@ app.post('/analyze-transactions', (req, res) => {
         transactions = [];
       }
     } catch (err) {
-      console.error('Error reading transactions file:', err);
-      return res.status(500).send('Internal Server Error');
+      console.error("Error reading transactions file:", err);
+      return res.status(500).send("Internal Server Error");
     }
   } else {
-    return res.status(404).send('transactions.json not found');
+    return res.status(404).send("transactions.json not found");
   }
 
   // Analyze the current list
   const updatedTransactions = analyzeTransactions(transactions);
 
   // Write back to transactions.json
-  fs.writeFile(filePath, JSON.stringify(updatedTransactions, null, 2), (err) => {
-    if (err) {
-      console.error('Error writing transactions file:', err);
-      return res.status(500).send('Internal Server Error');
+  fs.writeFile(
+    filePath,
+    JSON.stringify(updatedTransactions, null, 2),
+    (err) => {
+      if (err) {
+        console.error("Error writing transactions file:", err);
+        return res.status(500).send("Internal Server Error");
+      }
+      res.send("Transactions analyzed and transactions.json updated");
     }
-    res.send('Transactions analyzed and transactions.json updated');
-  });
+  );
 });
 
 // Endpoint to get transactions for display
-app.get('/get-transactions', (req, res) => {
-  const rootDir = path.resolve(__dirname, '../../..');
-  const filePath = path.join(rootDir, 'transactions.json');
+app.get("/get-transactions", (req, res) => {
+  const rootDir = path.resolve(__dirname, "../../..");
+  const filePath = path.join(rootDir, "transactions.json");
 
   if (fs.existsSync(filePath)) {
     try {
@@ -180,11 +188,11 @@ app.get('/get-transactions', (req, res) => {
       const transactions = JSON.parse(fileData);
       res.json(transactions);
     } catch (err) {
-      console.error('Error reading transactions file:', err);
-      res.status(500).send('Internal Server Error');
+      console.error("Error reading transactions file:", err);
+      res.status(500).send("Internal Server Error");
     }
   } else {
-    res.status(404).send('transactions.json not found');
+    res.status(404).send("transactions.json not found");
   }
 });
 
