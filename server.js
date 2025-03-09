@@ -25,30 +25,30 @@ const config = {
     minAmount: 1000,
   },
   fan: {
-    k: 3, // Min outgoing connections
-    m: 2, // Min incoming connections to sink
+    k: 4, // Min outgoing connections
+    m: 3, // Min incoming connections to sink
     timeWindow1: 24 * 60 * 60 * 1000, // Fan-out window
     timeWindow2: 24 * 60 * 60 * 1000, // Fan-in window
   },
   velocity: {
-    threshold: 1 * 60 * 60 * 1000, // 1 hour in ms
+    threshold: 30 * 60 * 1000, // 30 minutes (was 1 hour)
   },
   periodic: {
-    minTransactions: 4,
-    maxStdDev: 1 * 60 * 60 * 1000, // 1 hour in ms
+    minTransactions: 5,
+    maxStdDev: 2 * 60 * 60 * 1000, // 2 hour in ms
   },
   large: {
     threshold: 50000, // From server.js
   },
   reciprocal: {
-    timeThreshold: 3600000, // 1 hour in ms
+    timeThreshold: 1800, // 1 hour in ms
     amountDiff: 100,
   },
 };
 
 // Path to transaction file
 const getTransactionsFilePath = () => {
-  const rootDir = path.resolve(__dirname, "..");
+  const rootDir = path.resolve(__dirname);
   return path.join(rootDir, "transactions.json");
 };
 

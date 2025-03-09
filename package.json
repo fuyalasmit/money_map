@@ -18,7 +18,7 @@
     "lint:fix": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
     "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "knip": "knip",
-    "server": "node src/pages/extra-pages/server.js"
+    "server": "nodemon server.js --watch transactions.js"
   },
   "dependencies": {
     "@ant-design/colors": "7.2.0",
@@ -46,6 +46,7 @@
     "formik": "2.4.6",
     "framer-motion": "12.0.5",
     "fs": "^0.0.1-security",
+    "graphology": "^0.26.0",
     "lodash-es": "4.17.21",
     "path": "^0.12.7",
     "react": "18.3.1",
@@ -97,6 +98,7 @@
     "eslint-plugin-react-hooks": "5.1.0",
     "immutable": "4.3.7",
     "knip": "5.45.0",
+    "nodemon": "^3.1.9",
     "prettier": "3.4.2",
     "prettier-eslint-cli": "8.0.1"
   },
