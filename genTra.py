@@ -84,8 +84,8 @@ remarks = [
 
 # Function to generate random timestamp in 2024
 def random_timestamp():
-    start = datetime.datetime(2024, 1, 1, 0, 0, 0)
-    end = datetime.datetime(2024, 12, 31, 23, 59, 59)
+    start = datetime.datetime(2023, 1, 1, 0, 0, 0)
+    end = datetime.datetime.now()
     delta = end - start
     random_second = random.randint(0, int(delta.total_seconds()))
     return (start + datetime.timedelta(seconds=random_second)).isoformat() + "Z"

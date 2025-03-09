@@ -128,7 +128,7 @@ export default function SalesChart({ period }) {
     (sum, tx) => sum + tx.amount,
     0
   );
-  const formattedTotal = `Rs ${(totalAmount / 10000000).toFixed(1)}Cr`;
+  const formattedTotal = `Rs ${(totalAmount / 100000).toFixed(1)} Lakh`;
 
   // Formatter for chart values
   const valueFormatter = (value) => `${value} Transactions`;
