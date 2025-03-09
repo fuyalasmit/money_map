@@ -50,6 +50,9 @@ export default function GraphPage() {
       const suspiciousPersons = new Set();
       const suspiciousTransactions = new Set();
 
+      // Track reasons for suspicious activity by person
+      const personReasons = new Map();
+
       // First pass: identify suspicious transactions only
       transactionsData.forEach((transaction) => {
         // Mark participants in suspicious transactions
@@ -57,6 +60,23 @@ export default function GraphPage() {
           suspiciousPersons.add(transaction.senderName);
           suspiciousPersons.add(transaction.receiverName);
           suspiciousTransactions.add(transaction.transactionId);
+
+          // Store reasons for suspicion for each person
+          if (transaction.reasons && transaction.reasons.length > 0) {
+            // Initialize reason sets if they don't exist
+            if (!personReasons.has(transaction.senderName)) {
+              personReasons.set(transaction.senderName, new Set());
+            }
+            if (!personReasons.has(transaction.receiverName)) {
+              personReasons.set(transaction.receiverName, new Set());
+            }
+
+            // Add each reason to both participants' sets
+            transaction.reasons.forEach((reason) => {
+              personReasons.get(transaction.senderName).add(reason);
+              personReasons.get(transaction.receiverName).add(reason);
+            });
+          }
         }
       });
 
@@ -68,6 +88,10 @@ export default function GraphPage() {
             group: suspiciousPersons.has(transaction.senderName) ? 0 : 1,
             account: transaction.senderAccount,
             suspicious: suspiciousPersons.has(transaction.senderName),
+            // Add reasons array if this is a suspicious person
+            reasons: personReasons.has(transaction.senderName)
+              ? Array.from(personReasons.get(transaction.senderName))
+              : [],
           });
         }
 
@@ -77,6 +101,10 @@ export default function GraphPage() {
             group: suspiciousPersons.has(transaction.receiverName) ? 0 : 2,
             account: transaction.receiverAccount,
             suspicious: suspiciousPersons.has(transaction.receiverName),
+            // Add reasons array if this is a suspicious person
+            reasons: personReasons.has(transaction.receiverName)
+              ? Array.from(personReasons.get(transaction.receiverName))
+              : [],
           });
         }
       });
@@ -196,7 +224,14 @@ export default function GraphPage() {
       <ForceGraph3D
         ref={ref}
         graphData={graphData}
-        nodeLabel="id"
+        nodeLabel={(node) => {
+          // For suspicious nodes, show name, emoji and reasons
+          if (node.suspicious && node.reasons && node.reasons.length > 0) {
+            return `${node.id}\n⚠️ ${node.reasons.join(", ")}`;
+          }
+          // For non-suspicious nodes, show ID and account
+          return `${node.id} (${node.account})`;
+        }}
         // Color nodes based on suspicious flag
         nodeColor={(node) => (node.suspicious ? "red" : "#00aaff")}
         backgroundColor="#000011"

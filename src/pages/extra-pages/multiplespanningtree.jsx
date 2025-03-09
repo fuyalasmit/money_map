@@ -242,11 +242,41 @@ export default function MultipleSpanningTree() {
     const nodes = [];
     const nodeSet = new Set();
 
+    // Track reasons for suspicious activity by person
+    const personReasons = new Map();
+
+    // First, collect suspicion reasons from all transactions
+    transactionsData.forEach((transaction) => {
+      if (
+        transaction.label === "suspicious" &&
+        transaction.reasons &&
+        transaction.reasons.length > 0
+      ) {
+        // Initialize reason sets if they don't exist
+        if (!personReasons.has(transaction.senderName)) {
+          personReasons.set(transaction.senderName, new Set());
+        }
+        if (!personReasons.has(transaction.receiverName)) {
+          personReasons.set(transaction.receiverName, new Set());
+        }
+
+        // Add each reason to both participants' sets
+        transaction.reasons.forEach((reason) => {
+          personReasons.get(transaction.senderName).add(reason);
+          personReasons.get(transaction.receiverName).add(reason);
+        });
+      }
+    });
+
     mstEdges.forEach((edge) => {
       if (!nodeSet.has(edge.source)) {
         nodes.push({
           id: edge.source,
           suspicious: edge.isSuspicious,
+          // Add reasons if this person is in our reasons map
+          reasons: personReasons.has(edge.source)
+            ? Array.from(personReasons.get(edge.source))
+            : [],
         });
         nodeSet.add(edge.source);
       }
@@ -254,6 +284,10 @@ export default function MultipleSpanningTree() {
         nodes.push({
           id: edge.target,
           suspicious: edge.isSuspicious,
+          // Add reasons if this person is in our reasons map
+          reasons: personReasons.has(edge.target)
+            ? Array.from(personReasons.get(edge.target))
+            : [],
         });
         nodeSet.add(edge.target);
       }
@@ -384,7 +418,14 @@ export default function MultipleSpanningTree() {
       <ForceGraph3D
         ref={ref}
         graphData={data}
-        nodeLabel="id"
+        nodeLabel={(node) => {
+          // For suspicious nodes, show name, emoji and reasons
+          if (node.suspicious && node.reasons && node.reasons.length > 0) {
+            return `${node.id}\n⚠️ ${node.reasons.join(", ")}`;
+          }
+          // For non-suspicious nodes, show just ID
+          return node.id;
+        }}
         nodeColor={(node) => (node.suspicious ? "red" : "#00aaff")}
         backgroundColor="#000011"
         onNodeDragEnd={(node) => {

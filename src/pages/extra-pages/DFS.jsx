@@ -302,15 +302,33 @@ export default function DFSPage() {
     // Track suspicious persons
     const suspiciousPersons = new Set();
 
-    // Identify suspicious persons in the path
+    // Track reasons for suspicious activity by person
+    const personReasons = new Map();
+
+    // Identify suspicious persons in the path and collect reasons
     pathUsers.forEach((user) => {
-      const transactions = transactionsData.filter(
+      const suspiciousTransactions = transactionsData.filter(
         (t) =>
           (t.senderName === user || t.receiverName === user) &&
           t.label === "suspicious"
       );
-      if (transactions.length > 0) {
+
+      if (suspiciousTransactions.length > 0) {
         suspiciousPersons.add(user);
+
+        // Initialize reason set if it doesn't exist
+        if (!personReasons.has(user)) {
+          personReasons.set(user, new Set());
+        }
+
+        // Add each reason to the person's set
+        suspiciousTransactions.forEach((transaction) => {
+          if (transaction.reasons && transaction.reasons.length > 0) {
+            transaction.reasons.forEach((reason) => {
+              personReasons.get(user).add(reason);
+            });
+          }
+        });
       }
     });
 
@@ -322,6 +340,10 @@ export default function DFSPage() {
         suspicious: suspiciousPersons.has(user),
         isSource: user === user1,
         isTarget: user === user2,
+        // Add reasons array if this is a suspicious person
+        reasons: personReasons.has(user)
+          ? Array.from(personReasons.get(user))
+          : [],
       });
     });
 
@@ -388,7 +410,14 @@ export default function DFSPage() {
       <ForceGraph3D
         ref={ref}
         graphData={graphData}
-        nodeLabel="id"
+        nodeLabel={(node) => {
+          // For suspicious nodes, show name, emoji and reasons
+          if (node.suspicious && node.reasons && node.reasons.length > 0) {
+            return `${node.id}\n⚠️ ${node.reasons.join(", ")}`;
+          }
+          // For non-suspicious nodes, show ID
+          return node.id;
+        }}
         nodeColor={(node) => {
           if (node.isSource) return "#ff8c00"; // Source node - orange
           if (node.isTarget) return "#00ff00"; // Target node - green
