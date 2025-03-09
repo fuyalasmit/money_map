@@ -18,8 +18,8 @@ export default function ReportAreaChart() {
 
   const { monthlyDataSus } = useTransactionData();
 
-  const labels = monthlyLabels.slice(5, 11);
-  const data = monthlyDataSus.slice(5, 11);
+  const labels = monthlyLabels;
+  const data = monthlyDataSus;
   return (
     <LineChart
       grid={{ horizontal: true }}
