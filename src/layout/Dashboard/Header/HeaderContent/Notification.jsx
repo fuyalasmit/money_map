@@ -1,4 +1,5 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+import { useTransactionData } from "utils/getTransactions";
 
 // material-ui
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -45,14 +46,92 @@ const actionSX = {
   transform: "none",
 };
 
+// Helper function to format amounts with comma separators and currency symbol
+const formatAmount = (amount) => {
+  return `₹${parseInt(amount).toLocaleString()}`;
+};
+
+// Helper function to format relative time
+const getRelativeTime = (timestamp) => {
+  const date = new Date(timestamp);
+  const now = new Date();
+  const diffMinutes = Math.floor((now - date) / (1000 * 60));
+
+  if (diffMinutes < 60) {
+    return `${diffMinutes} minute${diffMinutes !== 1 ? "s" : ""} ago`;
+  } else if (diffMinutes < 24 * 60) {
+    const hours = Math.floor(diffMinutes / 60);
+    return `${hours} hour${hours !== 1 ? "s" : ""} ago`;
+  } else if (diffMinutes < 7 * 24 * 60) {
+    const days = Math.floor(diffMinutes / (24 * 60));
+    return `${days} day${days !== 1 ? "s" : ""} ago`;
+  } else {
+    return date.toLocaleDateString();
+  }
+};
+
+// Helper function to get icon color based on reason
+const getIconForReason = (reason) => {
+  switch (reason) {
+    case "Large Amount":
+      return {
+        color: "warning.main",
+        bgcolor: "warning.lighter",
+        icon: DollarOutlined,
+      };
+    case "High Velocity":
+      return {
+        color: "error.main",
+        bgcolor: "error.lighter",
+        icon: WarningOutlined,
+      };
+    case "Structuring":
+      return {
+        color: "error.main",
+        bgcolor: "error.lighter",
+        icon: AlertOutlined,
+      };
+    case "Temporal Cycle":
+      return {
+        color: "primary.main",
+        bgcolor: "primary.lighter",
+        icon: AlertOutlined,
+      };
+    default:
+      return {
+        color: "error.main",
+        bgcolor: "error.lighter",
+        icon: WarningOutlined,
+      };
+  }
+};
+
 // ==============================|| HEADER CONTENT - NOTIFICATION ||============================== //
 
 export default function Notification() {
   const downMD = useMediaQuery((theme) => theme.breakpoints.down("md"));
+  const { transactions, suspiciousTransactionsCount, refetch } =
+    useTransactionData();
 
   const anchorRef = useRef(null);
-  const [read, setRead] = useState(3); // Increased to 3 notifications
   const [open, setOpen] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const [read, setRead] = useState(0);
+
+  // Process transactions to create notifications
+  useEffect(() => {
+    if (transactions && transactions.length > 0) {
+      // Filter suspicious transactions and sort by timestamp (newest first)
+      const suspiciousTransactions = transactions
+        .filter((tx) => tx.label === "suspicious")
+        .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+        .slice(0, 4);
+
+      setNotifications(suspiciousTransactions);
+      setRead(suspiciousTransactions.length);
+    }
+  }, [transactions]);
+
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
@@ -62,6 +141,14 @@ export default function Notification() {
       return;
     }
     setOpen(false);
+  };
+
+  const handleMarkAllRead = () => {
+    setRead(0);
+  };
+
+  const refreshTransactions = () => {
+    refetch();
   };
 
   return (
@@ -127,7 +214,7 @@ export default function Notification() {
                           <IconButton
                             color="success"
                             size="small"
-                            onClick={() => setRead(0)}
+                            onClick={handleMarkAllRead}
                           >
                             <CheckCircleOutlined
                               style={{ fontSize: "1.15rem" }}
@@ -135,6 +222,15 @@ export default function Notification() {
                           </IconButton>
                         </Tooltip>
                       )}
+                      <Tooltip title="Refresh">
+                        <IconButton
+                          color="primary"
+                          size="small"
+                          onClick={refreshTransactions}
+                        >
+                          <SafetyOutlined style={{ fontSize: "1.15rem" }} />
+                        </IconButton>
+                      </Tooltip>
                     </>
                   }
                 >
@@ -157,82 +253,88 @@ export default function Notification() {
                       },
                     }}
                   >
-                    <ListItem
-                      component={ListItemButton}
-                      divider
-                      selected={read > 0}
-                      secondaryAction={
-                        <Typography variant="caption" noWrap>
-                          Just now
-                        </Typography>
-                      }
-                    >
-                      <ListItemAvatar>
-                        <Avatar
-                          sx={{ color: "error.main", bgcolor: "error.lighter" }}
-                        >
-                          <WarningOutlined />
-                        </Avatar>
-                      </ListItemAvatar>
-                      <ListItemText
-                        primary={
-                          <Typography variant="h6">
-                            <Typography
-                              component="span"
-                              variant="subtitle1"
-                              sx={{ color: "error.main" }}
-                            >
-                              Suspicious transaction
-                            </Typography>{" "}
-                            detected from Krishna Davda to Malik Ashraf.
-                          </Typography>
-                        }
-                        secondary="High priority alert"
-                      />
-                    </ListItem>
-                    <ListItem
-                      component={ListItemButton}
-                      divider
-                      selected={read > 1}
-                      secondaryAction={
-                        <Typography variant="caption" noWrap>
-                          2 hours ago
-                        </Typography>
-                      }
-                    >
-                      <ListItemAvatar>
-                        <Avatar
-                          sx={{
-                            color: "primary.main",
-                            bgcolor: "primary.lighter",
-                          }}
-                        >
-                          <DollarOutlined />
-                        </Avatar>
-                      </ListItemAvatar>
-                      <ListItemText
-                        primary={
-                          <Typography variant="h6">
-                            Large transaction of{" "}
-                            <Typography component="span" variant="subtitle1">
-                              ₹250,000
-                            </Typography>{" "}
-                            detected.
-                          </Typography>
-                        }
-                        secondary="Transaction ID: XYZ123456789"
-                      />
-                    </ListItem>
-                    <ListItem
-                      component={ListItemButton}
-                      divider
-                      selected={read > 2}
-                      secondaryAction={
-                        <Typography variant="caption" noWrap>
-                          5 hours ago
-                        </Typography>
-                      }
-                    >
+                    {notifications.length > 0 ? (
+                      notifications.map((notification, index) => {
+                        const iconInfo =
+                          notification.reasons &&
+                          notification.reasons.length > 0
+                            ? getIconForReason(notification.reasons[0])
+                            : getIconForReason("default");
+                        const IconComponent = iconInfo.icon;
+
+                        return (
+                          <ListItem
+                            key={notification.id}
+                            component={ListItemButton}
+                            divider
+                            selected={index < read}
+                            secondaryAction={
+                              <Typography variant="caption" noWrap>
+                                {getRelativeTime(notification.timestamp)}
+                              </Typography>
+                            }
+                          >
+                            <ListItemAvatar>
+                              <Avatar
+                                sx={{
+                                  color: iconInfo.color,
+                                  bgcolor: iconInfo.bgcolor,
+                                }}
+                              >
+                                <IconComponent />
+                              </Avatar>
+                            </ListItemAvatar>
+                            <ListItemText
+                              primary={
+                                <Typography variant="h6">
+                                  <Typography
+                                    component="span"
+                                    variant="subtitle1"
+                                    sx={{ color: "error.main" }}
+                                  >
+                                    Suspicious transaction
+                                  </Typography>{" "}
+                                  detected from {notification.sender} to{" "}
+                                  {notification.receiver}.
+                                </Typography>
+                              }
+                              secondary={
+                                <>
+                                  {notification.reasons &&
+                                  notification.reasons.length > 0
+                                    ? `Reason: ${notification.reasons.join(", ")}`
+                                    : "High priority alert"}{" "}
+                                  • Amount: {formatAmount(notification.amount)}
+                                </>
+                              }
+                            />
+                          </ListItem>
+                        );
+                      })
+                    ) : (
+                      <ListItem component={ListItemButton} divider>
+                        <ListItemAvatar>
+                          <Avatar
+                            sx={{
+                              color: "success.main",
+                              bgcolor: "success.lighter",
+                            }}
+                          >
+                            <SafetyOutlined />
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary={
+                            <Typography variant="h6">
+                              All transactions appear normal
+                            </Typography>
+                          }
+                          secondary="No suspicious activities detected"
+                        />
+                      </ListItem>
+                    )}
+
+                    <ListItem component={ListItemButton} divider>
                       <ListItemAvatar>
                         <Avatar
                           sx={{
@@ -256,52 +358,10 @@ export default function Notification() {
                             </Typography>{" "}
                           </Typography>
                         }
-                        secondary="5 suspicious transactions identified"
+                        secondary={`${suspiciousTransactionsCount} suspicious transactions identified`}
                       />
                     </ListItem>
-                    <ListItem
-                      component={ListItemButton}
-                      divider
-                      secondaryAction={
-                        <Typography variant="caption" noWrap>
-                          Yesterday
-                        </Typography>
-                      }
-                    >
-                      <ListItemAvatar>
-                        <Avatar
-                          sx={{
-                            color: "warning.main",
-                            bgcolor: "warning.lighter",
-                          }}
-                        >
-                          <AlertOutlined />
-                        </Avatar>
-                      </ListItemAvatar>
-                      <ListItemText
-                        primary={
-                          <Typography variant="h6">
-                            <Typography component="span" variant="subtitle1">
-                              System alert:
-                            </Typography>{" "}
-                            Unusual pattern of transactions detected between
-                            multiple accounts.
-                          </Typography>
-                        }
-                        secondary="Please review transaction graph"
-                      />
-                    </ListItem>
-                    <ListItemButton
-                      sx={{ textAlign: "center", py: `${12}px !important` }}
-                    >
-                      <ListItemText
-                        primary={
-                          <Typography variant="h6" color="primary">
-                            View All Alerts
-                          </Typography>
-                        }
-                      />
-                    </ListItemButton>
+                    {/* View All Alerts button removed */}
                   </List>
                 </MainCard>
               </ClickAwayListener>

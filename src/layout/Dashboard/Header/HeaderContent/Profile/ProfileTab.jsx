@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 // material-ui
 import List from "@mui/material/List";
@@ -17,49 +18,66 @@ import SafetyCertificateOutlined from "@ant-design/icons/SafetyCertificateOutlin
 
 // ==============================|| HEADER PROFILE - PROFILE TAB ||============================== //
 
-export default function ProfileTab() {
+export default function ProfileTab({ handleLogout }) {
+  const navigate = useNavigate();
+
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
+
+  // Handle logout action
+  const onLogout = () => {
+    if (handleLogout) {
+      handleLogout();
+    } else {
+      // Default logout behavior - redirect to login page
+      localStorage.removeItem("user");
+      navigate("/login");
+    }
+  };
+
   return (
     <List
       component="nav"
       sx={{ p: 0, "& .MuiListItemIcon-root": { minWidth: 32 } }}
     >
-      <ListItemButton>
+      <ListItemButton onClick={() => handleNavigation("/profile/edit")}>
         <ListItemIcon>
           <EditOutlined />
         </ListItemIcon>
         <ListItemText primary="Edit Profile" />
       </ListItemButton>
-      <ListItemButton>
+      <ListItemButton onClick={() => handleNavigation("/profile/view")}>
         <ListItemIcon>
           <UserOutlined />
         </ListItemIcon>
         <ListItemText primary="View Profile" />
       </ListItemButton>
-      <ListItemButton>
+      <ListItemButton onClick={() => handleNavigation("/transactions")}>
         <ListItemIcon>
           <BankOutlined />
         </ListItemIcon>
         <ListItemText primary="Transaction History" />
       </ListItemButton>
-      <ListItemButton>
+      <ListItemButton onClick={() => handleNavigation("/clients")}>
         <ListItemIcon>
           <TeamOutlined />
         </ListItemIcon>
         <ListItemText primary="Client Management" />
       </ListItemButton>
-      <ListItemButton>
+      <ListItemButton onClick={() => handleNavigation("/reports")}>
         <ListItemIcon>
           <BarChartOutlined />
         </ListItemIcon>
         <ListItemText primary="Reports & Analytics" />
       </ListItemButton>
-      <ListItemButton>
+      <ListItemButton onClick={() => handleNavigation("/security")}>
         <ListItemIcon>
           <SafetyCertificateOutlined />
         </ListItemIcon>
         <ListItemText primary="Security Settings" />
       </ListItemButton>
-      <ListItemButton>
+      <ListItemButton onClick={onLogout}>
         <ListItemIcon>
           <LogoutOutlined />
         </ListItemIcon>

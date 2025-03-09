@@ -10,12 +10,14 @@ import {
   IconButton,
   Dialog,
   Divider,
+  Button,
 } from "@mui/material";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
 // Import components
 import DFSPage from "./DFS";
 import MultipleSpanningTree from "./multiplespanningtree";
+import { Link } from "react-router-dom";
 
 // ==============================|| GRAPH PAGE ||============================== //
 
