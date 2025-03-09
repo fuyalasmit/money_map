@@ -10,14 +10,12 @@ import Box from "@mui/material/Box";
 import { LineChart } from "@mui/x-charts/LineChart";
 
 // Import data from helper
+
 import {
+  useTransactionData,
   monthlyLabels,
   weeklyLabels,
-  monthlyDataSus,
-  weeklyDataSus,
-  monthlyDataTotal,
-  weeklyDataTotal,
-} from "../../../utils/fetchTransactions.js";
+} from "../../../utils/getTransactions";
 
 function Legend({ items, onToggle }) {
   return (
@@ -64,6 +62,8 @@ export default function IncomeAreaChart({ view }) {
     Suspicious: true,
     Total: true,
   });
+  const { monthlyDataSus, weeklyDataSus, monthlyDataTotal, weeklyDataTotal } =
+    useTransactionData();
 
   const labels = view === "monthly" ? monthlyLabels : weeklyLabels;
   const data1 = view === "monthly" ? monthlyDataSus : weeklyDataSus;

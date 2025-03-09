@@ -15,7 +15,7 @@ import Button from "@mui/material/Button";
 import TableSortLabel from "@mui/material/TableSortLabel";
 import { NumericFormat } from "react-number-format";
 import Dot from "components/@extended/Dot";
-import { transactions } from "../../../utils/fetchTransactions.js";
+import { useTransactionData } from "../../../utils/getTransactions";
 
 // Define the mapping for transaction labels to status codes
 const getLabelStatus = (label) => {
@@ -41,22 +41,7 @@ function createData(transactionId, senderName, receiverName, label, amount, time
   };
 }
 
-// Custom insertion sort (stable)
-function insertionSort(array, comparator) {
-  const arr = array.slice();
-  for (let i = 1; i < arr.length; i++) {
-    const current = arr[i];
-    let j = i - 1;
-    while (j >= 0 && comparator(current, arr[j]) < 0) {
-      arr[j + 1] = arr[j];
-      j--;
-    }
-    arr[j + 1] = current;
-  }
-  return arr;
-}
-
-// Comparator helpers (same as before)
+// Comparator helpers
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) return -1;
   if (b[orderBy] > a[orderBy]) return 1;
@@ -167,6 +152,7 @@ OrderStatus.propTypes = {
 
 // Main OrderTable component
 export default function OrderTable() {
+  const { transactions } = useTransactionData();
   const [order, setOrder] = useState("desc");
   const [orderBy, setOrderBy] = useState("timestamp"); // Default sort by timestamp
   const [searchTerm, setSearchTerm] = useState("");
@@ -183,23 +169,18 @@ export default function OrderTable() {
   };
 
   // Compute rows using custom linear search and then sorting with insertion sort
-  let filteredTransactions;
-  if (searchQuery) {
-    filteredTransactions = linearSearch(transactions, searchQuery);
-  } else {
-    // If no search, use the 10 most recent transactions (using native sort for date comparison)
-    filteredTransactions = transactions
-      .slice()
-      .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
-      .slice(0, 10);
-  }
+  let filteredTransactions = searchQuery
+    ? linearSearch(transactions, searchQuery)
+    : transactions;
 
-  let rows = filteredTransactions.map((tx) =>
-    createData(tx.id, tx.sender, tx.receiver, tx.label, tx.amount, tx.timestamp)
-  );
+  let rows = filteredTransactions
+    .slice()
+    .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+    .slice(0, 10)
+    .map((tx) => createData(tx.id, tx.sender, tx.receiver, tx.label, tx.amount, tx.timestamp));
 
-  // Sort rows using our custom insertion sort and comparator
-  rows = insertionSort(rows, getComparator(order, orderBy));
+  // Sort rows using the comparator
+  rows = rows.sort(getComparator(order, orderBy));
 
   return (
     <Box>

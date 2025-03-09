@@ -3,14 +3,10 @@ import { useTheme } from "@mui/material/styles";
 
 import { chartsGridClasses, LineChart } from "@mui/x-charts";
 
-// Import data from helper
 import {
+  useTransactionData,
   monthlyLabels,
-  monthlyDataSus,
-} from "../../../utils/fetchTransactions.js";
-
-const labels = monthlyLabels.slice(5, 11);
-const data = monthlyDataSus.slice(5, 11);
+} from "../../../utils/getTransactions";
 
 // data.forEach((item) => console.log(item));
 
@@ -20,6 +16,10 @@ export default function ReportAreaChart() {
   const theme = useTheme();
   const axisFonstyle = { fill: theme.palette.text.secondary };
 
+  const { monthlyDataSus } = useTransactionData();
+
+  const labels = monthlyLabels.slice(5, 11);
+  const data = monthlyDataSus.slice(5, 11);
   return (
     <LineChart
       grid={{ horizontal: true }}
