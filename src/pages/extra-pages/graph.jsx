@@ -3,9 +3,19 @@ import ForceGraph3D from "react-force-graph-3d";
 import { useState, useEffect, useRef, useCallback } from "react";
 import SpriteText from "three-spritetext";
 import transactionsData from "../../../transactions.json"; // Adjust path as needed
-import { Stack, Box, Typography, IconButton, Dialog } from "@mui/material";
+import {
+  Stack,
+  Box,
+  Typography,
+  IconButton,
+  Dialog,
+  Divider,
+} from "@mui/material";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
-import FullscreenExitIcon from "@mui/icons-material/Fullscreen";
+import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
+// Import components
+import DFSPage from "./DFS";
+import MultipleSpanningTree from "./multiplespanningtree";
 
 // ==============================|| GRAPH PAGE ||============================== //
 
@@ -319,6 +329,18 @@ export default function GraphPage() {
           {renderGraph(false, graphRef)}
         </Box>
       </MainCard>
+
+      {/* Add Divider before DFS component */}
+      <Divider sx={{ my: 4 }} />
+
+      {/* Add DFS Component */}
+      <DFSPage />
+
+      {/* Add Divider before Multiple Spanning Tree component */}
+      <Divider sx={{ my: 4 }} />
+
+      {/* Add Multiple Spanning Tree Component */}
+      <MultipleSpanningTree />
 
       {/* Fullscreen Dialog */}
       <Dialog
