@@ -261,7 +261,7 @@ export default function GraphPage() {
         linkThreeObject={(link) => {
           // Add amount text to the link
           const sprite = new SpriteText(
-            `₹${Number(link.amount).toLocaleString()}`
+            `Rs ${Number(link.amount).toLocaleString()}`
           );
 
           // Color transaction amount text based on suspicious status

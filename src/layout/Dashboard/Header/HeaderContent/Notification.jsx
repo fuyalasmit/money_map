@@ -48,7 +48,7 @@ const actionSX = {
 
 // Helper function to format amounts with comma separators and currency symbol
 const formatAmount = (amount) => {
-  return `₹${parseInt(amount).toLocaleString()}`;
+  return `Rs ${parseInt(amount).toLocaleString()}`;
 };
 
 // Helper function to format relative time

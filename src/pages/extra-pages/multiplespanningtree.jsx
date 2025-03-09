@@ -449,7 +449,7 @@ export default function MultipleSpanningTree() {
         linkThreeObjectExtend={true}
         linkThreeObject={(link) => {
           const sprite = new SpriteText(
-            `₹${Number(link.amount).toLocaleString()}`
+            `Rs ${Number(link.amount).toLocaleString()}`
           );
           sprite.color = link.isSuspicious ? "#ffcccc" : "lightgreen";
           sprite.textHeight = fullscreen ? 5 : 4;
