@@ -40,9 +40,9 @@ export default function SuspiciousActivityPage() {
   // Descriptions for each suspicious activity type
   const patternDescriptions = {
     Structuring:
-      "Multiple smaller transactions used to avoid detection thresholds. This pattern involves breaking large amounts into several smaller transfers, typically below ₹1,000, that together exceed ₹2,000 within a 24-hour period.",
+      "Multiple smaller transactions used to avoid detection thresholds. This pattern involves breaking large amounts into several smaller transfers, typically below Rs 1,000, that together exceed Rs 2,000 within a 24-hour period.",
     "Temporal Cycle":
-      "Money flowing in a circular pattern through multiple accounts (e.g., A→B→C→A). These cycles typically complete within 7 days and involve transactions exceeding ₹1,000.",
+      "Money flowing in a circular pattern through multiple accounts (e.g., A→B→C→A). These cycles typically complete within 7 days and involve transactions exceeding Rs 1,000.",
     "High Velocity":
       "Rapid movement of funds through accounts with minimal holding time. Transactions where money is received and sent out again within 30 minutes suggest use of the account as a conduit rather than a destination.",
     "Fan Pattern":
@@ -50,9 +50,9 @@ export default function SuspiciousActivityPage() {
     Periodic:
       "Regular, predictable transfer patterns suggesting automated or scheduled transactions. Requires at least 5 transactions with minimal time variation between transfers.",
     "Large Amount":
-      "Single transactions exceeding the system threshold of ₹50,000, which may indicate significant financial activity requiring additional scrutiny.",
+      "Single transactions exceeding the system threshold of Rs 50,000, which may indicate significant financial activity requiring additional scrutiny.",
     Reciprocal:
-      "Money quickly sent back to the original sender with minimal changes in amount. Transactions occurring within 30 minutes with less than ₹100 difference suggest potential wash trading.",
+      "Money quickly sent back to the original sender with minimal changes in amount. Transactions occurring within 30 minutes with less than Rs 100 difference suggest potential wash trading.",
   };
 
   // Fetch transactions when component mounts
@@ -481,7 +481,7 @@ export default function SuspiciousActivityPage() {
         linkThreeObject={(link) => {
           // Add amount text to the link
           const sprite = new SpriteText(
-            `₹${Number(link.amount).toLocaleString()}`
+            `Rs ${Number(link.amount).toLocaleString()}`
           );
 
           // Color transaction amount text based on suspicious status
@@ -624,7 +624,7 @@ export default function SuspiciousActivityPage() {
             >
               {filteredTransactions.map((tx) => (
                 <MenuItem key={tx.transactionId} value={tx.transactionId}>
-                  {tx.senderName} → {tx.receiverName} (₹
+                  {tx.senderName} → {tx.receiverName} (Rs 
                   {parseFloat(tx.amount).toLocaleString()})
                 </MenuItem>
               ))}
