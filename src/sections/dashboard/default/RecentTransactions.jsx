@@ -30,8 +30,22 @@ const getLabelStatus = (label) => {
 };
 
 // Create data entry from transaction, including timestamp
-function createData(transactionId, senderName, receiverName, label, amount, timestamp) {
+function createData(
+  transactionId,
+  senderName,
+  receiverName,
+  label,
+  amount,
+  timestamp
+) {
+  // Format date as "Mar 9, 2025"
+  const date = new Date(timestamp);
+  const day = date.getDate().toString().padStart(2, "0");
+  const month = (date.getMonth() + 1).toString().padStart(2, "0"); // +1 because months are 0-indexed
+  const year = date.getFullYear().toString().slice(-2); // Get last 2 digits of year
+  const formattedDate = `${day}/${month}/${year}`;
   return {
+    date: formattedDate,
     tracking_no: transactionId,
     name: senderName,
     fat: receiverName,
@@ -43,6 +57,15 @@ function createData(transactionId, senderName, receiverName, label, amount, time
 
 // Comparator helpers
 function descendingComparator(a, b, orderBy) {
+  // Special case for date column - sort by timestamp instead of formatted date string
+  if (orderBy === "date") {
+    // Use the timestamp for comparison
+    const dateA = new Date(a.timestamp);
+    const dateB = new Date(b.timestamp);
+    return dateB - dateA; // For descending order
+  }
+
+  // Normal comparison for other fields
   if (b[orderBy] < a[orderBy]) return -1;
   if (b[orderBy] > a[orderBy]) return 1;
   return 0;
@@ -72,11 +95,27 @@ function linearSearch(transactionsArr, searchQuery) {
 
 // Define table headers
 const headCells = [
-  { id: "tracking_no", align: "left", disablePadding: false, label: "Tracking No." },
+  {
+    id: "date",
+    align: "left",
+    disablePadding: false,
+    label: "Date",
+  },
+  {
+    id: "tracking_no",
+    align: "left",
+    disablePadding: false,
+    label: "Tracking No.",
+  },
   { id: "name", align: "left", disablePadding: true, label: "Sender" },
   { id: "fat", align: "right", disablePadding: false, label: "Receiver" },
   { id: "carbs", align: "left", disablePadding: false, label: "Status" },
-  { id: "protein", align: "right", disablePadding: false, label: "Total Amount" },
+  {
+    id: "protein",
+    align: "left",
+    disablePadding: false,
+    label: "Amount",
+  },
 ];
 
 // OrderTableHead component with sortable headers
@@ -177,7 +216,16 @@ export default function OrderTable() {
     .slice()
     .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
     .slice(0, 10)
-    .map((tx) => createData(tx.id, tx.sender, tx.receiver, tx.label, tx.amount, tx.timestamp));
+    .map((tx) =>
+      createData(
+        tx.id,
+        tx.sender,
+        tx.receiver,
+        tx.label,
+        tx.amount,
+        tx.timestamp
+      )
+    );
 
   // Sort rows using the comparator
   rows = rows.sort(getComparator(order, orderBy));
@@ -207,7 +255,11 @@ export default function OrderTable() {
         }}
       >
         <Table aria-labelledby="tableTitle">
-          <OrderTableHead order={order} orderBy={orderBy} onRequestSort={handleRequestSort} />
+          <OrderTableHead
+            order={order}
+            orderBy={orderBy}
+            onRequestSort={handleRequestSort}
+          />
           <TableBody>
             {rows.map((row, index) => {
               const labelId = `enhanced-table-checkbox-${index}`;
@@ -219,6 +271,7 @@ export default function OrderTable() {
                   tabIndex={-1}
                   key={row.tracking_no}
                 >
+                  <TableCell>{row.date}</TableCell>
                   <TableCell component="th" id={labelId} scope="row">
                     <Link color="secondary">{row.tracking_no}</Link>
                   </TableCell>
@@ -227,7 +280,7 @@ export default function OrderTable() {
                   <TableCell>
                     <OrderStatus status={row.carbs} />
                   </TableCell>
-                  <TableCell align="right">
+                  <TableCell align="left">
                     <NumericFormat
                       value={row.protein}
                       displayType="text"
