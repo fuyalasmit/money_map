@@ -143,7 +143,7 @@ export default function DashboardDefault() {
       <Grid size={{ xs: 12, md: 7, lg: 8 }}>
         <Grid container alignItems="center" justifyContent="space-between">
           <Grid>
-            <Typography variant="h5">Recent Transaction</Typography>
+            <Typography variant="h5">Recent Transactions</Typography>
           </Grid>
           <Grid />
         </Grid>
