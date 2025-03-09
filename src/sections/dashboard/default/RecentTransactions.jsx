@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-// material-ui
+import { useState } from "react";
 import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 import Table from "@mui/material/Table";
@@ -10,14 +10,11 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-
-// third-party
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import TableSortLabel from "@mui/material/TableSortLabel";
 import { NumericFormat } from "react-number-format";
-
-// project imports
 import Dot from "components/@extended/Dot";
-
-// Import data from helper
 import { useTransactionData } from "../../../utils/getTransactions";
 
 // Define the mapping for transaction labels to status codes
@@ -32,24 +29,22 @@ const getLabelStatus = (label) => {
   }
 };
 
-// Create data entry from transaction
-function createData(transactionId, senderName, receiverName, label, amount) {
+// Create data entry from transaction, including timestamp
+function createData(transactionId, senderName, receiverName, label, amount, timestamp) {
   return {
     tracking_no: transactionId,
     name: senderName,
     fat: receiverName,
     carbs: getLabelStatus(label),
     protein: amount,
+    timestamp: timestamp,
   };
 }
 
+// Comparator helpers
 function descendingComparator(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
+  if (b[orderBy] < a[orderBy]) return -1;
+  if (b[orderBy] > a[orderBy]) return 1;
   return 0;
 }
 
@@ -59,55 +54,37 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-function stableSort(array, comparator) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) {
-      return order;
+// Custom linear search: iterates through transactions and returns matching ones
+function linearSearch(transactionsArr, searchQuery) {
+  const lowerQuery = searchQuery.toLowerCase();
+  const results = [];
+  for (let i = 0; i < transactionsArr.length; i++) {
+    const tx = transactionsArr[i];
+    if (
+      tx.sender.toLowerCase().includes(lowerQuery) ||
+      tx.receiver.toLowerCase().includes(lowerQuery)
+    ) {
+      results.push(tx);
     }
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map((el) => el[0]);
+  }
+  return results;
 }
 
+// Define table headers
 const headCells = [
-  {
-    id: "tracking_no",
-    align: "left",
-    disablePadding: false,
-    label: "Tracking No.",
-  },
-  {
-    id: "name",
-    align: "left",
-    disablePadding: true,
-    label: "Sender",
-  },
-  {
-    id: "fat",
-    align: "right",
-    disablePadding: false,
-    label: "Receiver",
-  },
-  {
-    id: "carbs",
-    align: "left",
-    disablePadding: false,
-
-    label: "Status",
-  },
-  {
-    id: "protein",
-    align: "right",
-    disablePadding: false,
-    label: "Total Amount",
-  },
+  { id: "tracking_no", align: "left", disablePadding: false, label: "Tracking No." },
+  { id: "name", align: "left", disablePadding: true, label: "Sender" },
+  { id: "fat", align: "right", disablePadding: false, label: "Receiver" },
+  { id: "carbs", align: "left", disablePadding: false, label: "Status" },
+  { id: "protein", align: "right", disablePadding: false, label: "Total Amount" },
 ];
 
-// ==============================|| ORDER TABLE - HEADER ||============================== //
+// OrderTableHead component with sortable headers
+function OrderTableHead({ order, orderBy, onRequestSort }) {
+  const createSortHandler = (property) => (event) => {
+    onRequestSort(event, property);
+  };
 
-function OrderTableHead({ order, orderBy }) {
   return (
     <TableHead>
       <TableRow>
@@ -118,7 +95,13 @@ function OrderTableHead({ order, orderBy }) {
             padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
           >
-            {headCell.label}
+            <TableSortLabel
+              active={orderBy === headCell.id}
+              direction={orderBy === headCell.id ? order : "asc"}
+              onClick={createSortHandler(headCell.id)}
+            >
+              {headCell.label}
+            </TableSortLabel>
           </TableCell>
         ))}
       </TableRow>
@@ -126,6 +109,13 @@ function OrderTableHead({ order, orderBy }) {
   );
 }
 
+OrderTableHead.propTypes = {
+  order: PropTypes.string,
+  orderBy: PropTypes.string,
+  onRequestSort: PropTypes.func,
+};
+
+// OrderStatus component
 function OrderStatus({ status }) {
   let color;
   let title;
@@ -156,23 +146,56 @@ function OrderStatus({ status }) {
   );
 }
 
-// ==============================|| ORDER TABLE ||============================== //
+OrderStatus.propTypes = {
+  status: PropTypes.number,
+};
 
+// Main OrderTable component
 export default function OrderTable() {
   const { transactions } = useTransactionData();
-  // Get the 10 most recent transactions
-  const rows = transactions
-    .slice() // Create a copy to avoid mutating the original
-    .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)) // Sort descending by timestamp
-    .slice(0, 10) // Take the first 10
-    .map((tx) =>
-      createData(tx.id, tx.sender, tx.receiver, tx.label, tx.amount)
-    );
-  const order = "asc";
-  const orderBy = "tracking_no";
+  const [order, setOrder] = useState("desc");
+  const [orderBy, setOrderBy] = useState("timestamp"); // Default sort by timestamp
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchQuery, setSearchQuery] = useState(""); // Actual query applied after button click
+
+  const handleRequestSort = (event, property) => {
+    const isAsc = orderBy === property && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
+    setOrderBy(property);
+  };
+
+  const handleSearch = () => {
+    setSearchQuery(searchTerm.trim());
+  };
+
+  // Compute rows using custom linear search and then sorting with insertion sort
+  let filteredTransactions = searchQuery
+    ? linearSearch(transactions, searchQuery)
+    : transactions;
+
+  let rows = filteredTransactions
+    .slice()
+    .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+    .slice(0, 10)
+    .map((tx) => createData(tx.id, tx.sender, tx.receiver, tx.label, tx.amount, tx.timestamp));
+
+  // Sort rows using the comparator
+  rows = rows.sort(getComparator(order, orderBy));
 
   return (
     <Box>
+      <Stack direction="row" spacing={1} sx={{ m: 1 }}>
+        <TextField
+          label="Search by name"
+          variant="outlined"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onKeyPress={(e) => e.key === "Enter" && handleSearch()}
+        />
+        <Button variant="contained" onClick={handleSearch}>
+          Search
+        </Button>
+      </Stack>
       <TableContainer
         sx={{
           width: "100%",
@@ -184,47 +207,40 @@ export default function OrderTable() {
         }}
       >
         <Table aria-labelledby="tableTitle">
-          <OrderTableHead order={order} orderBy={orderBy} />
+          <OrderTableHead order={order} orderBy={orderBy} onRequestSort={handleRequestSort} />
           <TableBody>
-            {stableSort(rows, getComparator(order, orderBy)).map(
-              (row, index) => {
-                const labelId = `enhanced-table-checkbox-${index}`;
-
-                return (
-                  <TableRow
-                    hover
-                    role="checkbox"
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    tabIndex={-1}
-                    key={row.tracking_no}
-                  >
-                    <TableCell component="th" id={labelId} scope="row">
-                      <Link color="secondary">{row.tracking_no}</Link>
-                    </TableCell>
-                    <TableCell>{row.name}</TableCell>
-                    <TableCell align="right">{row.fat}</TableCell>
-                    <TableCell>
-                      <OrderStatus status={row.carbs} />
-                    </TableCell>
-                    <TableCell align="right">
-                      <NumericFormat
-                        value={row.protein}
-                        displayType="text"
-                        thousandSeparator
-                        prefix="$"
-                      />
-                    </TableCell>
-                  </TableRow>
-                );
-              }
-            )}
+            {rows.map((row, index) => {
+              const labelId = `enhanced-table-checkbox-${index}`;
+              return (
+                <TableRow
+                  hover
+                  role="checkbox"
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  tabIndex={-1}
+                  key={row.tracking_no}
+                >
+                  <TableCell component="th" id={labelId} scope="row">
+                    <Link color="secondary">{row.tracking_no}</Link>
+                  </TableCell>
+                  <TableCell>{row.name}</TableCell>
+                  <TableCell align="right">{row.fat}</TableCell>
+                  <TableCell>
+                    <OrderStatus status={row.carbs} />
+                  </TableCell>
+                  <TableCell align="right">
+                    <NumericFormat
+                      value={row.protein}
+                      displayType="text"
+                      thousandSeparator
+                      prefix="Rs "
+                    />
+                  </TableCell>
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
       </TableContainer>
     </Box>
   );
 }
-
-OrderTableHead.propTypes = { order: PropTypes.any, orderBy: PropTypes.string };
-
-OrderStatus.propTypes = { status: PropTypes.number };

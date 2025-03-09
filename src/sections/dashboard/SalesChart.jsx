@@ -1,6 +1,4 @@
 import { useState } from 'react';
-
-// material-ui
 import { alpha, useTheme } from '@mui/material/styles';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -8,40 +6,107 @@ import FormGroup from '@mui/material/FormGroup';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-
 import { BarChart } from '@mui/x-charts/BarChart';
-
-// project imports
 import MainCard from 'components/MainCard';
-import { blue } from '@ant-design/colors';
+import { transactions } from 'utils/fetchTransactions';
 
-// ==============================|| SALES COLUMN CHART ||============================== //
-
-export default function SalesChart() {
+export default function SalesChart({ period }) {
   const theme = useTheme();
+  const [showClean, setShowClean] = useState(true);
+  const [showSuspicious, setShowSuspicious] = useState(true);
 
-  const [showIncome, setShowIncome] = useState(true);
-  const [showCostOfSales, setShowCostOfSales] = useState(true);
+  const handleCleanChange = () => setShowClean(!showClean);
+  const handleSuspiciousChange = () => setShowSuspicious(!showSuspicious);
 
-  const handleIncomeChange = () => {
-    setShowIncome(!showIncome);
+  // Helper function to determine time units and labels based on period
+  const getTimeUnits = (period) => {
+    const now = new Date();
+    if (period === 'year') {
+      return {
+        units: Array.from({ length: 12 }, (_, i) => i),
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+      };
+    } else if (period === 'month') {
+      const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+      return {
+        units: Array.from({ length: daysInMonth }, (_, i) => i + 1),
+        labels: Array.from({ length: daysInMonth }, (_, i) => (i + 1).toString())
+      };
+    } else if (period === 'today') {
+      return {
+        units: Array.from({ length: 24 }, (_, i) => i),
+        labels: Array.from({ length: 24 }, (_, i) => i.toString().padStart(2, '0'))
+      };
+    }
+    return { units: [], labels: [] };
   };
 
-  const handleCostOfSalesChange = () => {
-    setShowCostOfSales(!showCostOfSales);
+  // Filter transactions based on the selected period
+  const filterTransactions = (transactions, period) => {
+    const now = new Date();
+    return transactions.filter((tx) => {
+      const txDate = new Date(tx.timestamp);
+      if (period === 'year') {
+        return txDate.getFullYear() === now.getFullYear();
+      } else if (period === 'month') {
+        return txDate.getFullYear() === now.getFullYear() && txDate.getMonth() === now.getMonth();
+      } else if (period === 'today') {
+        return (
+          txDate.getFullYear() === now.getFullYear() &&
+          txDate.getMonth() === now.getMonth() &&
+          txDate.getDate() === now.getDate()
+        );
+      }
+      return false;
+    });
   };
 
-  const valueFormatter = (value) => `$ ${value} Thousands`;
-  const primaryColor = theme.palette.primary.main;
-  const warningColor = theme.palette.error.main; // Change to red
+  // Aggregate transaction counts based on period and units
+  const aggregateData = (filteredTransactions, period, units) => {
+    const cleanCounts = new Array(units.length).fill(0);
+    const suspiciousCounts = new Array(units.length).fill(0);
 
-  const lables = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    filteredTransactions.forEach((tx) => {
+      const txDate = new Date(tx.timestamp);
+      let index;
+      if (period === 'year') {
+        index = txDate.getMonth();
+      } else if (period === 'month') {
+        index = txDate.getDate() - 1; // Days start from 1
+      } else if (period === 'today') {
+        index = txDate.getHours();
+      }
+      if (index >= 0 && index < units.length) {
+        if (tx.label === 'clean') {
+          cleanCounts[index]++;
+        } else if (tx.label === 'suspicious') {
+          suspiciousCounts[index]++;
+        }
+      }
+    });
+
+    return { cleanCounts, suspiciousCounts };
+  };
+
+  // Compute dynamic data
+  const { units, labels } = getTimeUnits(period);
+  const filteredTransactions = filterTransactions(transactions, period);
+  const { cleanCounts, suspiciousCounts } = aggregateData(filteredTransactions, period, units);
+
+  // Calculate total transaction amount for the selected period
+  const totalAmount = filteredTransactions.reduce((sum, tx) => sum + tx.amount, 0);
+  const formattedTotal = `Rs ${(totalAmount / 10000000).toFixed(1)}Cr`;
+
+  // Formatter for chart values
+  const valueFormatter = (value) => `${value} Transactions`;
+
+  // Dynamic chart data
   const data = [
-    { data: [180, 90, 135, 114, 120, 145, 170, 200, 170, 230, 210, 180], label: 'Transparent Transaction', color: 'blue', valueFormatter },
-    { data: [120, 45, 78, 150, 168, 99, 180, 220, 180, 210, 220, 200], label: 'Suspecious Transaction', color: 'red', valueFormatter }
+    { data: cleanCounts, label: 'Transparent Transaction', color: theme.palette.primary.main, valueFormatter },
+    { data: suspiciousCounts, label: 'Suspicious Transaction', color: theme.palette.error.main, valueFormatter }
   ];
 
-  const axisFonstyle = { fontSize: 10, fill: theme.palette.text.secondary };
+  const axisFontStyle = { fontSize: 10, fill: theme.palette.text.secondary };
 
   return (
     <MainCard sx={{ mt: 1 }} content={false}>
@@ -51,7 +116,7 @@ export default function SalesChart() {
             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
               Total Transaction
             </Typography>
-            <Typography variant="h4">Rs 1.5Cr</Typography>
+            <Typography variant="h4">{formattedTotal}</Typography>
           </Box>
 
           <FormGroup>
@@ -59,9 +124,12 @@ export default function SalesChart() {
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={showIncome}
-                    onChange={handleIncomeChange}
-                    sx={{ '&.Mui-checked': { color: blue }, '&:hover': { backgroundColor: alpha(warningColor, 0.08) } }}
+                    checked={showClean}
+                    onChange={handleCleanChange}
+                    sx={{
+                      '&.Mui-checked': { color: theme.palette.primary.main },
+                      '&:hover': { backgroundColor: alpha(theme.palette.primary.main, 0.08) }
+                    }}
                   />
                 }
                 label="Transparent Transaction"
@@ -69,12 +137,12 @@ export default function SalesChart() {
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={showCostOfSales}
-                    onChange={handleCostOfSalesChange}
-                    sx={{ '&.Mui-checked': { color: warningColor } }}
+                    checked={showSuspicious}
+                    onChange={handleSuspiciousChange}
+                    sx={{ '&.Mui-checked': { color: theme.palette.error.main } }}
                   />
                 }
-                label="Suspecious Transaction"
+                label="Suspicious Transaction"
               />
             </Stack>
           </FormGroup>
@@ -83,10 +151,14 @@ export default function SalesChart() {
         <BarChart
           height={380}
           grid={{ horizontal: true }}
-          xAxis={[{ data: lables, scaleType: 'band', tickLabelStyle: { ...axisFonstyle, fontSize: 12 } }]}
-          yAxis={[{ disableLine: true, disableTicks: true, tickMaxStep: 20, tickLabelStyle: axisFonstyle }]}
+          xAxis={[{ data: labels, scaleType: 'band', tickLabelStyle: { ...axisFontStyle, fontSize: 12 } }]}
+          yAxis={[{ label: 'Transaction Count', disableLine: true, disableTicks: true, tickMaxStep: 20, tickLabelStyle: axisFontStyle }]}
           series={data
-            .filter((series) => (series.label === 'Transparent Transaction' && showIncome) || (series.label === 'Suspecious Transaction' && showCostOfSales))
+            .filter(
+              (series) =>
+                (series.label === 'Transparent Transaction' && showClean) ||
+                (series.label === 'Suspicious Transaction' && showSuspicious)
+            )
             .map((series) => ({ ...series, type: 'bar' }))}
           slotProps={{ legend: { hidden: true }, bar: { rx: 5, ry: 5 } }}
           axisHighlight={{ x: 'none' }}

@@ -1,34 +1,18 @@
 import { useState } from 'react';
-
-// material-ui
 import Grid from '@mui/material/Grid2';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-
-// project imports
 import SalesChart from 'sections/dashboard/SalesChart';
 
-// sales report status
 const status = [
-  {
-    value: 'today',
-    label: 'Today'
-  },
-  {
-    value: 'month',
-    label: 'This Month'
-  },
-  {
-    value: 'year',
-    label: 'This Year'
-  }
+  { value: 'today', label: 'Today' },
+  { value: 'month', label: 'This Month' },
+  { value: 'year', label: 'This Year' }
 ];
 
-// ==============================|| DEFAULT - SALES REPORT ||============================== //
-
 export default function SaleReportCard() {
-  const [value, setValue] = useState('today');
+  const [value, setValue] = useState('year');
 
   return (
     <>
@@ -53,7 +37,7 @@ export default function SaleReportCard() {
           </TextField>
         </Grid>
       </Grid>
-      <SalesChart />
+      <SalesChart period={value} />
     </>
   );
 }
