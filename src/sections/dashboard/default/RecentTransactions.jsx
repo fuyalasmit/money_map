@@ -18,7 +18,7 @@ import { NumericFormat } from "react-number-format";
 import Dot from "components/@extended/Dot";
 
 // Import data from helper
-import { transactions } from "../../../utils/fetchTransactions.js";
+import { useTransactionData } from "../../../utils/getTransactions";
 
 // Define the mapping for transaction labels to status codes
 const getLabelStatus = (label) => {
@@ -42,13 +42,6 @@ function createData(transactionId, senderName, receiverName, label, amount) {
     protein: amount,
   };
 }
-
-// Get the 10 most recent transactions
-const rows = transactions
-  .slice() // Create a copy to avoid mutating the original
-  .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)) // Sort descending by timestamp
-  .slice(0, 10) // Take the first 10
-  .map((tx) => createData(tx.id, tx.sender, tx.receiver, tx.label, tx.amount));
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -166,6 +159,15 @@ function OrderStatus({ status }) {
 // ==============================|| ORDER TABLE ||============================== //
 
 export default function OrderTable() {
+  const { transactions } = useTransactionData();
+  // Get the 10 most recent transactions
+  const rows = transactions
+    .slice() // Create a copy to avoid mutating the original
+    .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)) // Sort descending by timestamp
+    .slice(0, 10) // Take the first 10
+    .map((tx) =>
+      createData(tx.id, tx.sender, tx.receiver, tx.label, tx.amount)
+    );
   const order = "asc";
   const orderBy = "tracking_no";
 

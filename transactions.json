@@ -8,7 +8,10 @@
     "amount": "866581",
     "timestamp": "2025-08-24T14:32:38Z",
     "transactionId": "h7IMNJK3Pa",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Anjali",
@@ -19,7 +22,10 @@
     "amount": "474290",
     "timestamp": "2025-06-03T13:16:58Z",
     "transactionId": "Dbs7tt3glu",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Priya",
@@ -30,7 +36,10 @@
     "amount": "707360",
     "timestamp": "2025-08-06T03:20:56Z",
     "transactionId": "dFCCIwSAVP",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Arjun",
@@ -41,7 +50,8 @@
     "amount": "4486",
     "timestamp": "2025-08-16T01:52:31Z",
     "transactionId": "K9CRgxqO4u",
-    "label": "clean"
+    "label": "clean",
+    "reasons": []
   },
   {
     "senderName": "Meera",
@@ -52,7 +62,10 @@
     "amount": "640948",
     "timestamp": "2025-09-12T04:25:46Z",
     "transactionId": "zdLdZcsgiP",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Priya",
@@ -63,7 +76,10 @@
     "amount": "751958",
     "timestamp": "2025-06-28T10:32:10Z",
     "transactionId": "4gdohVXwCg",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Kavita",
@@ -74,7 +90,10 @@
     "amount": "514544",
     "timestamp": "2025-09-15T10:03:39Z",
     "transactionId": "gp9B08Eikz",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Anjali",
@@ -85,7 +104,10 @@
     "amount": "75647",
     "timestamp": "2025-11-26T16:13:00Z",
     "transactionId": "8SQYoxieP4",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Neha",
@@ -96,7 +118,10 @@
     "amount": "731971",
     "timestamp": "2025-10-26T09:32:19Z",
     "transactionId": "ttl7vvyuTe",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Priya",
@@ -107,7 +132,10 @@
     "amount": "161113",
     "timestamp": "2025-11-25T12:46:17Z",
     "transactionId": "ar3ryiMIJ0",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Aisha Abdulrahman",
@@ -118,7 +146,10 @@
     "amount": "59028",
     "timestamp": "2025-09-02T01:57:29Z",
     "transactionId": "D3Jyq4iTNZ",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Vikram",
@@ -129,7 +160,10 @@
     "amount": "112665",
     "timestamp": "2025-08-15T23:41:11Z",
     "transactionId": "EDj7kHM6kC",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Meera",
@@ -140,7 +174,10 @@
     "amount": "735434",
     "timestamp": "2025-04-14T11:27:41Z",
     "transactionId": "yM1A2GAuZt",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Aisha Abdulrahman",
@@ -151,7 +188,10 @@
     "amount": "633638",
     "timestamp": "2025-06-07T17:12:59Z",
     "transactionId": "mhQuP5FqSQ",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Anjali",
@@ -162,7 +202,10 @@
     "amount": "568314",
     "timestamp": "2025-08-22T14:06:21Z",
     "transactionId": "XsI9vDORlk",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Priya",
@@ -173,7 +216,10 @@
     "amount": "901330",
     "timestamp": "2025-01-10T08:26:18Z",
     "transactionId": "qX1gOSUAmO",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Arjun",
@@ -184,7 +230,10 @@
     "amount": "731101",
     "timestamp": "2025-11-26T00:28:19Z",
     "transactionId": "9Btnf1okPo",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Aisha Abdulrahman",
@@ -195,7 +244,10 @@
     "amount": "707029",
     "timestamp": "2025-11-06T09:00:47Z",
     "transactionId": "DocgYEfyYG",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Kavita",
@@ -206,7 +258,10 @@
     "amount": "439096",
     "timestamp": "2025-01-21T01:05:58Z",
     "transactionId": "USmBNaHKM5",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Arjun",
@@ -217,7 +272,10 @@
     "amount": "222193",
     "timestamp": "2025-05-09T17:54:51Z",
     "transactionId": "3sLjGcBUiK",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Neha",
@@ -228,7 +286,10 @@
     "amount": "410500",
     "timestamp": "2025-05-16T14:50:42Z",
     "transactionId": "Ft7FGoUCAi",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Omar Farooq",
@@ -239,7 +300,10 @@
     "amount": "323917",
     "timestamp": "2025-04-24T01:31:52Z",
     "transactionId": "UhvfeTmind",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Sanjay",
@@ -250,7 +314,10 @@
     "amount": "575330",
     "timestamp": "2025-08-13T01:34:21Z",
     "transactionId": "A9JhPjQkjJ",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Mohammed Ibrahim",
@@ -261,7 +328,11 @@
     "amount": "210334",
     "timestamp": "2025-05-10T10:29:43Z",
     "transactionId": "n3YADifI0X",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Temporal Cycle",
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Rajesh",
@@ -272,7 +343,10 @@
     "amount": "512848",
     "timestamp": "2025-07-13T16:52:35Z",
     "transactionId": "Oo9WlY8nFw",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Amit",
@@ -283,7 +357,8 @@
     "amount": "26335",
     "timestamp": "2025-09-08T18:28:16Z",
     "transactionId": "WuA5gPBQzE",
-    "label": "clean"
+    "label": "clean",
+    "reasons": []
   },
   {
     "senderName": "Sanjay",
@@ -294,7 +369,10 @@
     "amount": "796117",
     "timestamp": "2025-01-10T23:38:18Z",
     "transactionId": "1izuXyP6Nt",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Priya",
@@ -305,7 +383,10 @@
     "amount": "536795",
     "timestamp": "2025-11-04T15:00:16Z",
     "transactionId": "wPTIFsrhSg",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Vikram",
@@ -316,7 +397,10 @@
     "amount": "762955",
     "timestamp": "2025-02-08T01:35:32Z",
     "transactionId": "GHuEjCZ4TF",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Vikram",
@@ -327,7 +411,10 @@
     "amount": "192898",
     "timestamp": "2025-10-01T23:56:49Z",
     "transactionId": "A2k4snUIBV",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Omar Farooq",
@@ -338,7 +425,10 @@
     "amount": "652728",
     "timestamp": "2025-06-20T14:36:28Z",
     "transactionId": "QSuN41et7s",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Kavita",
@@ -349,7 +439,10 @@
     "amount": "439810",
     "timestamp": "2025-07-18T18:40:33Z",
     "transactionId": "J4vX4DKUyV",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Rajesh",
@@ -360,7 +453,10 @@
     "amount": "428179",
     "timestamp": "2025-10-27T05:02:38Z",
     "transactionId": "MWftHgOgd6",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Meera",
@@ -371,7 +467,10 @@
     "amount": "553810",
     "timestamp": "2025-01-03T16:28:43Z",
     "transactionId": "DJ7pbcEmrl",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Arjun",
@@ -382,7 +481,10 @@
     "amount": "477557",
     "timestamp": "2025-03-11T17:13:18Z",
     "transactionId": "AGWGQvXgLE",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Omar Farooq",
@@ -393,7 +495,8 @@
     "amount": "10508",
     "timestamp": "2025-03-16T07:25:00Z",
     "transactionId": "TFMNsvI4oJ",
-    "label": "clean"
+    "label": "clean",
+    "reasons": []
   },
   {
     "senderName": "Aisha Abdulrahman",
@@ -404,7 +507,10 @@
     "amount": "549310",
     "timestamp": "2025-12-05T01:43:34Z",
     "transactionId": "H4SEmIUIrQ",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Vikram",
@@ -415,7 +521,10 @@
     "amount": "636795",
     "timestamp": "2025-12-29T14:03:25Z",
     "transactionId": "sKaregdU7u",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Amit",
@@ -426,7 +535,10 @@
     "amount": "134166",
     "timestamp": "2025-10-09T15:58:39Z",
     "transactionId": "muOhoQXmko",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Vikram",
@@ -437,7 +549,10 @@
     "amount": "397456",
     "timestamp": "2025-10-15T16:49:06Z",
     "transactionId": "ZPs6BRxEEE",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Neha",
@@ -448,7 +563,10 @@
     "amount": "148404",
     "timestamp": "2025-09-16T18:13:27Z",
     "transactionId": "vgBRa37Tve",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Arjun",
@@ -459,7 +577,8 @@
     "amount": "35185",
     "timestamp": "2025-11-27T17:49:34Z",
     "transactionId": "jJGG9ySnLT",
-    "label": "clean"
+    "label": "clean",
+    "reasons": []
   },
   {
     "senderName": "Mohammed Ibrahim",
@@ -470,7 +589,8 @@
     "amount": "11823",
     "timestamp": "2025-12-15T09:04:00Z",
     "transactionId": "LdtqpGipU0",
-    "label": "clean"
+    "label": "clean",
+    "reasons": []
   },
   {
     "senderName": "Neha",
@@ -481,7 +601,10 @@
     "amount": "128562",
     "timestamp": "2025-12-04T21:28:12Z",
     "transactionId": "MQPddHBrWb",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Aisha Abdulrahman",
@@ -492,7 +615,10 @@
     "amount": "79205",
     "timestamp": "2025-03-01T08:58:28Z",
     "transactionId": "foiUq8SuZT",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Arjun",
@@ -503,7 +629,10 @@
     "amount": "827879",
     "timestamp": "2025-11-15T15:21:17Z",
     "transactionId": "hnNL1XMjTL",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Anjali",
@@ -514,7 +643,10 @@
     "amount": "74005",
     "timestamp": "2025-09-25T21:55:12Z",
     "transactionId": "VcmAaMl6B1",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Rajesh",
@@ -525,7 +657,10 @@
     "amount": "953273",
     "timestamp": "2025-12-28T23:39:34Z",
     "transactionId": "R75nkg3Xcf",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Priya",
@@ -536,7 +671,10 @@
     "amount": "487981",
     "timestamp": "2025-09-01T04:18:29Z",
     "transactionId": "8W2gpysYUg",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Vikram",
@@ -547,7 +685,10 @@
     "amount": "122380",
     "timestamp": "2025-10-28T11:33:06Z",
     "transactionId": "CKjnglUI1A",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Amit",
@@ -558,7 +699,10 @@
     "amount": "669932",
     "timestamp": "2025-02-06T02:18:16Z",
     "transactionId": "LRxtUx4vHP",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Amit",
@@ -569,7 +713,10 @@
     "amount": "729000",
     "timestamp": "2025-12-27T11:03:40Z",
     "transactionId": "HD0E5mH2di",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Sanjay",
@@ -580,7 +727,10 @@
     "amount": "439150",
     "timestamp": "2025-04-22T12:08:40Z",
     "transactionId": "kKkr2v8laM",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Omar Farooq",
@@ -591,7 +741,11 @@
     "amount": "165217",
     "timestamp": "2025-12-13T01:35:18Z",
     "transactionId": "vtgZInl26L",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Temporal Cycle",
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Amit",
@@ -602,7 +756,10 @@
     "amount": "250949",
     "timestamp": "2025-09-15T22:41:57Z",
     "transactionId": "h54eS6zuUd",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Arjun",
@@ -613,7 +770,10 @@
     "amount": "352325",
     "timestamp": "2025-08-14T04:50:42Z",
     "transactionId": "JdVdeKWe76",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Meera",
@@ -624,7 +784,10 @@
     "amount": "146669",
     "timestamp": "2025-04-15T19:09:34Z",
     "transactionId": "ivflFLGT5Y",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Aisha Abdulrahman",
@@ -635,7 +798,10 @@
     "amount": "976383",
     "timestamp": "2025-04-28T12:38:42Z",
     "transactionId": "ww13j6PiOW",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Aisha Abdulrahman",
@@ -646,7 +812,8 @@
     "amount": "37673",
     "timestamp": "2025-11-27T20:54:06Z",
     "transactionId": "EBdfWJ8hV1",
-    "label": "clean"
+    "label": "clean",
+    "reasons": []
   },
   {
     "senderName": "Arjun",
@@ -657,7 +824,10 @@
     "amount": "955339",
     "timestamp": "2025-02-19T12:13:18Z",
     "transactionId": "4T5eYqBeQq",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Omar Farooq",
@@ -668,7 +838,10 @@
     "amount": "586568",
     "timestamp": "2025-08-25T02:08:49Z",
     "transactionId": "Uf5ZiFnhlS",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Anjali",
@@ -679,7 +852,10 @@
     "amount": "584070",
     "timestamp": "2025-06-16T17:50:12Z",
     "transactionId": "I66845HRS5",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Kavita",
@@ -690,7 +866,10 @@
     "amount": "527819",
     "timestamp": "2025-05-11T03:54:52Z",
     "transactionId": "JJzXnfw4bg",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Vikram",
@@ -701,7 +880,10 @@
     "amount": "894359",
     "timestamp": "2025-11-05T06:41:23Z",
     "transactionId": "gdEVaRbfBy",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Kavita",
@@ -712,7 +894,10 @@
     "amount": "782339",
     "timestamp": "2025-03-09T14:11:16Z",
     "transactionId": "knRsNkzu4j",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Amit",
@@ -723,7 +908,10 @@
     "amount": "253464",
     "timestamp": "2025-02-12T00:20:50Z",
     "transactionId": "hQ15OlTmr0",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Priya",
@@ -734,7 +922,10 @@
     "amount": "612596",
     "timestamp": "2025-03-14T02:15:37Z",
     "transactionId": "Q3KnhjLYkg",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Arjun",
@@ -745,7 +936,10 @@
     "amount": "926146",
     "timestamp": "2025-10-21T00:06:09Z",
     "transactionId": "bHFNNIll9O",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Priya",
@@ -756,7 +950,8 @@
     "amount": "9903",
     "timestamp": "2025-01-02T12:26:57Z",
     "transactionId": "DHHjG4VaWs",
-    "label": "clean"
+    "label": "clean",
+    "reasons": []
   },
   {
     "senderName": "Neha",
@@ -767,7 +962,10 @@
     "amount": "80156",
     "timestamp": "2025-10-30T17:23:03Z",
     "transactionId": "FQUnqv8hoQ",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Meera",
@@ -778,7 +976,10 @@
     "amount": "167691",
     "timestamp": "2025-08-29T00:36:36Z",
     "transactionId": "iFSJPiW2l3",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Aisha Abdulrahman",
@@ -789,7 +990,10 @@
     "amount": "331854",
     "timestamp": "2025-03-24T20:12:50Z",
     "transactionId": "SAUapFbdu1",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Aisha Abdulrahman",
@@ -800,7 +1004,10 @@
     "amount": "396494",
     "timestamp": "2025-06-14T11:48:43Z",
     "transactionId": "YONUmcwnrj",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Vikram",
@@ -811,7 +1018,10 @@
     "amount": "709363",
     "timestamp": "2025-07-24T18:00:13Z",
     "transactionId": "YEw5sqKcXP",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Aisha Abdulrahman",
@@ -822,7 +1032,10 @@
     "amount": "233887",
     "timestamp": "2025-12-16T06:28:23Z",
     "transactionId": "bbWOiemfYS",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Neha",
@@ -833,7 +1046,11 @@
     "amount": "683842",
     "timestamp": "2025-09-20T14:36:45Z",
     "transactionId": "Byf5opHIJO",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Temporal Cycle",
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Mohammed Ibrahim",
@@ -844,7 +1061,10 @@
     "amount": "217797",
     "timestamp": "2025-02-23T03:50:27Z",
     "transactionId": "gzkiT2faXB",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Aisha Abdulrahman",
@@ -855,7 +1075,10 @@
     "amount": "67992",
     "timestamp": "2025-09-11T05:23:01Z",
     "transactionId": "KtS0KmwFO6",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Sanjay",
@@ -866,7 +1089,10 @@
     "amount": "231643",
     "timestamp": "2025-06-04T01:54:16Z",
     "transactionId": "WrgteGrX7N",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Omar Farooq",
@@ -877,7 +1103,10 @@
     "amount": "526433",
     "timestamp": "2025-04-06T21:19:54Z",
     "transactionId": "3wy2CnPyaE",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Sanjay",
@@ -888,7 +1117,10 @@
     "amount": "915273",
     "timestamp": "2025-08-17T07:23:38Z",
     "transactionId": "hOb9Sq5RGT",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Priya",
@@ -899,7 +1131,10 @@
     "amount": "685992",
     "timestamp": "2025-02-17T08:02:25Z",
     "transactionId": "9LAWWT3nHW",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Neha",
@@ -910,7 +1145,10 @@
     "amount": "319494",
     "timestamp": "2025-03-14T17:53:26Z",
     "transactionId": "76qseGJ3uk",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Neha",
@@ -921,7 +1159,8 @@
     "amount": "26531",
     "timestamp": "2025-05-18T13:49:23Z",
     "transactionId": "rc2ZgxWYVn",
-    "label": "clean"
+    "label": "clean",
+    "reasons": []
   },
   {
     "senderName": "Neha",
@@ -932,7 +1171,10 @@
     "amount": "583077",
     "timestamp": "2025-06-14T00:38:29Z",
     "transactionId": "OY3SdV7u1b",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Aisha Abdulrahman",
@@ -943,7 +1185,8 @@
     "amount": "5404",
     "timestamp": "2025-11-15T06:19:07Z",
     "transactionId": "EHjqYDtgZd",
-    "label": "clean"
+    "label": "clean",
+    "reasons": []
   },
   {
     "senderName": "Amit",
@@ -954,7 +1197,10 @@
     "amount": "964645",
     "timestamp": "2025-09-17T11:15:53Z",
     "transactionId": "fk7GmbCbQS",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Omar Farooq",
@@ -965,7 +1211,10 @@
     "amount": "552477",
     "timestamp": "2025-05-03T16:55:33Z",
     "transactionId": "nPiqyPYqjT",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Aisha Abdulrahman",
@@ -976,7 +1225,10 @@
     "amount": "475312",
     "timestamp": "2025-03-29T14:14:46Z",
     "transactionId": "7EjhMEtdKN",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Mohammed Ibrahim",
@@ -987,7 +1239,10 @@
     "amount": "785700",
     "timestamp": "2025-06-15T22:06:20Z",
     "transactionId": "h4bxUkJBLI",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Omar Farooq",
@@ -998,7 +1253,10 @@
     "amount": "485962",
     "timestamp": "2025-04-25T19:52:21Z",
     "transactionId": "NPedbFWCwX",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Neha",
@@ -1009,7 +1267,10 @@
     "amount": "740847",
     "timestamp": "2025-09-16T07:14:02Z",
     "transactionId": "313OmqPA74",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Aisha Abdulrahman",
@@ -1020,7 +1281,10 @@
     "amount": "866349",
     "timestamp": "2025-02-14T08:03:02Z",
     "transactionId": "YFRhd3TzjB",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Aisha Abdulrahman",
@@ -1031,7 +1295,10 @@
     "amount": "954052",
     "timestamp": "2025-04-24T04:09:06Z",
     "transactionId": "5GlVkuMG2Z",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Vikram",
@@ -1042,7 +1309,10 @@
     "amount": "849774",
     "timestamp": "2025-11-13T00:12:06Z",
     "transactionId": "Tu17bAwqDR",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Rajesh",
@@ -1053,7 +1323,10 @@
     "amount": "520304",
     "timestamp": "2025-04-28T10:44:22Z",
     "transactionId": "o3C5OvEIbu",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Mohammed Ibrahim",
@@ -1064,7 +1337,10 @@
     "amount": "552932",
     "timestamp": "2025-08-22T23:44:19Z",
     "transactionId": "aoOdg3hLF7",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Sanjay",
@@ -1075,7 +1351,10 @@
     "amount": "804794",
     "timestamp": "2025-07-30T17:23:05Z",
     "transactionId": "s8dWOqv696",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Arjun",
@@ -1086,7 +1365,10 @@
     "amount": "206191",
     "timestamp": "2025-04-30T01:36:02Z",
     "transactionId": "DYMqKHsywN",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Rajesh",
@@ -1097,7 +1379,10 @@
     "amount": "946516",
     "timestamp": "2025-04-01T21:36:03Z",
     "transactionId": "7wqngp0SXV",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Priya",
@@ -1108,7 +1393,8 @@
     "amount": "36483",
     "timestamp": "2025-03-05T12:36:34Z",
     "transactionId": "IY06VSBOL9",
-    "label": "clean"
+    "label": "clean",
+    "reasons": []
   },
   {
     "senderName": "Neha",
@@ -1119,7 +1405,10 @@
     "amount": "950971",
     "timestamp": "2025-09-27T18:33:27Z",
     "transactionId": "JGX6RdZaxt",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Anjali",
@@ -1130,7 +1419,11 @@
     "amount": "503246",
     "timestamp": "2025-12-08T04:19:43Z",
     "transactionId": "S9VolUFlTK",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Temporal Cycle",
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Sanjay",
@@ -1141,7 +1434,10 @@
     "amount": "727829",
     "timestamp": "2025-05-08T12:36:46Z",
     "transactionId": "d7NJWoIn9z",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Anjali",
@@ -1152,7 +1448,10 @@
     "amount": "871727",
     "timestamp": "2025-02-23T21:46:23Z",
     "transactionId": "7vxdomKcSS",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Priya",
@@ -1163,7 +1462,10 @@
     "amount": "216851",
     "timestamp": "2025-04-22T12:04:47Z",
     "transactionId": "PD6ypKU3yC",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Sanjay",
@@ -1174,7 +1476,10 @@
     "amount": "475407",
     "timestamp": "2025-07-02T03:57:18Z",
     "transactionId": "ERAxG10bDl",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Rajesh",
@@ -1185,7 +1490,10 @@
     "amount": "890471",
     "timestamp": "2025-04-19T04:24:19Z",
     "transactionId": "Np6saW4PLJ",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Mohammed Ibrahim",
@@ -1196,7 +1504,10 @@
     "amount": "965051",
     "timestamp": "2025-10-17T23:32:30Z",
     "transactionId": "fvfMm0IW1u",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Priya",
@@ -1207,7 +1518,10 @@
     "amount": "341840",
     "timestamp": "2025-12-16T10:48:27Z",
     "transactionId": "xdifeQL7W8",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Kavita",
@@ -1218,7 +1532,10 @@
     "amount": "540999",
     "timestamp": "2025-11-27T14:08:23Z",
     "transactionId": "1NiQdskicr",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Omar Farooq",
@@ -1229,7 +1546,10 @@
     "amount": "690484",
     "timestamp": "2025-08-20T02:59:11Z",
     "transactionId": "axz8suubcK",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Rajesh",
@@ -1240,7 +1560,11 @@
     "amount": "361755",
     "timestamp": "2025-04-11T07:38:38Z",
     "transactionId": "UDYCQHiBcG",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Temporal Cycle",
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Vikram",
@@ -1251,7 +1575,8 @@
     "amount": "8290",
     "timestamp": "2025-08-17T21:47:30Z",
     "transactionId": "JJfPryzw0t",
-    "label": "clean"
+    "label": "clean",
+    "reasons": []
   },
   {
     "senderName": "Omar Farooq",
@@ -1262,7 +1587,10 @@
     "amount": "370743",
     "timestamp": "2025-04-11T12:11:51Z",
     "transactionId": "agYs6QksUi",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Kavita",
@@ -1273,7 +1601,10 @@
     "amount": "119802",
     "timestamp": "2025-05-10T16:34:41Z",
     "transactionId": "YHHjgMHGef",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Arjun",
@@ -1284,7 +1615,10 @@
     "amount": "135852",
     "timestamp": "2025-02-18T05:48:57Z",
     "transactionId": "9laTPaBtsy",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Kavita",
@@ -1295,7 +1629,11 @@
     "amount": "300278",
     "timestamp": "2025-04-06T08:00:57Z",
     "transactionId": "B4pUyq3UUb",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Temporal Cycle",
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Mohammed Ibrahim",
@@ -1306,7 +1644,10 @@
     "amount": "140873",
     "timestamp": "2025-01-28T13:26:43Z",
     "transactionId": "x6tm6hBRGs",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Rajesh",
@@ -1317,7 +1658,10 @@
     "amount": "894944",
     "timestamp": "2025-12-11T00:45:52Z",
     "transactionId": "BI8fJkjToW",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Rajesh",
@@ -1328,7 +1672,10 @@
     "amount": "63476",
     "timestamp": "2025-06-16T20:53:50Z",
     "transactionId": "d6YWMeLybC",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Aisha Abdulrahman",
@@ -1339,7 +1686,10 @@
     "amount": "826146",
     "timestamp": "2025-10-02T20:30:51Z",
     "transactionId": "S5k9FMEyym",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Aisha Abdulrahman",
@@ -1350,7 +1700,10 @@
     "amount": "523881",
     "timestamp": "2025-06-27T15:05:28Z",
     "transactionId": "h1hjsDaKJ4",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Aisha Abdulrahman",
@@ -1361,7 +1714,10 @@
     "amount": "540148",
     "timestamp": "2025-07-14T17:22:44Z",
     "transactionId": "y6pRL42OQd",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Amit",
@@ -1372,7 +1728,8 @@
     "amount": "21401",
     "timestamp": "2025-08-01T02:54:38Z",
     "transactionId": "wIt40MjIqG",
-    "label": "clean"
+    "label": "clean",
+    "reasons": []
   },
   {
     "senderName": "Kavita",
@@ -1383,7 +1740,10 @@
     "amount": "477495",
     "timestamp": "2025-09-13T01:41:01Z",
     "transactionId": "L09y5HFQrG",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Kavita",
@@ -1394,7 +1754,10 @@
     "amount": "364718",
     "timestamp": "2025-10-06T04:12:37Z",
     "transactionId": "2ucdEYZHGT",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Priya",
@@ -1405,7 +1768,10 @@
     "amount": "347719",
     "timestamp": "2025-03-27T13:23:04Z",
     "transactionId": "4s2MAT2dem",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Arjun",
@@ -1416,7 +1782,10 @@
     "amount": "109071",
     "timestamp": "2025-04-27T15:58:39Z",
     "transactionId": "55KBMsk0UY",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Kavita",
@@ -1427,7 +1796,10 @@
     "amount": "100908",
     "timestamp": "2025-11-09T01:01:00Z",
     "transactionId": "ud0bBG9Hry",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Anjali",
@@ -1438,7 +1810,10 @@
     "amount": "924672",
     "timestamp": "2025-07-13T16:54:13Z",
     "transactionId": "2HFSanMlHa",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Priya",
@@ -1449,7 +1824,10 @@
     "amount": "939808",
     "timestamp": "2025-09-06T00:23:58Z",
     "transactionId": "GceyzCKPqa",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Sanjay",
@@ -1460,7 +1838,11 @@
     "amount": "640356",
     "timestamp": "2025-10-04T09:09:09Z",
     "transactionId": "xWTYzUy7ES",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Temporal Cycle",
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Priya",
@@ -1471,7 +1853,10 @@
     "amount": "742421",
     "timestamp": "2025-05-16T19:49:21Z",
     "transactionId": "BLlJYLiDYa",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Neha",
@@ -1482,7 +1867,10 @@
     "amount": "93776",
     "timestamp": "2025-04-12T15:49:41Z",
     "transactionId": "pkWzOhuvLe",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Rajesh",
@@ -1493,7 +1881,11 @@
     "amount": "891549",
     "timestamp": "2025-09-29T17:48:15Z",
     "transactionId": "AbPCxMSJ7G",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Temporal Cycle",
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Amit",
@@ -1504,7 +1896,10 @@
     "amount": "631875",
     "timestamp": "2025-10-18T00:40:02Z",
     "transactionId": "dupfKAChtK",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Amit",
@@ -1515,7 +1910,10 @@
     "amount": "600877",
     "timestamp": "2025-07-22T05:15:52Z",
     "transactionId": "IGLcOTabKS",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Omar Farooq",
@@ -1526,7 +1924,10 @@
     "amount": "140701",
     "timestamp": "2025-02-26T01:37:13Z",
     "transactionId": "MPwYJv30Tu",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Priya",
@@ -1537,7 +1938,10 @@
     "amount": "552949",
     "timestamp": "2025-11-14T22:19:21Z",
     "transactionId": "H0uEP9ZARv",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Mohammed Ibrahim",
@@ -1548,7 +1952,10 @@
     "amount": "607857",
     "timestamp": "2025-11-22T13:06:42Z",
     "transactionId": "nSufeO9LBn",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Sanjay",
@@ -1559,7 +1966,10 @@
     "amount": "972295",
     "timestamp": "2025-09-11T20:11:24Z",
     "transactionId": "8rVCWMtlIW",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Omar Farooq",
@@ -1570,7 +1980,10 @@
     "amount": "443665",
     "timestamp": "2025-11-27T07:36:27Z",
     "transactionId": "q47Mv95Omj",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Vikram",
@@ -1581,7 +1994,10 @@
     "amount": "519605",
     "timestamp": "2025-04-08T12:18:04Z",
     "transactionId": "BxE0LL2qXm",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Omar Farooq",
@@ -1592,7 +2008,10 @@
     "amount": "377477",
     "timestamp": "2025-07-24T09:32:06Z",
     "transactionId": "EqjH30m0Ad",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Priya",
@@ -1603,7 +2022,10 @@
     "amount": "548338",
     "timestamp": "2025-12-29T19:33:38Z",
     "transactionId": "tZVWnKMga2",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Neha",
@@ -1614,7 +2036,10 @@
     "amount": "828782",
     "timestamp": "2025-01-27T08:05:33Z",
     "transactionId": "wOnooPtWlA",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Arjun",
@@ -1625,7 +2050,10 @@
     "amount": "125650",
     "timestamp": "2025-10-24T03:31:10Z",
     "transactionId": "XgnQN1hi2p",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Meera",
@@ -1636,7 +2064,10 @@
     "amount": "89448",
     "timestamp": "2025-10-29T08:50:01Z",
     "transactionId": "ZZisSqDhMp",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Omar Farooq",
@@ -1647,7 +2078,10 @@
     "amount": "207427",
     "timestamp": "2025-05-17T17:42:18Z",
     "transactionId": "Ud4QWzPo9l",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Kavita",
@@ -1658,7 +2092,11 @@
     "amount": "992013",
     "timestamp": "2025-05-08T00:58:13Z",
     "transactionId": "V9E8SqfcDf",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Temporal Cycle",
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Amit",
@@ -1669,7 +2107,10 @@
     "amount": "689227",
     "timestamp": "2025-01-11T18:44:57Z",
     "transactionId": "195I0Tf4Mb",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Kavita",
@@ -1680,7 +2121,10 @@
     "amount": "935369",
     "timestamp": "2025-07-26T01:09:40Z",
     "transactionId": "d5WRIoVuZu",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Meera",
@@ -1691,7 +2135,10 @@
     "amount": "961231",
     "timestamp": "2025-08-08T18:33:36Z",
     "transactionId": "MIcrMNZUKT",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Mohammed Ibrahim",
@@ -1702,7 +2149,10 @@
     "amount": "970556",
     "timestamp": "2025-07-23T06:32:00Z",
     "transactionId": "iwDORyxosk",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Neha",
@@ -1713,7 +2163,10 @@
     "amount": "240698",
     "timestamp": "2025-01-02T08:57:42Z",
     "transactionId": "Z8prvaRSPM",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Aisha Abdulrahman",
@@ -1724,7 +2177,10 @@
     "amount": "450782",
     "timestamp": "2025-05-26T14:05:15Z",
     "transactionId": "BipIbcRSVs",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Rajesh",
@@ -1735,7 +2191,10 @@
     "amount": "308319",
     "timestamp": "2025-07-31T03:26:36Z",
     "transactionId": "xQTMWlszQM",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Mohammed Ibrahim",
@@ -1746,7 +2205,10 @@
     "amount": "540855",
     "timestamp": "2025-12-21T06:25:26Z",
     "transactionId": "03eam3NOXN",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Aisha Abdulrahman",
@@ -1757,7 +2219,10 @@
     "amount": "85245",
     "timestamp": "2025-05-22T10:28:51Z",
     "transactionId": "wxQlxROBII",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Mohammed Ibrahim",
@@ -1768,7 +2233,10 @@
     "amount": "989174",
     "timestamp": "2025-06-21T20:23:21Z",
     "transactionId": "xtTayyzYmj",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Anjali",
@@ -1779,7 +2247,10 @@
     "amount": "879470",
     "timestamp": "2025-12-13T19:28:22Z",
     "transactionId": "sEfVDijGYs",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Rajesh",
@@ -1790,7 +2261,10 @@
     "amount": "948088",
     "timestamp": "2025-09-16T21:54:34Z",
     "transactionId": "XAaYHWLj9b",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Kavita",
@@ -1801,7 +2275,10 @@
     "amount": "159149",
     "timestamp": "2025-11-26T18:37:08Z",
     "transactionId": "bj2Vs14EEz",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Neha",
@@ -1812,7 +2289,10 @@
     "amount": "449082",
     "timestamp": "2025-06-03T01:00:16Z",
     "transactionId": "knT5upO2DX",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Priya",
@@ -1823,7 +2303,10 @@
     "amount": "69027",
     "timestamp": "2025-03-02T13:51:12Z",
     "transactionId": "AzQ5PWcQkL",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Rajesh",
@@ -1834,7 +2317,8 @@
     "amount": "1420",
     "timestamp": "2025-11-04T18:34:00Z",
     "transactionId": "GGVFEwJCVL",
-    "label": "clean"
+    "label": "clean",
+    "reasons": []
   },
   {
     "senderName": "Arjun",
@@ -1845,7 +2329,10 @@
     "amount": "976336",
     "timestamp": "2025-06-18T07:03:18Z",
     "transactionId": "IMuVsyPdB6",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Neha",
@@ -1856,7 +2343,10 @@
     "amount": "165867",
     "timestamp": "2025-05-28T05:49:08Z",
     "transactionId": "4o4CvYNz6M",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Anjali",
@@ -1867,7 +2357,10 @@
     "amount": "672194",
     "timestamp": "2025-10-26T19:31:41Z",
     "transactionId": "sIz696jMlH",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Amit",
@@ -1878,7 +2371,10 @@
     "amount": "842221",
     "timestamp": "2025-06-01T11:41:46Z",
     "transactionId": "wwMKMtfT1b",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Meera",
@@ -1889,7 +2385,11 @@
     "amount": "834377",
     "timestamp": "2025-09-16T03:28:42Z",
     "transactionId": "T5xDokt2qo",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Temporal Cycle",
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Aisha Abdulrahman",
@@ -1900,7 +2400,10 @@
     "amount": "527513",
     "timestamp": "2025-04-15T03:36:26Z",
     "transactionId": "PiD8sP8ZMu",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Arjun",
@@ -1911,7 +2414,10 @@
     "amount": "327961",
     "timestamp": "2025-02-08T05:41:22Z",
     "transactionId": "z7mvFuChsc",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Omar Farooq",
@@ -1922,7 +2428,10 @@
     "amount": "224969",
     "timestamp": "2025-05-24T11:28:22Z",
     "transactionId": "5Ln6trQ2n4",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Amit",
@@ -1933,7 +2442,10 @@
     "amount": "468701",
     "timestamp": "2025-08-11T18:56:33Z",
     "transactionId": "3OGmI9fmHi",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Arjun",
@@ -1944,7 +2456,10 @@
     "amount": "193659",
     "timestamp": "2025-07-17T04:34:15Z",
     "transactionId": "esA8DtJc6F",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Aisha Abdulrahman",
@@ -1955,7 +2470,10 @@
     "amount": "520813",
     "timestamp": "2025-04-24T17:07:32Z",
     "transactionId": "mRZ8vPBg2e",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Rajesh",
@@ -1966,7 +2484,10 @@
     "amount": "826331",
     "timestamp": "2025-11-14T16:44:00Z",
     "transactionId": "73JfcjFC05",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Kavita",
@@ -1977,7 +2498,10 @@
     "amount": "159455",
     "timestamp": "2025-08-15T23:01:47Z",
     "transactionId": "qf2se0mXiw",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Kavita",
@@ -1988,7 +2512,10 @@
     "amount": "892584",
     "timestamp": "2025-11-26T19:29:03Z",
     "transactionId": "WlQMhLs7gy",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Vikram",
@@ -1999,7 +2526,10 @@
     "amount": "507739",
     "timestamp": "2025-05-28T04:47:56Z",
     "transactionId": "bIbtJrQCza",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Kavita",
@@ -2010,7 +2540,10 @@
     "amount": "321142",
     "timestamp": "2025-01-05T09:57:34Z",
     "transactionId": "NcJjUuT4BO",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Omar Farooq",
@@ -2021,7 +2554,10 @@
     "amount": "271710",
     "timestamp": "2025-02-09T14:18:16Z",
     "transactionId": "xc2kpVJXLy",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Sanjay",
@@ -2032,7 +2568,10 @@
     "amount": "627722",
     "timestamp": "2025-11-23T19:44:33Z",
     "transactionId": "1wIEWzPOYR",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Rajesh",
@@ -2043,7 +2582,10 @@
     "amount": "627577",
     "timestamp": "2025-08-24T18:49:33Z",
     "transactionId": "nANgMtdo6r",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Priya",
@@ -2054,7 +2596,10 @@
     "amount": "93106",
     "timestamp": "2025-01-30T01:22:18Z",
     "transactionId": "kOXI6RUBUM",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Anjali",
@@ -2065,7 +2610,10 @@
     "amount": "920065",
     "timestamp": "2025-02-21T14:49:43Z",
     "transactionId": "9NLrl54KBv",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Neha",
@@ -2076,7 +2624,10 @@
     "amount": "510601",
     "timestamp": "2025-06-11T01:34:15Z",
     "transactionId": "z8EKIFuF8b",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Rajesh",
@@ -2087,7 +2638,10 @@
     "amount": "138280",
     "timestamp": "2025-07-07T00:54:57Z",
     "transactionId": "qQU4opeOUj",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Vikram",
@@ -2098,7 +2652,10 @@
     "amount": "570643",
     "timestamp": "2025-04-02T03:40:48Z",
     "transactionId": "ZNPNNM1YB6",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Neha",
@@ -2109,7 +2666,10 @@
     "amount": "340583",
     "timestamp": "2025-06-06T14:51:36Z",
     "transactionId": "D00b8MaV6Y",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Vikram",
@@ -2120,7 +2680,10 @@
     "amount": "270398",
     "timestamp": "2025-12-23T01:16:08Z",
     "transactionId": "sDROIPSuQx",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Omar Farooq",
@@ -2131,7 +2694,10 @@
     "amount": "536987",
     "timestamp": "2025-08-26T17:27:01Z",
     "transactionId": "rqCcHxFVZL",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Rajesh",
@@ -2142,7 +2708,10 @@
     "amount": "885019",
     "timestamp": "2025-02-26T16:07:28Z",
     "transactionId": "BmKa2SXUyC",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Mohammed Ibrahim",
@@ -2153,7 +2722,10 @@
     "amount": "599503",
     "timestamp": "2025-11-28T00:22:38Z",
     "transactionId": "NPPXBgXXlo",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Aisha Abdulrahman",
@@ -2164,7 +2736,10 @@
     "amount": "501481",
     "timestamp": "2025-04-05T07:33:09Z",
     "transactionId": "moplYhBYoQ",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Vikram",
@@ -2175,7 +2750,10 @@
     "amount": "581354",
     "timestamp": "2025-04-13T05:48:29Z",
     "transactionId": "5RJNGoCsC7",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Arjun",
@@ -2186,7 +2764,10 @@
     "amount": "56138",
     "timestamp": "2025-07-31T10:32:16Z",
     "transactionId": "VL4rWG0F3k",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Mohammed Ibrahim",
@@ -2197,7 +2778,10 @@
     "amount": "739723",
     "timestamp": "2025-11-30T01:39:54Z",
     "transactionId": "BquAjP4Zya",
-    "label": "suspicious"
+    "label": "suspicious",
+    "reasons": [
+      "Large Amount"
+    ]
   },
   {
     "senderName": "Rahul",
@@ -2208,6 +2792,19 @@
     "amount": "30000",
     "timestamp": "2025-03-08T16:37:41.829Z",
     "transactionId": "fh5eRgDHvFOV",
-    "label": "clean"
+    "label": "clean",
+    "reasons": []
+  },
+  {
+    "senderName": "Kisi",
+    "senderAccount": "123",
+    "receiverName": "Bro",
+    "receiverAccount": "123",
+    "remarks": "yes",
+    "amount": "1234",
+    "timestamp": "2025-03-09T11:23:13.204Z",
+    "transactionId": "iA6xPVddcLYf",
+    "label": "clean",
+    "reasons": []
   }
 ]

@@ -1,15 +1,17 @@
+import { useState } from "react";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import MainCard from "components/MainCard";
+import axios from "axios";
 
-import { useState, useEffect } from 'react';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import MainCard from 'components/MainCard';
-import axios from 'axios';
+// Import our custom hook instead of using a direct fetch
+import { useTransactionData } from "../../utils/getTransactions";
 
 const generateTransactionId = (length = 12) => {
   const characters =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let result = '';
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let result = "";
   const charactersLength = characters.length;
   for (let i = 0; i < length; i++) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -18,16 +20,17 @@ const generateTransactionId = (length = 12) => {
 };
 
 export default function SamplePage() {
-  const [formData, setFormData] = useState({
-    senderName: '',
-    senderAccount: '',
-    receiverName: '',
-    receiverAccount: '',
-    remarks: '',
-    amount: '',
-  });
+  // Replace the useState and manual fetch with our hook
+  const { transactions, loading, error, refetch } = useTransactionData();
 
-  const [transactions, setTransactions] = useState([]);
+  const [formData, setFormData] = useState({
+    senderName: "",
+    senderAccount: "",
+    receiverName: "",
+    receiverAccount: "",
+    remarks: "",
+    amount: "",
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,43 +53,32 @@ export default function SamplePage() {
       );
       alert(`Money sent successfully! Transaction ID: ${transactionId}`);
       setFormData({
-        senderName: '',
-        senderAccount: '',
-        receiverName: '',
-        receiverAccount: '',
-        remarks: '',
-        amount: '',
+        senderName: "",
+        senderAccount: "",
+        receiverName: "",
+        receiverAccount: "",
+        remarks: "",
+        amount: "",
       });
-      fetchTransactions();
+      // Use refetch from the hook instead of local fetchTransactions
+      refetch();
     } catch (error) {
       console.error("Error saving transaction:", error);
       alert("Failed to send money. Please try again.");
     }
   };
 
-  const fetchTransactions = async () => {
-    try {
-      const response = await axios.get('http://localhost:5001/get-transactions');
-      setTransactions(response.data);
-    } catch (error) {
-      console.error('Error fetching transactions:', error);
-    }
-  };
-
   const handleAnalyze = async () => {
     try {
-      await axios.post('http://localhost:5001/analyze-transactions');
-      alert('Transactions analyzed successfully');
-      fetchTransactions();
+      await axios.post("http://localhost:5001/analyze-transactions");
+      alert("Transactions analyzed successfully");
+      // Use refetch from the hook instead of local fetchTransactions
+      refetch();
     } catch (error) {
-      console.error('Error analyzing transactions:', error);
-      alert('Failed to analyze transactions');
+      console.error("Error analyzing transactions:", error);
+      alert("Failed to analyze transactions");
     }
   };
-
-  useEffect(() => {
-    fetchTransactions();
-  }, []);
 
   return (
     <MainCard title="Send Money">
@@ -100,6 +92,7 @@ export default function SamplePage() {
             fullWidth
             required
           />
+          {/* Other form fields remain the same */}
           <TextField
             label="Sender Account Number"
             name="senderAccount"
@@ -150,11 +143,19 @@ export default function SamplePage() {
         onClick={handleAnalyze}
         variant="contained"
         color="secondary"
-        style={{ marginTop: '10px' }}
+        style={{ marginTop: "10px" }}
       >
         Analyze Transactions
       </Button>
-      
+
+      {/* You can show loading state or error messages */}
+      {loading && <p>Loading transactions...</p>}
+      {error && <p>Error loading transactions: {error.message}</p>}
+
+      {/* Optional: Display transaction count */}
+      <p style={{ marginTop: "20px" }}>
+        Total Transactions: {transactions.length}
+      </p>
     </MainCard>
   );
 }
