@@ -8,12 +8,24 @@ export default defineConfig(({ mode }) => {
   const PORT = 3000;
 
   return {
+    // server: {
+    //   // this ensures that the browser opens upon server start
+    //   open: true,
+    //   // this sets a default port to 3000
+    //   port: PORT,
+    //   host: true
+    // },
     server: {
-      // this ensures that the browser opens upon server start
       open: true,
-      // this sets a default port to 3000
       port: PORT,
-      host: true
+      host: true,
+      watch: {
+        usePolling: true, // Add this if you're using WSL or a VM
+        interval: 300,    // Adjust the polling interval if needed
+      },
+      hmr: {
+        overlay: true,
+      },
     },
     preview: {
       open: true,
