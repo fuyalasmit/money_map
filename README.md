@@ -64,7 +64,7 @@ This will start the React application and open it in your default browser at htt
 All transactions are stored in a JSON file located at:
 
 ```
-/Users/ankitpokhrel/Desktop/money_map/transactions.json
+./transactions.json
 ```
 
 This file is automatically created the first time you submit a transaction.
