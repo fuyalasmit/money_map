@@ -2,7 +2,6 @@ import MainCard from "components/MainCard";
 import ForceGraph3D from "react-force-graph-3d";
 import { useState, useEffect, useRef, useCallback } from "react";
 import SpriteText from "three-spritetext";
-import transactionsData from "../../../transactions.json";
 import {
   Stack,
   Box,
@@ -16,9 +15,12 @@ import {
   Button,
   DialogContent,
   DialogActions,
+  Alert,
+  CircularProgress,
 } from "@mui/material";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
+import axios from "axios";
 
 // ==============================|| MULTIPLE SPANNING TREE ALGORITHMS ||============================== //
 
@@ -32,11 +34,74 @@ export default function MultipleSpanningTree() {
   const [growingGraph, setGrowingGraph] = useState({ nodes: [], links: [] });
   const [growthInterval, setGrowthInterval] = useState(null);
   const [showGrowingGraph, setShowGrowingGraph] = useState(false);
+  const [transactionsData, setTransactionsData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const fsRef = useRef();
   const graphRef = useRef();
 
-  // Initialize user list
+  // Function to load transactions from localStorage or server
+  const loadTransactionsData = async () => {
+    setIsLoading(true);
+    try {
+      // First try to get data from localStorage
+      const localData = localStorage.getItem("uploadedTransactions");
+
+      if (localData) {
+        const parsedData = JSON.parse(localData);
+        console.log("MST: Using uploaded transactions from localStorage");
+        setTransactionsData(parsedData);
+      } else {
+        // Fall back to API if localStorage is empty
+        console.log("MST: No uploaded transactions found, fetching from API");
+        const response = await axios.get(
+          "http://localhost:5001/get-transactions"
+        );
+        setTransactionsData(response.data);
+      }
+      setError(null);
+    } catch (err) {
+      console.error("Error loading transactions:", err);
+      setError("Failed to load transaction data. Please try uploading a file.");
+      setTransactionsData([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Load transactions when component mounts
   useEffect(() => {
+    loadTransactionsData();
+
+    // Add event listener to reload data when transactions are updated
+    const handleTransactionsUpdated = () => {
+      console.log("MST: Transaction data updated, refreshing...");
+      loadTransactionsData();
+      // Reset current state when data changes
+      setAlgorithm("");
+      setGraphData(null);
+      setStartNode("");
+    };
+
+    window.addEventListener("transactionsUpdated", handleTransactionsUpdated);
+
+    return () => {
+      window.removeEventListener(
+        "transactionsUpdated",
+        handleTransactionsUpdated
+      );
+      // Clear any running animation
+      if (growthInterval) {
+        clearInterval(growthInterval);
+      }
+    };
+  }, []);
+
+  // Initialize user list when transactions data is loaded
+  useEffect(() => {
+    if (transactionsData.length === 0) return;
+
     // Extract unique users from transactions
     const uniqueUsers = new Set();
     transactionsData.forEach((transaction) => {
@@ -45,7 +110,7 @@ export default function MultipleSpanningTree() {
     });
     const userArray = Array.from(uniqueUsers).sort();
     setUserList(userArray);
-  }, []);
+  }, [transactionsData]);
 
   // Handle algorithm change
   const handleAlgorithmChange = (event) => {
@@ -104,6 +169,12 @@ export default function MultipleSpanningTree() {
     // Reset growing graph
     setGrowingGraph({ nodes: [], links: [] });
     setShowGrowingGraph(false);
+
+    // Check if we have transaction data
+    if (transactionsData.length === 0) {
+      setError("No transaction data available. Please upload a file.");
+      return;
+    }
 
     // Extract unique users and transactions
     const users = new Set();
@@ -482,14 +553,15 @@ export default function MultipleSpanningTree() {
     );
   };
 
-  // Cleanup on unmount
-  useEffect(() => {
-    return () => {
-      if (growthInterval) {
-        clearInterval(growthInterval);
-      }
-    };
-  }, [growthInterval]);
+  if (isLoading) {
+    return (
+      <MainCard title="Spanning Tree Algorithms">
+        <Box sx={{ display: "flex", justifyContent: "center", my: 5 }}>
+          <CircularProgress />
+        </Box>
+      </MainCard>
+    );
+  }
 
   return (
     <MainCard
@@ -566,6 +638,12 @@ export default function MultipleSpanningTree() {
         </Stack>
       }
     >
+      {error && (
+        <Alert severity="error" sx={{ mb: 3 }}>
+          {error}
+        </Alert>
+      )}
+
       <Box sx={{ mt: 2 }}>
         <Typography variant="h5" gutterBottom>
           {algorithm === "kruskal" &&

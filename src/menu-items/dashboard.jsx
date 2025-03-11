@@ -1,27 +1,36 @@
 // assets
-import { DashboardOutlined } from '@ant-design/icons';
+import { DashboardOutlined, UploadOutlined } from "@ant-design/icons";
 
 // icons
 const icons = {
-  DashboardOutlined
+  DashboardOutlined,
+  UploadOutlined,
 };
 
 // ==============================|| MENU ITEMS - DASHBOARD ||============================== //
 
 const dashboard = {
-  id: 'group-dashboard',
-  title: 'Navigation',
-  type: 'group',
+  id: "group-dashboard",
+  title: "Navigation",
+  type: "group",
   children: [
     {
-      id: 'dashboard',
-      title: 'Dashboard',
-      type: 'item',
-      url: '/dashboard/default',
+      id: "upload-transaction",
+      title: "Upload Transaction",
+      type: "item",
+      url: "/dashboard/mainpage",
+      icon: icons.UploadOutlined,
+      breadcrumbs: false,
+    },
+    {
+      id: "dashboard",
+      title: "Dashboard",
+      type: "item",
+      url: "/dashboard/default",
       icon: icons.DashboardOutlined,
-      breadcrumbs: false
-    }
-  ]
+      breadcrumbs: false,
+    },
+  ],
 };
 
 export default dashboard;

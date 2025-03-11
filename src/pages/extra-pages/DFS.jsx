@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import MainCard from "components/MainCard";
 import ForceGraph3D from "react-force-graph-3d";
 import SpriteText from "three-spritetext";
-import transactionsData from "../../../transactions.json";
 import {
   Stack,
   Box,
@@ -26,11 +25,13 @@ import {
   Tabs,
   Tab,
   Alert,
+  CircularProgress,
 } from "@mui/material";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
 import SearchIcon from "@mui/icons-material/Search";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import axios from "axios"; // Add axios for API fallback
 
 // ==============================|| DFS ALGORITHM PAGE ||============================== //
 
@@ -44,11 +45,46 @@ export default function DFSPage() {
   const [graphData, setGraphData] = useState(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [selfLoopsExist, setSelfLoopsExist] = useState(false);
+  const [transactionsData, setTransactionsData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const graphRef = useRef();
   const fsRef = useRef();
 
-  // Initialize data
+  // Function to load transactions from localStorage or server
+  const loadTransactionsData = async () => {
+    setIsLoading(true);
+    try {
+      // First try to get data from localStorage
+      const localData = localStorage.getItem("uploadedTransactions");
+
+      if (localData) {
+        const parsedData = JSON.parse(localData);
+        console.log("DFS: Using uploaded transactions from localStorage");
+        setTransactionsData(parsedData);
+      } else {
+        // Fall back to API if localStorage is empty
+        console.log("DFS: No uploaded transactions found, fetching from API");
+        const response = await axios.get(
+          "http://localhost:5001/get-transactions"
+        );
+        setTransactionsData(response.data);
+      }
+      setError(null);
+    } catch (err) {
+      console.error("Error loading transactions:", err);
+      setError("Failed to load transaction data. Please try uploading a file.");
+      setTransactionsData([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Initialize data when transactions are loaded
   useEffect(() => {
+    if (transactionsData.length === 0) return;
+
     // Extract unique users from transactions
     const uniqueUsers = new Set();
     transactionsData.forEach((transaction) => {
@@ -87,6 +123,26 @@ export default function DFSPage() {
 
     setSelfLoopsExist(selfLoops);
     setAdjacencyList(adjList);
+  }, [transactionsData]);
+
+  // Load transactions when component mounts
+  useEffect(() => {
+    loadTransactionsData();
+
+    // Add event listener to reload data when transactions are updated
+    const handleTransactionsUpdated = () => {
+      console.log("DFS: Transaction data updated, refreshing...");
+      loadTransactionsData();
+    };
+
+    window.addEventListener("transactionsUpdated", handleTransactionsUpdated);
+
+    return () => {
+      window.removeEventListener(
+        "transactionsUpdated",
+        handleTransactionsUpdated
+      );
+    };
   }, []);
 
   // Helper function to check if a path is unique compared to existing paths
@@ -503,6 +559,26 @@ export default function DFSPage() {
       />
     );
   };
+
+  if (isLoading) {
+    return (
+      <MainCard title="DFS Algorithm - Multiple Path Detection">
+        <Box sx={{ display: "flex", justifyContent: "center", my: 5 }}>
+          <CircularProgress />
+        </Box>
+      </MainCard>
+    );
+  }
+
+  if (error) {
+    return (
+      <MainCard title="DFS Algorithm - Multiple Path Detection">
+        <Alert severity="error" sx={{ my: 3 }}>
+          {error}
+        </Alert>
+      </MainCard>
+    );
+  }
 
   return (
     <MainCard

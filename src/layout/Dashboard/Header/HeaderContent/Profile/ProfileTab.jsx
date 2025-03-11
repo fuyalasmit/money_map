@@ -47,35 +47,127 @@ export default function ProfileTab({ handleLogout, onProfileUpdate }) {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
 
-  // Retrieve user data from localStorage or use default values
+  // Get user data from registration/login information
   const getInitialUserData = () => {
-    const savedUser = localStorage.getItem("userProfile");
-    return savedUser
-      ? JSON.parse(savedUser)
-      : {
-          name: "Asmit Phuyal",
-          email: "info@codedthemes.com",
-          bio: "Bank Manager",
-          profileImage: avatar1,
-          lastLogin: new Date().toLocaleString(),
-          joinDate: "January 15, 2023",
-        };
+    // First check if there's a current logged in user
+    const currentUserJSON = localStorage.getItem("currentUser");
+    if (!currentUserJSON) {
+      return getDefaultUserData();
+    }
+
+    const currentUser = JSON.parse(currentUserJSON);
+
+    // Look up full user details from the users array using the email
+    const allUsers = JSON.parse(localStorage.getItem("users") || "[]");
+    const userDetails = allUsers.find(
+      (user) => user.email === currentUser.email
+    );
+
+    if (userDetails) {
+      // If we found the user in the users array, return their complete data
+      return {
+        name: userDetails.firstname + " " + userDetails.lastname,
+        firstname: userDetails.firstname,
+        lastname: userDetails.lastname,
+        email: userDetails.email,
+        bio: userDetails.company || "User",
+        profileImage: userDetails.photo || avatar1,
+        lastLogin: new Date().toLocaleString(),
+        joinDate:
+          new Date(userDetails.createdAt).toLocaleDateString() ||
+          "January 15, 2023",
+      };
+    }
+
+    // If we have currentUser but no full details, use the currentUser data
+    return {
+      name: currentUser.name,
+      email: currentUser.email,
+      bio: "User",
+      profileImage: currentUser.photo || avatar1,
+      lastLogin: new Date().toLocaleString(),
+      joinDate: "January 15, 2023",
+    };
+  };
+
+  // Default fallback user data
+  const getDefaultUserData = () => {
+    // Check if there's a previously saved profile
+    const savedProfile = localStorage.getItem("userProfile");
+    if (savedProfile) {
+      return JSON.parse(savedProfile);
+    }
+
+    return {
+      name: "Asmit Phuyal",
+      email: "info@codedthemes.com",
+      bio: "Bank Manager",
+      profileImage: avatar1,
+      lastLogin: new Date().toLocaleString(),
+      joinDate: "January 15, 2023",
+    };
   };
 
   // User data state
   const [userData, setUserData] = useState(getInitialUserData);
 
-  // Save user data to localStorage whenever it changes
-  useEffect(() => {
-    localStorage.setItem("userProfile", JSON.stringify(userData));
+  // Update user data in both userProfile and the users array
+  const updateUserData = (newData) => {
+    // Store in userProfile for backward compatibility
+    localStorage.setItem("userProfile", JSON.stringify(newData));
+
+    // Also update the currentUser entry
+    const currentUserJSON = localStorage.getItem("currentUser");
+    if (currentUserJSON) {
+      const currentUser = JSON.parse(currentUserJSON);
+      localStorage.setItem(
+        "currentUser",
+        JSON.stringify({
+          ...currentUser,
+          name: newData.name,
+          photo: newData.profileImage,
+        })
+      );
+    }
+
+    // Also update the user in the users array
+    const allUsers = JSON.parse(localStorage.getItem("users") || "[]");
+    const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+
+    if (currentUser.email) {
+      const updatedUsers = allUsers.map((user) => {
+        if (user.email === currentUser.email) {
+          return {
+            ...user,
+            firstname: newData.firstname || newData.name.split(" ")[0],
+            lastname: newData.lastname || newData.name.split(" ")[1] || "",
+            photo: newData.profileImage,
+            company: newData.bio,
+          };
+        }
+        return user;
+      });
+
+      localStorage.setItem("users", JSON.stringify(updatedUsers));
+    }
+
+    setUserData(newData);
+
     // Notify parent component about profile update
     if (onProfileUpdate) {
       onProfileUpdate();
     }
+
     // Create a custom event to notify other components
-    const event = new Event('userProfileUpdated');
+    const event = new Event("userProfileUpdated");
     window.dispatchEvent(event);
-  }, [userData, onProfileUpdate]);
+  };
+
+  // Save user data to localStorage whenever it changes
+  useEffect(() => {
+    // Just ensure userProfile is set for backward compatibility
+    localStorage.setItem("userProfile", JSON.stringify(userData));
+  }, [userData]);
 
   // Handle dialog open/close
   const handleOpenEditDialog = () => setOpenEditDialog(true);
@@ -96,10 +188,10 @@ export default function ProfileTab({ handleLogout, onProfileUpdate }) {
       reader.onload = (e) => {
         // Simulate network delay for upload effect
         setTimeout(() => {
-          setUserData((prevData) => ({
-            ...prevData,
+          updateUserData({
+            ...userData,
             profileImage: e.target.result,
-          }));
+          });
 
           setIsUploading(false);
           setUploadSuccess(true);
@@ -120,13 +212,19 @@ export default function ProfileTab({ handleLogout, onProfileUpdate }) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
 
+    const nameParts = formData.get("name").split(" ");
+    const firstname = nameParts[0] || "";
+    const lastname = nameParts.slice(1).join(" ") || "";
+
     const updatedData = {
       ...userData,
       name: formData.get("name") || userData.name,
+      firstname,
+      lastname,
       bio: formData.get("bio") || userData.bio,
     };
 
-    setUserData(updatedData);
+    updateUserData(updatedData);
     handleCloseEditDialog();
   };
 
@@ -136,7 +234,7 @@ export default function ProfileTab({ handleLogout, onProfileUpdate }) {
       handleLogout();
     } else {
       // Default logout behavior - redirect to login page
-      localStorage.removeItem("user");
+      localStorage.removeItem("currentUser");
       navigate("/login");
     }
   };
@@ -423,7 +521,7 @@ export default function ProfileTab({ handleLogout, onProfileUpdate }) {
   );
 }
 
-ProfileTab.propTypes = { 
+ProfileTab.propTypes = {
   handleLogout: PropTypes.func,
-  onProfileUpdate: PropTypes.func 
+  onProfileUpdate: PropTypes.func,
 };

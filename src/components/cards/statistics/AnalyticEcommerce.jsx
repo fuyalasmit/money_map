@@ -63,11 +63,11 @@ export default function AnalyticEcommerce({
       <Box sx={{ pt: 2.25 }}>
         {Number(extra) === 0 ? (
           <Typography variant="caption" color="text.secondary">
-            Company could not make any progress this year.
+           Our Company could not make any progress this year.
           </Typography>
         ) : (
           <Typography variant="caption" color="text.secondary">
-            Company recorded an extra{' '}
+           Our Company recorded an extra{' '}
             <Typography
               variant="caption"
               component="span"

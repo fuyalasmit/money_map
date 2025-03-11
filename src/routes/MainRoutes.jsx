@@ -1,13 +1,18 @@
 import { lazy } from "react";
+import { Navigate } from "react-router-dom";
 
 // project imports
 import Loadable from "components/Loadable";
 import DashboardLayout from "layout/Dashboard";
+import AuthGuard from "components/guards/AuthGuard";
 
 // render- Dashboard
 const DashboardDefault = Loadable(
   lazy(() => import("pages/dashboard/default"))
 );
+
+// Main Dashboard Page
+const MainPage = Loadable(lazy(() => import("pages/dashboard/mainpage")));
 
 // render - sample page
 const SamplePage = Loadable(
@@ -24,11 +29,15 @@ const SuspiciousActivityPage = Loadable(
 
 const MainRoutes = {
   path: "/",
-  element: <DashboardLayout />,
+  element: (
+    <AuthGuard>
+      <DashboardLayout />
+    </AuthGuard>
+  ),
   children: [
     {
       path: "/",
-      element: <DashboardDefault />,
+      element: <Navigate to="/dashboard/mainpage" replace />,
     },
     {
       path: "dashboard",
@@ -36,6 +45,10 @@ const MainRoutes = {
         {
           path: "default",
           element: <DashboardDefault />,
+        },
+        {
+          path: "mainpage",
+          element: <MainPage />,
         },
       ],
     },

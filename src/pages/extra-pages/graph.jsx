@@ -2,7 +2,6 @@ import MainCard from "components/MainCard";
 import ForceGraph3D from "react-force-graph-3d";
 import { useState, useEffect, useRef, useCallback } from "react";
 import SpriteText from "three-spritetext";
-import transactionsData from "../../../transactions.json"; // Adjust path as needed
 import {
   Stack,
   Box,
@@ -11,6 +10,7 @@ import {
   Dialog,
   Divider,
   Button,
+  Alert,
 } from "@mui/material";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
@@ -18,6 +18,7 @@ import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
 import DFSPage from "./DFS";
 import MultipleSpanningTree from "./multiplespanningtree";
 import { Link } from "react-router-dom";
+import axios from "axios"; // Add axios for API fallback
 
 // ==============================|| GRAPH PAGE ||============================== //
 
@@ -25,9 +26,62 @@ export default function GraphPage() {
   const [graphData, setGraphData] = useState(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [transactionsData, setTransactionsData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const fsRef = useRef();
   const graphRef = useRef();
   const rotationIntervalRef = useRef(null);
+
+  // Function to load transactions from localStorage or server
+  const loadTransactionsData = async () => {
+    setIsLoading(true);
+    try {
+      // First try to get data from localStorage
+      const localData = localStorage.getItem("uploadedTransactions");
+
+      if (localData) {
+        const parsedData = JSON.parse(localData);
+        console.log("Using uploaded transactions from localStorage");
+        setTransactionsData(parsedData);
+      } else {
+        // Fall back to API if localStorage is empty
+        console.log("No uploaded transactions found, fetching from API");
+        const response = await axios.get(
+          "http://localhost:5001/get-transactions"
+        );
+        setTransactionsData(response.data);
+      }
+      setError(null);
+    } catch (err) {
+      console.error("Error loading transactions:", err);
+      setError("Failed to load transaction data. Please try uploading a file.");
+      setTransactionsData([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Load transactions when component mounts
+  useEffect(() => {
+    loadTransactionsData();
+
+    // Add event listener to reload data when transactions are updated
+    const handleTransactionsUpdated = () => {
+      console.log("Transaction data updated, refreshing...");
+      loadTransactionsData();
+    };
+
+    window.addEventListener("transactionsUpdated", handleTransactionsUpdated);
+
+    return () => {
+      window.removeEventListener(
+        "transactionsUpdated",
+        handleTransactionsUpdated
+      );
+    };
+  }, []);
 
   // Handle node click to focus the camera on the clicked node
   const handleNodeClick = useCallback((node, ref) => {
@@ -43,93 +97,96 @@ export default function GraphPage() {
   }, []);
 
   useEffect(() => {
-    // Transform transactions into graph data
-    const processTransactions = () => {
-      // Create a map to track unique persons (senders/receivers)
-      const uniquePersons = new Map();
+    // Only process transactions when we have data
+    if (transactionsData.length > 0) {
+      // Transform transactions into graph data
+      const processTransactions = () => {
+        // Create a map to track unique persons (senders/receivers)
+        const uniquePersons = new Map();
 
-      // Track persons involved in suspicious transactions directly
-      const suspiciousPersons = new Set();
-      const suspiciousTransactions = new Set();
+        // Track persons involved in suspicious transactions directly
+        const suspiciousPersons = new Set();
+        const suspiciousTransactions = new Set();
 
-      // Track reasons for suspicious activity by person
-      const personReasons = new Map();
+        // Track reasons for suspicious activity by person
+        const personReasons = new Map();
 
-      // First pass: identify suspicious transactions only
-      transactionsData.forEach((transaction) => {
-        // Mark participants in suspicious transactions
-        if (transaction.label === "suspicious") {
-          suspiciousPersons.add(transaction.senderName);
-          suspiciousPersons.add(transaction.receiverName);
-          suspiciousTransactions.add(transaction.transactionId);
+        // First pass: identify suspicious transactions only
+        transactionsData.forEach((transaction) => {
+          // Mark participants in suspicious transactions
+          if (transaction.label === "suspicious") {
+            suspiciousPersons.add(transaction.senderName);
+            suspiciousPersons.add(transaction.receiverName);
+            suspiciousTransactions.add(transaction.transactionId);
 
-          // Store reasons for suspicion for each person
-          if (transaction.reasons && transaction.reasons.length > 0) {
-            // Initialize reason sets if they don't exist
-            if (!personReasons.has(transaction.senderName)) {
-              personReasons.set(transaction.senderName, new Set());
+            // Store reasons for suspicion for each person
+            if (transaction.reasons && transaction.reasons.length > 0) {
+              // Initialize reason sets if they don't exist
+              if (!personReasons.has(transaction.senderName)) {
+                personReasons.set(transaction.senderName, new Set());
+              }
+              if (!personReasons.has(transaction.receiverName)) {
+                personReasons.set(transaction.receiverName, new Set());
+              }
+
+              // Add each reason to both participants' sets
+              transaction.reasons.forEach((reason) => {
+                personReasons.get(transaction.senderName).add(reason);
+                personReasons.get(transaction.receiverName).add(reason);
+              });
             }
-            if (!personReasons.has(transaction.receiverName)) {
-              personReasons.set(transaction.receiverName, new Set());
-            }
+          }
+        });
 
-            // Add each reason to both participants' sets
-            transaction.reasons.forEach((reason) => {
-              personReasons.get(transaction.senderName).add(reason);
-              personReasons.get(transaction.receiverName).add(reason);
+        // Create nodes for all persons without propagation
+        transactionsData.forEach((transaction) => {
+          if (!uniquePersons.has(transaction.senderName)) {
+            uniquePersons.set(transaction.senderName, {
+              id: transaction.senderName,
+              group: suspiciousPersons.has(transaction.senderName) ? 0 : 1,
+              account: transaction.senderAccount,
+              suspicious: suspiciousPersons.has(transaction.senderName),
+              // Add reasons array if this is a suspicious person
+              reasons: personReasons.has(transaction.senderName)
+                ? Array.from(personReasons.get(transaction.senderName))
+                : [],
             });
           }
-        }
-      });
 
-      // Create nodes for all persons without propagation
-      transactionsData.forEach((transaction) => {
-        if (!uniquePersons.has(transaction.senderName)) {
-          uniquePersons.set(transaction.senderName, {
-            id: transaction.senderName,
-            group: suspiciousPersons.has(transaction.senderName) ? 0 : 1,
-            account: transaction.senderAccount,
-            suspicious: suspiciousPersons.has(transaction.senderName),
-            // Add reasons array if this is a suspicious person
-            reasons: personReasons.has(transaction.senderName)
-              ? Array.from(personReasons.get(transaction.senderName))
-              : [],
-          });
-        }
+          if (!uniquePersons.has(transaction.receiverName)) {
+            uniquePersons.set(transaction.receiverName, {
+              id: transaction.receiverName,
+              group: suspiciousPersons.has(transaction.receiverName) ? 0 : 2,
+              account: transaction.receiverAccount,
+              suspicious: suspiciousPersons.has(transaction.receiverName),
+              // Add reasons array if this is a suspicious person
+              reasons: personReasons.has(transaction.receiverName)
+                ? Array.from(personReasons.get(transaction.receiverName))
+                : [],
+            });
+          }
+        });
 
-        if (!uniquePersons.has(transaction.receiverName)) {
-          uniquePersons.set(transaction.receiverName, {
-            id: transaction.receiverName,
-            group: suspiciousPersons.has(transaction.receiverName) ? 0 : 2,
-            account: transaction.receiverAccount,
-            suspicious: suspiciousPersons.has(transaction.receiverName),
-            // Add reasons array if this is a suspicious person
-            reasons: personReasons.has(transaction.receiverName)
-              ? Array.from(personReasons.get(transaction.receiverName))
-              : [],
-          });
-        }
-      });
+        // Create nodes and links
+        const nodes = Array.from(uniquePersons.values());
+        const links = transactionsData.map((transaction) => ({
+          source: transaction.senderName,
+          target: transaction.receiverName,
+          amount: transaction.amount,
+          timestamp: transaction.timestamp,
+          transactionId: transaction.transactionId,
+          remarks: transaction.remarks,
+          label: transaction.label,
+          // Only mark links as suspicious if the transaction itself is labeled suspicious
+          isSuspicious: transaction.label === "suspicious",
+        }));
 
-      // Create nodes and links
-      const nodes = Array.from(uniquePersons.values());
-      const links = transactionsData.map((transaction) => ({
-        source: transaction.senderName,
-        target: transaction.receiverName,
-        amount: transaction.amount,
-        timestamp: transaction.timestamp,
-        transactionId: transaction.transactionId,
-        remarks: transaction.remarks,
-        label: transaction.label,
-        // Only mark links as suspicious if the transaction itself is labeled suspicious
-        isSuspicious: transaction.label === "suspicious",
-      }));
+        return { nodes, links };
+      };
 
-      return { nodes, links };
-    };
-
-    setGraphData(processTransactions());
-  }, []);
+      setGraphData(processTransactions());
+    }
+  }, [transactionsData]);
 
   // Add camera orbit animation when the graph initially loads
   useEffect(() => {
@@ -213,7 +270,26 @@ export default function GraphPage() {
     }
   }, [graphData, isFullscreen]);
 
-  if (!graphData) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <Typography align="center" variant="h6" sx={{ my: 5 }}>
+        Loading transaction data...
+      </Typography>
+    );
+
+  if (error)
+    return (
+      <Alert severity="error" sx={{ my: 3 }}>
+        {error}
+      </Alert>
+    );
+
+  if (!graphData)
+    return (
+      <Typography align="center" variant="h6" sx={{ my: 5 }}>
+        No transaction data available. Please upload a file.
+      </Typography>
+    );
 
   // Toggle fullscreen mode
   const toggleFullscreen = () => {

@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { useRef, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 // material-ui
 import { useTheme } from "@mui/material/styles";
@@ -56,7 +57,7 @@ function a11yProps(index) {
 
 export default function Profile() {
   const theme = useTheme();
-
+  const navigate = useNavigate();
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
   const [userData, setUserData] = useState({
@@ -68,6 +69,38 @@ export default function Profile() {
   // Load user data from localStorage
   useEffect(() => {
     const loadUserData = () => {
+      // First check current user from auth
+      const currentUser = localStorage.getItem("currentUser");
+      if (currentUser) {
+        const parsedUser = JSON.parse(currentUser);
+
+        // Look for full details in the users array
+        const allUsers = JSON.parse(localStorage.getItem("users") || "[]");
+        const userDetails = allUsers.find(
+          (user) => user.email === parsedUser.email
+        );
+
+        if (userDetails) {
+          setUserData({
+            name:
+              parsedUser.name ||
+              userDetails.firstname + " " + userDetails.lastname,
+            bio: userDetails.company || "User",
+            profileImage: parsedUser.photo || userDetails.photo || avatar1,
+          });
+          return;
+        }
+
+        // Fall back to currentUser data
+        setUserData({
+          name: parsedUser.name,
+          bio: "User",
+          profileImage: parsedUser.photo || avatar1,
+        });
+        return;
+      }
+
+      // Fall back to userProfile if no currentUser
       const savedUser = localStorage.getItem("userProfile");
       if (savedUser) {
         const parsedUser = JSON.parse(savedUser);
@@ -87,12 +120,14 @@ export default function Profile() {
     };
 
     window.addEventListener("storage", handleStorageChange);
+    window.addEventListener("userProfileUpdated", loadUserData);
 
-    // Set up interval to check for changes
-    const intervalId = setInterval(loadUserData, 1000);
+    // Set up interval to check for changes (only needed if multiple parts of app update profile)
+    const intervalId = setInterval(loadUserData, 5000);
 
     return () => {
       window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("userProfileUpdated", loadUserData);
       clearInterval(intervalId);
     };
   }, []);
@@ -116,19 +151,21 @@ export default function Profile() {
 
   // Handle profile update from ProfileTab
   const handleProfileUpdate = () => {
-    const savedUser = localStorage.getItem("userProfile");
-    if (savedUser) {
-      const parsedUser = JSON.parse(savedUser);
+    // We'll reload user data when profile is updated
+    const currentUser = localStorage.getItem("currentUser");
+    if (currentUser) {
+      const parsedUser = JSON.parse(currentUser);
       setUserData({
         name: parsedUser.name,
-        bio: parsedUser.bio,
-        profileImage: parsedUser.profileImage || avatar1,
+        bio: parsedUser.bio || "User",
+        profileImage: parsedUser.photo || avatar1,
       });
     }
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
+    // Clear all user data
+    localStorage.removeItem("currentUser");
     window.location.href = "/login";
   };
 

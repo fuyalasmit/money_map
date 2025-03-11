@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import transactionsData from "../../transactions.json"; // Only used as fallback
+import transactionsData from "../../transactions.json"; // Keep as fallback
 
 // Generate dynamic labels for the last n months from current date
 const generateLastMonthsLabels = (count = 12) => {
@@ -89,7 +89,7 @@ const getWeeklyData = (transactions, label) => {
 export const monthlyLabels = generateLastMonthsLabels();
 export const weeklyLabels = generateLastDaysLabels();
 
-// The only export: a hook that provides all data dynamically
+// The main export: a hook that provides all data dynamically
 export function useTransactionData() {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -98,35 +98,69 @@ export function useTransactionData() {
   const fetchTransactions = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await axios.get(
-        "http://localhost:5001/get-transactions"
+      // First check if we have uploaded transactions in localStorage
+      const uploadedTransactionsStr = localStorage.getItem(
+        "uploadedTransactions"
       );
 
-      const processedData = response.data.map((tx) => ({
-        id: tx.transactionId,
-        sender: tx.senderName,
-        receiver: tx.receiverName,
-        amount: parseFloat(tx.amount),
-        timestamp: new Date(tx.timestamp),
-        label: tx.label || "clean",
-      }));
+      if (uploadedTransactionsStr) {
+        // Use uploaded transactions if available
+        const uploadedData = JSON.parse(uploadedTransactionsStr);
+        const processedData = uploadedData.map((tx) => ({
+          id: tx.transactionId,
+          sender: tx.senderName,
+          receiver: tx.receiverName,
+          amount: parseFloat(tx.amount),
+          timestamp: new Date(tx.timestamp),
+          label: tx.label || "clean",
+        }));
 
-      console.log("Processed transactions:", processedData.slice(0, 3));
-      setTransactions(processedData);
-      setError(null);
-    } catch (error) {
-      console.error("Error fetching transactions:", error);
-      setError(error);
-      // Fallback to local data if API fails
-      const processedFallbackData = transactionsData.map((tx) => ({
-        id: tx.transactionId,
-        sender: tx.senderName,
-        receiver: tx.receiverName,
-        amount: parseFloat(tx.amount),
-        timestamp: new Date(tx.timestamp),
-        label: tx.label || "clean",
-      }));
-      setTransactions(processedFallbackData);
+        console.log("Using uploaded transactions:", processedData.slice(0, 3));
+        setTransactions(processedData);
+        setError(null);
+      } else {
+        // Fall back to API if no uploaded data
+        try {
+          const response = await axios.get(
+            "http://localhost:5001/get-transactions"
+          );
+
+          const processedData = response.data.map((tx) => ({
+            id: tx.transactionId,
+            sender: tx.senderName,
+            receiver: tx.receiverName,
+            amount: parseFloat(tx.amount),
+            timestamp: new Date(tx.timestamp),
+            label: tx.label || "clean",
+          }));
+
+          console.log(
+            "Processed transactions from API:",
+            processedData.slice(0, 3)
+          );
+          setTransactions(processedData);
+          setError(null);
+        } catch (apiError) {
+          console.error(
+            "Error fetching from API, using fallback data:",
+            apiError
+          );
+
+          // Fall back to static import if API fails
+          const processedFallbackData = transactionsData.map((tx) => ({
+            id: tx.transactionId,
+            sender: tx.senderName,
+            receiver: tx.receiverName,
+            amount: parseFloat(tx.amount),
+            timestamp: new Date(tx.timestamp),
+            label: tx.label || "clean",
+          }));
+          setTransactions(processedFallbackData);
+        }
+      }
+    } catch (err) {
+      console.error("Error processing transactions:", err);
+      setError(err);
     } finally {
       setLoading(false);
     }
@@ -134,6 +168,20 @@ export function useTransactionData() {
 
   useEffect(() => {
     fetchTransactions();
+
+    // Add event listener to refresh data when transactions are updated
+    const handleTransactionsUpdated = () => {
+      fetchTransactions();
+    };
+
+    window.addEventListener("transactionsUpdated", handleTransactionsUpdated);
+
+    return () => {
+      window.removeEventListener(
+        "transactionsUpdated",
+        handleTransactionsUpdated
+      );
+    };
   }, [fetchTransactions]);
 
   // Calculate all derived data dynamically

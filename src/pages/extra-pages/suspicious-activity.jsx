@@ -22,6 +22,7 @@ import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
 import InfoIcon from "@mui/icons-material/Info";
 import WarningIcon from "@mui/icons-material/Warning";
+import axios from "axios"; // Add axios for API fallback
 
 export default function SuspiciousActivityPage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -55,40 +56,79 @@ export default function SuspiciousActivityPage() {
       "Money quickly sent back to the original sender with minimal changes in amount. Transactions occurring within 30 minutes with less than Rs 100 difference suggest potential wash trading.",
   };
 
-  // Fetch transactions when component mounts
-  useEffect(() => {
-    const fetchTransactions = async () => {
-      try {
-        setIsLoading(true);
+  // Function to load transactions from localStorage or server
+  const fetchTransactions = async () => {
+    try {
+      setIsLoading(true);
+
+      // First try to get data from localStorage
+      const localData = localStorage.getItem("uploadedTransactions");
+
+      let data;
+      if (localData) {
+        data = JSON.parse(localData);
+        console.log(
+          "Suspicious: Using uploaded transactions from localStorage"
+        );
+      } else {
+        // Fall back to API if localStorage is empty
+        console.log(
+          "Suspicious: No uploaded transactions found, fetching from API"
+        );
         const response = await fetch("http://localhost:5001/get-transactions");
         if (!response.ok) throw new Error("Failed to fetch transactions");
-
-        const data = await response.json();
-
-        // Filter only suspicious transactions
-        const suspiciousData = data.filter((tx) => tx.label === "suspicious");
-        setTransactions(suspiciousData);
-
-        // Extract unique suspicious pattern types
-        const uniqueTypes = new Set();
-        suspiciousData.forEach((tx) => {
-          if (tx.reasons && tx.reasons.length > 0) {
-            tx.reasons.forEach((reason) => uniqueTypes.add(reason));
-          }
-        });
-
-        setSuspiciousTypes(Array.from(uniqueTypes).sort());
-        setIsLoading(false);
-      } catch (err) {
-        console.error("Error fetching transactions:", err);
-        setError(
-          "Failed to load suspicious transactions. Please try again later."
-        );
-        setIsLoading(false);
+        data = await response.json();
       }
+
+      // Filter only suspicious transactions
+      const suspiciousData = data.filter((tx) => tx.label === "suspicious");
+      setTransactions(suspiciousData);
+
+      // Extract unique suspicious pattern types
+      const uniqueTypes = new Set();
+      suspiciousData.forEach((tx) => {
+        if (tx.reasons && tx.reasons.length > 0) {
+          tx.reasons.forEach((reason) => uniqueTypes.add(reason));
+        }
+      });
+
+      setSuspiciousTypes(Array.from(uniqueTypes).sort());
+      setError(null);
+    } catch (err) {
+      console.error("Error fetching transactions:", err);
+      setError(
+        "Failed to load suspicious transactions. Please try again later."
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Fetch transactions when component mounts
+  useEffect(() => {
+    fetchTransactions();
+
+    // Add event listener to reload data when transactions are updated
+    const handleTransactionsUpdated = () => {
+      console.log(
+        "Suspicious Activity: Transaction data updated, refreshing..."
+      );
+      fetchTransactions();
+      // Reset selections when data changes
+      setSelectedType("");
+      setSelectedTransaction("");
+      setGraphData(null);
+      setFilteredTransactions([]);
     };
 
-    fetchTransactions();
+    window.addEventListener("transactionsUpdated", handleTransactionsUpdated);
+
+    return () => {
+      window.removeEventListener(
+        "transactionsUpdated",
+        handleTransactionsUpdated
+      );
+    };
   }, []);
 
   // Filter transactions when selected type changes
@@ -624,7 +664,7 @@ export default function SuspiciousActivityPage() {
             >
               {filteredTransactions.map((tx) => (
                 <MenuItem key={tx.transactionId} value={tx.transactionId}>
-                  {tx.senderName} → {tx.receiverName} (Rs 
+                  {tx.senderName} → {tx.receiverName} (Rs
                   {parseFloat(tx.amount).toLocaleString()})
                 </MenuItem>
               ))}

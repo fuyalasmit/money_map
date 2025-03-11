@@ -645,7 +645,19 @@ app.post("/save-transaction", async (req, res) => {
 // Endpoint to manually trigger analysis
 app.post("/analyze-transactions", async (req, res) => {
   try {
-    const transactions = loadTransactions();
+    // Check if transactions were provided in the request body
+    let transactions;
+
+    if (Array.isArray(req.body) && req.body.length > 0) {
+      // Use transactions from the request body
+      transactions = req.body;
+
+      // Optionally save the new transactions to the transactions.json file
+      await saveTransactions(transactions);
+    } else {
+      // Fallback to loading from file if no transactions in request
+      transactions = loadTransactions();
+    }
 
     if (transactions.length === 0) {
       return res.status(404).send({ error: "No transactions found" });
@@ -660,6 +672,7 @@ app.post("/analyze-transactions", async (req, res) => {
     res.send({
       message: "Transactions analyzed successfully",
       stats,
+      analyzedTransactions: updatedTransactions, // Include the analyzed transactions in the response
     });
   } catch (err) {
     console.error("Error analyzing transactions:", err);
@@ -674,6 +687,22 @@ app.get("/get-transactions", (req, res) => {
     res.json(transactions);
   } catch (err) {
     console.error("Error fetching transactions:", err);
+    res.status(500).send({ error: "Internal Server Error" });
+  }
+});
+
+// New endpoint to serve the demo transactions file
+app.get("/get-demo-transactions", (req, res) => {
+  try {
+    const transactions = loadTransactions();
+
+    if (transactions.length === 0) {
+      return res.status(404).send({ error: "Demo transactions not available" });
+    }
+
+    res.json(transactions);
+  } catch (err) {
+    console.error("Error fetching demo transactions:", err);
     res.status(500).send({ error: "Internal Server Error" });
   }
 });
